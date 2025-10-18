@@ -18,10 +18,10 @@ void close();
 SDL_Window* gWindow = NULL;
 
 //The surface contained by the window
-SDL_Surface* gScreenSurface = NULL;
+SDL_Surface* screen = NULL;
 
 //The image we will load and show on the screen
-SDL_Surface* gHelloWorld = NULL;
+SDL_Surface* window = NULL;
 
 bool init()
 {
@@ -37,7 +37,7 @@ bool init()
 	else
 	{
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "NKEngine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
@@ -46,7 +46,7 @@ bool init()
 		else
 		{
 			//Get window surface
-			gScreenSurface = SDL_GetWindowSurface( gWindow );
+			screen = SDL_GetWindowSurface( gWindow );
 		}
 	}
 
@@ -59,8 +59,8 @@ bool loadMedia()
 	bool success = true;
 
 	//Load splash image
-	gHelloWorld = SDL_LoadBMP( "assets/bocchi.bmp" );
-	if( gHelloWorld == NULL )
+	window = SDL_LoadBMP( "assets/bocchi.bmp" );
+	if( window == NULL )
 	{
 		printf( "Unable to load image %s! SDL Error: %s\n", "assets/bochi.bmp", SDL_GetError() );
 		success = false;
@@ -72,8 +72,8 @@ bool loadMedia()
 void close()
 {
 	//Deallocate surface
-	SDL_FreeSurface( gHelloWorld );
-	gHelloWorld = NULL;
+	SDL_FreeSurface( window );
+	window = NULL;
 
 	//Destroy window
 	SDL_DestroyWindow( gWindow );
@@ -100,7 +100,8 @@ int main()
 		else
 		{
 			//Apply the image
-			SDL_BlitScaled( gHelloWorld, NULL, gScreenSurface, NULL );
+			SDL_Rect* imageSize = new SDL_Rect((SCREEN_WIDTH / 2) - 100,(SCREEN_HEIGHT / 2) - 100, 200, 200);
+			SDL_BlitScaled( window, NULL, screen, imageSize );
 
 			//Update the surface
 			SDL_UpdateWindowSurface( gWindow );
