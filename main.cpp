@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <cstdio>
+#include <SDL_image.h>
 
 //TODO: display png
 //TODO: display a part from a png
@@ -99,6 +100,11 @@ int main() {
         if (!loadMedia()) {
             printf("Failed to load media!\n");
         } else {
+
+            renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED );
+            SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
+            int imgFlags = IMG_INIT_PNG;
+
             //Apply the image
             SDL_Rect *imageSize = new SDL_Rect(posX, posY, 200, 200);
 
