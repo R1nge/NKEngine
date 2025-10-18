@@ -1,7 +1,7 @@
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <cstdio>
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 
 //TODO: display png
 //TODO: display a part from a png
@@ -37,6 +37,33 @@ SDL_Renderer *renderer;
 
 //The image we will load and show on the screen
 SDL_Surface *player = nullptr;
+
+SDL_Surface* loadSurface( std::string path )
+{
+    //The final optimized image
+    SDL_Surface* optimizedSurface = nullptr;
+
+    //Load image at specified path
+    SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+    if( loadedSurface == nullptr)
+    {
+        printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
+    }
+    else
+    {
+        //Convert surface to screen format
+        optimizedSurface = SDL_ConvertSurface( loadedSurface, screen->format, 0 );
+        if( optimizedSurface == nullptr)
+        {
+            printf( "Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+        }
+
+        //Get rid of old loaded surface
+        SDL_FreeSurface( loadedSurface );
+    }
+
+    return optimizedSurface;
+}
 
 bool init() {
     //Initialization flag
@@ -104,6 +131,7 @@ int main() {
             renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED );
             SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
             int imgFlags = IMG_INIT_PNG;
+            loadSurface("assets/space_invaders.png");
 
             //Apply the image
             SDL_Rect *imageSize = new SDL_Rect(posX, posY, 200, 200);
