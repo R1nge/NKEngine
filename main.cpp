@@ -1,19 +1,20 @@
 #include <iostream>
 #include <SDL.h>
-#include <stdio.h>
+#include <cstdio>
 
 //TODO: display png
 //TODO: display a part from a png
 //TODO: display player as a space ship
 //TODO: create an engine class
+//TODO: engine should use callbacks to allow to sub to the engine events like (Start, Update)
 //TODO: load engine as a lib
 //TODO: call engine API to do things
 //TODO: separate space invaders and engine repositories
 
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+constexpr int SCREEN_WIDTH = 640;
+constexpr int SCREEN_HEIGHT = 480;
 
 //Starts up SDL and creates window
 bool init();
@@ -25,16 +26,16 @@ bool loadMedia();
 void close();
 
 //The window we'll be rendering to
-SDL_Window *window = NULL;
+SDL_Window *window = nullptr;
 
 //The surface contained by the window
-SDL_Surface *screen = NULL;
+SDL_Surface *screen = nullptr;
 
 //Renderer
 SDL_Renderer *renderer;
 
 //The image we will load and show on the screen
-SDL_Surface *player = NULL;
+SDL_Surface *player = nullptr;
 
 bool init() {
     //Initialization flag
@@ -48,7 +49,7 @@ bool init() {
         //Create window
         window = SDL_CreateWindow("NKEngine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
                                   SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-        if (window == NULL) {
+        if (window == nullptr) {
             printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
             success = false;
         } else {
@@ -66,7 +67,7 @@ bool loadMedia() {
 
     //Load splash image
     player = SDL_LoadBMP("assets/bocchi.bmp");
-    if (player == NULL) {
+    if (player == nullptr) {
         printf("Unable to load image %s! SDL Error: %s\n", "assets/bochi.bmp", SDL_GetError());
         success = false;
     }
@@ -77,11 +78,11 @@ bool loadMedia() {
 void close() {
     //Deallocate surface
     SDL_FreeSurface(player);
-    player = NULL;
+    player = nullptr;
 
     //Destroy window
     SDL_DestroyWindow(window);
-    window = NULL;
+    window = nullptr;
 
     //Quit SDL subsystems
     SDL_Quit();
@@ -139,8 +140,8 @@ int main() {
                                 break;
                         }
                     }
-                    SDL_FillRect(surface, NULL, skyblue);
-                    SDL_BlitScaled(player, NULL, screen, imageSize);
+                    SDL_FillRect(surface, nullptr, skyblue);
+                    SDL_BlitScaled(player, nullptr, screen, imageSize);
                     //Update the surface
                     SDL_UpdateWindowSurface(window);
                 }
