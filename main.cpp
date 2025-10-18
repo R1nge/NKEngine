@@ -2,6 +2,15 @@
 #include <SDL.h>
 #include <stdio.h>
 
+//TODO: display png
+//TODO: display a part from a png
+//TODO: display player as a space ship
+//TODO: create an engine class
+//TODO: load engine as a lib
+//TODO: call engine API to do things
+//TODO: separate space invaders and engine repositories
+
+
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
