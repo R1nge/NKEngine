@@ -16,13 +16,16 @@ bool loadMedia();
 void close();
 
 //The window we'll be rendering to
-SDL_Window *gWindow = NULL;
+SDL_Window *window = NULL;
 
 //The surface contained by the window
 SDL_Surface *screen = NULL;
 
+//Renderer
+SDL_Renderer *renderer;
+
 //The image we will load and show on the screen
-SDL_Surface *window = NULL;
+SDL_Surface *player = NULL;
 
 bool init() {
     //Initialization flag
@@ -34,14 +37,14 @@ bool init() {
         success = false;
     } else {
         //Create window
-        gWindow = SDL_CreateWindow("NKEngine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
-                                   SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-        if (gWindow == NULL) {
+        window = SDL_CreateWindow("NKEngine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+                                  SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        if (window == NULL) {
             printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
             success = false;
         } else {
             //Get window surface
-            screen = SDL_GetWindowSurface(gWindow);
+            screen = SDL_GetWindowSurface(window);
         }
     }
 
@@ -53,8 +56,8 @@ bool loadMedia() {
     bool success = true;
 
     //Load splash image
-    window = SDL_LoadBMP("assets/bocchi.bmp");
-    if (window == NULL) {
+    player = SDL_LoadBMP("assets/bocchi.bmp");
+    if (player == NULL) {
         printf("Unable to load image %s! SDL Error: %s\n", "assets/bochi.bmp", SDL_GetError());
         success = false;
     }
@@ -64,12 +67,12 @@ bool loadMedia() {
 
 void close() {
     //Deallocate surface
-    SDL_FreeSurface(window);
-    window = NULL;
+    SDL_FreeSurface(player);
+    player = NULL;
 
     //Destroy window
-    SDL_DestroyWindow(gWindow);
-    gWindow = NULL;
+    SDL_DestroyWindow(window);
+    window = NULL;
 
     //Quit SDL subsystems
     SDL_Quit();
@@ -89,6 +92,8 @@ int main() {
             //Apply the image
             SDL_Rect *imageSize = new SDL_Rect(posX, posY, 200, 200);
 
+            SDL_Surface *surface = SDL_GetWindowSurface(window);
+            Uint32 skyblue = SDL_MapRGB(surface->format, 65, 193, 193);
 
             //Hack to get window to stay up
             SDL_Event e;
@@ -125,12 +130,10 @@ int main() {
                                 break;
                         }
                     }
-                    SDL_UpdateWindowSurface(gWindow);
-
-                    SDL_BlitScaled(window, NULL, screen, imageSize);
-
+                    SDL_FillRect(surface, NULL, skyblue);
+                    SDL_BlitScaled(player, NULL, screen, imageSize);
                     //Update the surface
-                    SDL_UpdateWindowSurface(gWindow);
+                    SDL_UpdateWindowSurface(window);
                 }
             }
         }
