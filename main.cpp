@@ -100,7 +100,7 @@ int main()
 		else
 		{
 			//Apply the image
-			SDL_BlitSurface( gHelloWorld, NULL, gScreenSurface, NULL );
+			SDL_BlitScaled( gHelloWorld, NULL, gScreenSurface, NULL );
 
 			//Update the surface
 			SDL_UpdateWindowSurface( gWindow );
