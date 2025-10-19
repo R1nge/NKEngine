@@ -7,7 +7,10 @@ add_executable(NKEngine main.cpp
         NKEngine.cpp
         NKEngine.h
         NKSprite.cpp
-        NKSprite.h)
+        NKSprite.h
+        NKVector2Int.cpp
+        NKVector2Int.h
+)
 INCLUDE(FindPkgConfig)
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
