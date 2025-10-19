@@ -5,7 +5,6 @@
 #include <string>
 
 #include "NKEngine.h"
-//TODO: display png
 //TODO: display a part from a png
 //TODO: display player as a space ship
 //TODO: create an engine class
@@ -53,8 +52,7 @@ bool init() {
         }
 
         //Create window
-        gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
-                                   SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        gWindow =gEngine->CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,SCREEN_HEIGHT);
         if (gWindow == nullptr) {
             printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
             success = false;

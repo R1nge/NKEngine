@@ -6,6 +6,15 @@
 
 #include <SDL_image.h>
 
+//TODO: create a window
+//TODO: create a renderer
+//TODO: user renderer provided by the NKEngine
+
+SDL_Window *NKEngine::CreateWindow(const char *title, int positionX, int positionY, int width, int height) {
+    return SDL_CreateWindow(title, positionX, positionY, width, height, SDL_WINDOW_SHOWN);
+}
+
+
 SDL_Texture *NKEngine::LoadTexture(SDL_Renderer *renderer, std::string path) {
     SDL_Texture *loadedTexture = nullptr;
 
