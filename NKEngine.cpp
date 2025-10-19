@@ -7,13 +7,13 @@
 #include <iostream>
 #include <SDL_image.h>
 
-//TODO: create a renderer
-//TODO: store a list of sprites
-//TODO: create a render loop and render list of sprites
+#include "NKSprite.h"
+
+//TODO: create a sprite class (base position on a sprite sheet)
+//TODO: create a base class { position, sprite }
 
 NKEngine::NKEngine() {
-    _sprites = new std::list<SDL_Rect *>;
-    _textures = new std::list<SDL_Texture *>;
+    _sprites = new std::list<NKSprite *>;
     _isPaused = false;
 }
 
@@ -21,7 +21,6 @@ NKEngine::~NKEngine() {
     //TODO: clear all sprites memory;
     _sprites->clear();
     //TODO: clear all texture
-    _textures->clear();
 }
 
 void NKEngine::Update(SDL_Renderer *renderer) {
@@ -46,16 +45,9 @@ void NKEngine::Update(SDL_Renderer *renderer) {
 
             int i = 0;
             for (const auto &sprite: *_sprites) {
-                std::cout << sprite->h << std::endl;
-                auto it = std::next(_textures->begin(), i);
-                if (it == _textures->end()) {
-                    std::cerr << "Error: Texture index out of bounds" << std::endl;
-                    break;
-                }
-
-                SDL_Texture *texture = *it;
-
-                SDL_RenderCopy(renderer, texture, nullptr, sprite);
+                std::cout << sprite->dimensions->h << std::endl;
+                SDL_Texture *texture = sprite->texture;
+                SDL_RenderCopy(renderer, texture, nullptr, sprite->dimensions);
                 i++;
             }
 
@@ -87,23 +79,23 @@ SDL_Texture *NKEngine::LoadTexture(SDL_Renderer *renderer, std::string path) {
         //Get rid of old loaded surface
         SDL_FreeSurface(loadedSurface);
     }
-    _textures->push_back(loadedTexture);
     return loadedTexture;
 }
 
 //Return a center-pivoted rect, oppose to the left-top corner pivoted provided by SDL2
-SDL_Rect *NKEngine::CreateSprite(int positionX, int positionY, int width, int height) {
+NKSprite *NKEngine::CreateSprite(int positionX, int positionY, int width, int height) {
     //Center pivot
     positionX -= width / 2;
     positionY -= height / 2;
-    SDL_Rect *sprite = new SDL_Rect(positionX, positionY, width, height);
+    NKSprite *sprite = new NKSprite(width, height);
     _sprites->push_back(sprite);
     return sprite;
 }
 
 
-SDL_Rect *NKEngine::CreateSprite(SDL_Renderer* renderer, std::string path, int positionX, int positionY, int width, int height) {
+NKSprite *NKEngine::CreateSprite(SDL_Renderer* renderer, std::string path, int positionX, int positionY, int width, int height) {
     SDL_Texture* texture = LoadTexture(renderer, path);
-    SDL_Rect *sprite = CreateSprite(positionX, positionY, width, height);
+    NKSprite *sprite = CreateSprite(positionX, positionY, width, height);
+    sprite->texture = texture;
     return sprite;
 }

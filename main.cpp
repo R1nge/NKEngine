@@ -107,7 +107,7 @@ int main() {
         printf("Failed to initialize!\n");
     } else {
         gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100);
-        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", (SCREEN_WIDTH - 125) / 2,(SCREEN_HEIGHT - 50) / 2, 100, 100);
+        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", (SCREEN_WIDTH - 425) / 2,(SCREEN_HEIGHT - 50) / 2, 100, 100);
         //Main loop
         gEngine->Update(gRenderer);
     }
