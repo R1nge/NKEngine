@@ -102,15 +102,14 @@ SDL_Texture *loadTexture(std::string path) {
 
 int main() {
     gEngine = new NKEngine();
+    gEngine->CreateSprite(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100);
+    gEngine->CreateSprite((SCREEN_WIDTH - 125) / 2, (SCREEN_HEIGHT - 50) / 2, 100, 100);
 
-    //Start up SDL and create window
-
-    SDL_Rect *imageSize = gEngine->CreateSprite(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100);
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
-        gTexture = loadTexture("assets/space_invaders.png");
-
+        loadTexture("assets/space_invaders.png");
+        loadTexture("assets/space_invaders.png");
         //Main loop
         gEngine->Update(gRenderer);
     }

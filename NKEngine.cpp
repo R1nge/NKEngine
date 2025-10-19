@@ -42,6 +42,8 @@ void NKEngine::Update(SDL_Renderer *renderer) {
                 //TODO: send events using callbacks???
             }
 
+            SDL_RenderClear(renderer);
+
             int i = 0;
             for (const auto &sprite: *_sprites) {
                 std::cout << sprite->h << std::endl;
@@ -51,13 +53,13 @@ void NKEngine::Update(SDL_Renderer *renderer) {
                     break;
                 }
 
-                SDL_Texture* texture = *it;
-                SDL_RenderClear(renderer);
-                SDL_RenderCopy(renderer, texture, nullptr, sprite);
-                SDL_RenderPresent(renderer);
+                SDL_Texture *texture = *it;
 
+                SDL_RenderCopy(renderer, texture, nullptr, sprite);
                 i++;
             }
+
+            SDL_RenderPresent(renderer);
         }
     }
 }
