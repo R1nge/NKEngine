@@ -100,3 +100,10 @@ SDL_Rect *NKEngine::CreateSprite(int positionX, int positionY, int width, int he
     _sprites->push_back(sprite);
     return sprite;
 }
+
+
+SDL_Rect *NKEngine::CreateSprite(SDL_Renderer* renderer, std::string path, int positionX, int positionY, int width, int height) {
+    SDL_Texture* texture = LoadTexture(renderer, path);
+    SDL_Rect *sprite = CreateSprite(positionX, positionY, width, height);
+    return sprite;
+}

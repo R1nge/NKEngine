@@ -16,6 +16,7 @@ public:
     SDL_Window *CreateWindow(const char* title, int positionX, int positionY, int width, int height);
     SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
     SDL_Rect *CreateSprite(int positionX, int positionY, int width, int height);
+    SDL_Rect *CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY, int width, int height);
     void Update(SDL_Renderer *renderer);
 private:
     std::list<SDL_Rect*> *_sprites;
