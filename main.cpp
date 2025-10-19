@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include <cstdio>
 #include <SDL2/SDL_image.h>
-
+#include <string>
 //TODO: display png
 //TODO: display a part from a png
 //TODO: display player as a space ship
@@ -12,10 +12,9 @@
 //TODO: call engine API to do things
 //TODO: separate space invaders and engine repositories
 
-
 //Screen dimension constants
-constexpr int SCREEN_WIDTH = 640;
-constexpr int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
 
 //Starts up SDL and creates window
 bool init();
@@ -26,165 +25,183 @@ bool loadMedia();
 //Frees media and shuts down SDL
 void close();
 
+//Loads individual image as texture
+SDL_Texture* loadTexture( std::string path );
+
 //The window we'll be rendering to
-SDL_Window *window = nullptr;
+SDL_Window* gWindow = NULL;
 
-//The surface contained by the window
-SDL_Surface *screen = nullptr;
+//The window renderer
+SDL_Renderer* gRenderer = NULL;
 
-//Renderer
-SDL_Renderer *renderer;
+//Current displayed texture
+SDL_Texture* gTexture = NULL;
 
-//The image we will load and show on the screen
-SDL_Surface *player = nullptr;
-
-SDL_Surface* loadSurface( std::string path )
+bool init()
 {
-    //The final optimized image
-    SDL_Surface* optimizedSurface = nullptr;
+	//Initialization flag
+	bool success = true;
 
-    //Load image at specified path
-    SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-    if( loadedSurface == nullptr)
-    {
-        printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
-    }
-    else
-    {
-        //Convert surface to screen format
-        optimizedSurface = SDL_ConvertSurface( loadedSurface, screen->format, 0 );
-        if( optimizedSurface == nullptr)
-        {
-            printf( "Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-        }
+	//Initialize SDL
+	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+	{
+		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
+		success = false;
+	}
+	else
+	{
+		//Set texture filtering to linear
+		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+		{
+			printf( "Warning: Linear texture filtering not enabled!" );
+		}
 
-        //Get rid of old loaded surface
-        SDL_FreeSurface( loadedSurface );
-    }
+		//Create window
+		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		if( gWindow == NULL )
+		{
+			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
+			success = false;
+		}
+		else
+		{
+			//Create renderer for window
+			gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED );
+			if( gRenderer == NULL )
+			{
+				printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+				success = false;
+			}
+			else
+			{
+				//Initialize renderer color
+				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 
-    return optimizedSurface;
+				//Initialize PNG loading
+				int imgFlags = IMG_INIT_PNG;
+				if( !( IMG_Init( imgFlags ) & imgFlags ) )
+				{
+					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+					success = false;
+				}
+			}
+		}
+	}
+
+	return success;
 }
 
-bool init() {
-    //Initialization flag
-    bool success = true;
+bool loadMedia()
+{
+	//Loading success flag
+	bool success = true;
 
-    //Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-        success = false;
-    } else {
-        //Create window
-        window = SDL_CreateWindow("NKEngine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
-                                  SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-        if (window == nullptr) {
-            printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-            success = false;
-        } else {
-            //Get window surface
-            screen = SDL_GetWindowSurface(window);
-        }
-    }
+	//Load PNG texture
+	gTexture = loadTexture( "assets/space_invaders.png" );
+	if( gTexture == NULL )
+	{
+		printf( "Failed to load texture image!\n" );
+		success = false;
+	}
 
-    return success;
+	return success;
 }
 
-bool loadMedia() {
-    //Loading success flag
-    bool success = true;
+void close()
+{
+	//Free loaded image
+	SDL_DestroyTexture( gTexture );
+	gTexture = NULL;
 
-    //Load splash image
-    player = SDL_LoadBMP("assets/bocchi.bmp");
-    if (player == nullptr) {
-        printf("Unable to load image %s! SDL Error: %s\n", "assets/bochi.bmp", SDL_GetError());
-        success = false;
-    }
+	//Destroy window
+	SDL_DestroyRenderer( gRenderer );
+	SDL_DestroyWindow( gWindow );
+	gWindow = NULL;
+	gRenderer = NULL;
 
-    return success;
+	//Quit SDL subsystems
+	IMG_Quit();
+	SDL_Quit();
 }
 
-void close() {
-    //Deallocate surface
-    SDL_FreeSurface(player);
-    player = nullptr;
+SDL_Texture* loadTexture( std::string path )
+{
+	//The final texture
+	SDL_Texture* newTexture = NULL;
 
-    //Destroy window
-    SDL_DestroyWindow(window);
-    window = nullptr;
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+	if( loadedSurface == NULL )
+	{
+		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
+	}
+	else
+	{
+		//Create texture from surface pixels
+        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
+		if( newTexture == NULL )
+		{
+			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+		}
 
-    //Quit SDL subsystems
-    SDL_Quit();
+		//Get rid of old loaded surface
+		SDL_FreeSurface( loadedSurface );
+	}
+
+	return newTexture;
 }
 
-int main() {
-    int posX = (SCREEN_WIDTH / 2) - 100;
-    int posY = (SCREEN_HEIGHT / 2) - 100;
-    //Start up SDL and create window
-    if (!init()) {
-        printf("Failed to initialize!\n");
-    } else {
-        //Load media
-        if (!loadMedia()) {
-            printf("Failed to load media!\n");
-        } else {
+int main()
+{
+	//Start up SDL and create window
 
-            renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED );
-            SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-            int imgFlags = IMG_INIT_PNG;
-            loadSurface("assets/space_invaders.png");
+	SDL_Rect* imageSize = new SDL_Rect(100, 100, 100, 100);
+	if( !init() )
+	{
+		printf( "Failed to initialize!\n" );
+	}
+	else
+	{
+		//Load media
+		if( !loadMedia() )
+		{
+			printf( "Failed to load media!\n" );
+		}
+		else
+		{
+			//Main loop flag
+			bool quit = false;
 
-            //Apply the image
-            SDL_Rect *imageSize = new SDL_Rect(posX, posY, 200, 200);
+			//Event handler
+			SDL_Event e;
 
-            SDL_Surface *surface = SDL_GetWindowSurface(window);
-            Uint32 skyblue = SDL_MapRGB(surface->format, 65, 193, 193);
+			//While application is running
+			while( !quit )
+			{
+				//Handle events on queue
+				while( SDL_PollEvent( &e ) != 0 )
+				{
+					//User requests quit
+					if( e.type == SDL_QUIT )
+					{
+						quit = true;
+					}
+				}
 
-            //Hack to get window to stay up
-            SDL_Event e;
-            bool quit = false;
-            while (quit == false) {
-                while (SDL_PollEvent(&e) != 0) {
-                    if (e.type == SDL_QUIT) {
-                        quit = true;
-                    } else if (e.type == SDL_KEYDOWN) {
-                        //Select surfaces based on key press
-                        switch (e.key.keysym.sym) {
-                            case SDLK_w:
-                                posY--;
-                                imageSize->y = posY;
-                                break;
+				//Clear screen
+				SDL_RenderClear( gRenderer );
 
-                            case SDLK_s:
-                                posY++;
-                                imageSize->y = posY;
-                                break;
+				//Render texture to screen
+				SDL_RenderCopy( gRenderer, gTexture, NULL, imageSize );
 
-                            case SDLK_a:
-                                posX--;
-                                imageSize->x = posX;
-                                std::cout << "Left";
-                                break;
+				//Update screen
+				SDL_RenderPresent( gRenderer );
+			}
+		}
+	}
 
-                            case SDLK_d:
-                                posX++;
-                                imageSize->x = posX;
-                                break;
+	//Free resources and close SDL
+	close();
 
-                            default:
-                                break;
-                        }
-                    }
-                    SDL_FillRect(surface, nullptr, skyblue);
-                    SDL_BlitScaled(player, nullptr, screen, imageSize);
-                    //Update the surface
-                    SDL_UpdateWindowSurface(window);
-                }
-            }
-        }
-    }
-
-    //Free resources and close SDL
-    close();
-
-    return 0;
+	return 0;
 }
