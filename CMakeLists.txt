@@ -3,7 +3,9 @@ project(NKEngine)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(NKEngine main.cpp)
+add_executable(NKEngine main.cpp
+        NKEngine.cpp
+        NKEngine.h)
 INCLUDE(FindPkgConfig)
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
