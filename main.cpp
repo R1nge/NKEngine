@@ -104,7 +104,7 @@ SDL_Texture *loadTexture(std::string path) {
 int main() {
     //Start up SDL and create window
 
-    SDL_Rect* imageSize = gEngine->CreateSprite(100,100, 100, 100);
+    SDL_Rect* imageSize = gEngine->CreateSprite(SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2, 100, 100);
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
