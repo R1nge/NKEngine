@@ -98,13 +98,13 @@ void close() {
 }
 
 SDL_Texture *loadTexture(std::string path) {
-    return gEngine->LoadTexture(gRenderer, path, 100, 100, 100, 100);
+    return gEngine->LoadTexture(gRenderer, path);
 }
 
 int main() {
     //Start up SDL and create window
 
-    SDL_Rect *imageSize = new SDL_Rect(100, 100, 100, 100);
+    SDL_Rect* imageSize = gEngine->CreateSprite(100,100, 100, 100);
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {

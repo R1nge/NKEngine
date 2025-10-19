@@ -6,7 +6,7 @@
 
 #include <SDL_image.h>
 
-SDL_Texture *NKEngine::LoadTexture(SDL_Renderer* renderer, std::string path, int positionX, int positionY, int width, int height) {
+SDL_Texture *NKEngine::LoadTexture(SDL_Renderer* renderer, std::string path) {
     SDL_Texture* loadedTexture = nullptr;
 
     //Load image at specified path
@@ -30,3 +30,8 @@ SDL_Texture *NKEngine::LoadTexture(SDL_Renderer* renderer, std::string path, int
 
     return loadedTexture;
 }
+
+SDL_Rect *NKEngine::CreateSprite(int positionX, int positionY, int width, int height) {
+    return new SDL_Rect(positionX, positionY,width, height);
+}
+
