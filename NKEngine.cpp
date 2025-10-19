@@ -6,9 +6,20 @@
 
 #include <SDL_image.h>
 
-//TODO: create a window
 //TODO: create a renderer
-//TODO: user renderer provided by the NKEngine
+//TODO: store a list of sprites
+//TODO: create a render loop and render list of sprites
+
+NKEngine::NKEngine() {
+    _sprites = new std::list<SDL_Rect*>;
+}
+
+NKEngine::~NKEngine() {
+    //TODO: clear all sprites memory;
+     _sprites->clear();
+}
+
+
 
 SDL_Window *NKEngine::CreateWindow(const char *title, int positionX, int positionY, int width, int height) {
     return SDL_CreateWindow(title, positionX, positionY, width, height, SDL_WINDOW_SHOWN);
@@ -41,5 +52,7 @@ SDL_Rect *NKEngine::CreateSprite(int positionX, int positionY, int width, int he
     //Center pivot
     positionX -= width / 2;
     positionY -= height / 2;
-    return new SDL_Rect(positionX, positionY, width, height);
+    SDL_Rect* sprite = new SDL_Rect(positionX, positionY, width, height);
+    _sprites->push_back(sprite);
+    return sprite;
 }

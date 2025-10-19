@@ -52,7 +52,8 @@ bool init() {
         }
 
         //Create window
-        gWindow =gEngine->CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,SCREEN_HEIGHT);
+        gWindow = gEngine->CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+                                        SCREEN_HEIGHT);
         if (gWindow == nullptr) {
             printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
             success = false;
@@ -100,9 +101,11 @@ SDL_Texture *loadTexture(std::string path) {
 }
 
 int main() {
+    gEngine = new NKEngine();
+
     //Start up SDL and create window
 
-    SDL_Rect* imageSize = gEngine->CreateSprite(SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2, 100, 100);
+    SDL_Rect *imageSize = gEngine->CreateSprite(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100);
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
