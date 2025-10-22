@@ -23,7 +23,7 @@ public:
     std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY,int width, int height);
     void Update(SDL_Renderer *renderer);
 
-    SDL_Keycode GetLastKeyInput();
+    SDL_Keycode GetLastKeyInput() const;
 private:
     std::list<std::shared_ptr<NKSprite> > _sprites;
     bool _isPaused;

@@ -13,6 +13,8 @@
 //TODO: create a sprite class (base position on a sprite sheet)
 //TODO: create a base class { position, sprite }
 
+//TODO: engine core -> callbacks -> modules -> callbacks -> developer
+
 NKEngine::NKEngine() {
     _isPaused = false;
 }
@@ -31,6 +33,9 @@ void NKEngine::Update(SDL_Renderer *renderer) {
 
     //While application is running
     while (!quit) {
+
+        //TODO: input start callback
+
         //Handle events on queue
         while (SDL_PollEvent(&event) != 0) {
             //User requests quit
@@ -47,6 +52,8 @@ void NKEngine::Update(SDL_Renderer *renderer) {
             }
         }
 
+        //TODO: input end callback
+
         if (!_isPaused) {
             SDL_RenderClear(renderer);
 
@@ -59,10 +66,12 @@ void NKEngine::Update(SDL_Renderer *renderer) {
 
             SDL_RenderPresent(renderer);
         }
+
+        //TODO: render end callback
     }
 }
 
-SDL_Keycode NKEngine::GetLastKeyInput() {
+SDL_Keycode NKEngine::GetLastKeyInput() const {
     return _lastKeyInput;
 }
 
