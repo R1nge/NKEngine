@@ -24,28 +24,34 @@ NKEngine::~NKEngine() {
 }
 
 void NKEngine::Update(SDL_Renderer *renderer) {
-    if (!_isPaused) {
-        bool quit = false;
+    bool quit = false;
 
-        //Event handler
-        SDL_Event e;
+    //Event handler
+    SDL_Event event;
 
-        //While application is running
-        while (!quit) {
-            //Handle events on queue
-            while (SDL_PollEvent(&e) != 0) {
-                //User requests quit
-                if (e.type == SDL_QUIT) {
-                    quit = true;
+    //While application is running
+    while (!quit) {
+        //Handle events on queue
+        while (SDL_PollEvent(&event) != 0) {
+            //User requests quit
+            if (event.type == SDL_QUIT) {
+                quit = true;
+            } else if (event.type == SDL_KEYDOWN) {
+                if (!_isPaused) {
+                    _lastKeyInput = event.key.keysym.sym;
                 }
-                //TODO: send events using callbacks???
+            } else if (event.type == SDL_KEYUP) {
+                if (!_isPaused) {
+                    _lastKeyInput = 0;
+                }
             }
+        }
 
+        if (!_isPaused) {
             SDL_RenderClear(renderer);
 
             int i = 0;
             for (const auto &sprite: _sprites) {
-                std::cout << sprite->dimensions->h << std::endl;
                 SDL_Texture *texture = sprite->texture;
                 SDL_RenderCopy(renderer, texture, nullptr, sprite->dimensions);
                 i++;
@@ -54,6 +60,10 @@ void NKEngine::Update(SDL_Renderer *renderer) {
             SDL_RenderPresent(renderer);
         }
     }
+}
+
+SDL_Keycode NKEngine::GetLastKeyInput() {
+    return _lastKeyInput;
 }
 
 
@@ -87,14 +97,15 @@ std::shared_ptr<NKSprite> NKEngine::CreateSprite(int positionX, int positionY, i
     //Center pivot
     positionX -= width / 2;
     positionY -= height / 2;
-    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width,height, positionX, positionY);
+    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width, height, positionX, positionY);
     _sprites.push_back(sprite);
     return sprite;
 }
 
 
-std::shared_ptr<NKSprite> NKEngine::CreateSprite(SDL_Renderer* renderer, std::string path, int positionX, int positionY, int width, int height) {
-    SDL_Texture* texture = LoadTexture(renderer, path);
+std::shared_ptr<NKSprite> NKEngine::CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY,
+                                                 int width, int height) {
+    SDL_Texture *texture = LoadTexture(renderer, path);
     std::shared_ptr<NKSprite> sprite = CreateSprite(positionX, positionY, width, height);
     sprite->texture = texture;
     return sprite;

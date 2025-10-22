@@ -6,6 +6,8 @@
 #define NKENGINE_NKENGINE_H
 #include <list>
 #include <memory>
+#include <SDL_events.h>
+#include <SDL_keycode.h>
 #include <SDL_render.h>
 #include <string>
 #include "NKSprite.h"
@@ -15,14 +17,17 @@ class NKEngine {
 public:
     NKEngine();
     ~NKEngine();
-    SDL_Window *CreateWindow(const char* title, int positionX, int positionY, int width, int height);
+    SDL_Window *CreateWindow(const char *title, int positionX, int positionY, int width, int height);
     SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
     std::shared_ptr<NKSprite> CreateSprite(int positionX, int positionY, int width, int height);
-    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY, int width, int height);
+    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY,int width, int height);
     void Update(SDL_Renderer *renderer);
+
+    SDL_Keycode GetLastKeyInput();
 private:
-    std::list<std::shared_ptr<NKSprite>> _sprites;
+    std::list<std::shared_ptr<NKSprite> > _sprites;
     bool _isPaused;
+    SDL_Keycode _lastKeyInput;
 };
 
 
