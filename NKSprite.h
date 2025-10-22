@@ -5,15 +5,14 @@
 #ifndef NKENGINE_NKSPRITE_H
 #define NKENGINE_NKSPRITE_H
 #include <SDL_render.h>
+#include <memory>
 
 
 class NKSprite {
 public:
-    NKSprite(int width, int height);
-    int Width;
-    int Height;
-    SDL_Texture *texture;
-    SDL_Rect *dimensions;
+    NKSprite(int width, int height, int positionX, int positionY);
+    SDL_Texture* texture;
+    SDL_Rect* dimensions;
 };
 
 

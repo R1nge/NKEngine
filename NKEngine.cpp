@@ -87,7 +87,7 @@ std::shared_ptr<NKSprite> NKEngine::CreateSprite(int positionX, int positionY, i
     //Center pivot
     positionX -= width / 2;
     positionY -= height / 2;
-    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width,height);
+    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width,height, positionX, positionY);
     _sprites.push_back(sprite);
     return sprite;
 }

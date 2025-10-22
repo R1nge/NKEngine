@@ -4,8 +4,10 @@
 
 #include "NKSprite.h"
 
-NKSprite::NKSprite(int width, int height) {
-    dimensions = new SDL_Rect();
+NKSprite::NKSprite(int width, int height, int positionX, int positionY) {
+    dimensions = new SDL_Rect(positionX, positionY, width, height);
     dimensions->w = width;
     dimensions->h = height;
+    dimensions->x = positionX;
+    dimensions->y = positionY;
 }
