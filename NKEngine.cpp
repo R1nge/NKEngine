@@ -5,6 +5,7 @@
 #include "NKEngine.h"
 
 #include <iostream>
+#include <memory>
 #include <SDL_image.h>
 
 #include "NKSprite.h"
@@ -13,13 +14,12 @@
 //TODO: create a base class { position, sprite }
 
 NKEngine::NKEngine() {
-    _sprites = new std::list<NKSprite *>;
     _isPaused = false;
 }
 
 NKEngine::~NKEngine() {
     //TODO: clear all sprites memory;
-    _sprites->clear();
+    _sprites.clear();
     //TODO: clear all texture
 }
 
@@ -44,7 +44,7 @@ void NKEngine::Update(SDL_Renderer *renderer) {
             SDL_RenderClear(renderer);
 
             int i = 0;
-            for (const auto &sprite: *_sprites) {
+            for (const auto &sprite: _sprites) {
                 std::cout << sprite->dimensions->h << std::endl;
                 SDL_Texture *texture = sprite->texture;
                 SDL_RenderCopy(renderer, texture, nullptr, sprite->dimensions);
@@ -83,19 +83,19 @@ SDL_Texture *NKEngine::LoadTexture(SDL_Renderer *renderer, std::string path) {
 }
 
 //Return a center-pivoted rect, oppose to the left-top corner pivoted provided by SDL2
-NKSprite *NKEngine::CreateSprite(int positionX, int positionY, int width, int height) {
+std::shared_ptr<NKSprite> NKEngine::CreateSprite(int positionX, int positionY, int width, int height) {
     //Center pivot
     positionX -= width / 2;
     positionY -= height / 2;
-    NKSprite *sprite = new NKSprite(width, height);
-    _sprites->push_back(sprite);
+    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width,height);
+    _sprites.push_back(sprite);
     return sprite;
 }
 
 
-NKSprite *NKEngine::CreateSprite(SDL_Renderer* renderer, std::string path, int positionX, int positionY, int width, int height) {
+std::shared_ptr<NKSprite> NKEngine::CreateSprite(SDL_Renderer* renderer, std::string path, int positionX, int positionY, int width, int height) {
     SDL_Texture* texture = LoadTexture(renderer, path);
-    NKSprite *sprite = CreateSprite(positionX, positionY, width, height);
+    std::shared_ptr<NKSprite> sprite = CreateSprite(positionX, positionY, width, height);
     sprite->texture = texture;
     return sprite;
 }

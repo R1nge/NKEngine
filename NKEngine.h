@@ -5,6 +5,7 @@
 #ifndef NKENGINE_NKENGINE_H
 #define NKENGINE_NKENGINE_H
 #include <list>
+#include <memory>
 #include <SDL_render.h>
 #include <string>
 #include "NKSprite.h"
@@ -16,11 +17,11 @@ public:
     ~NKEngine();
     SDL_Window *CreateWindow(const char* title, int positionX, int positionY, int width, int height);
     SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
-    NKSprite *CreateSprite(int positionX, int positionY, int width, int height);
-    NKSprite *CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY, int width, int height);
+    std::shared_ptr<NKSprite> CreateSprite(int positionX, int positionY, int width, int height);
+    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY, int width, int height);
     void Update(SDL_Renderer *renderer);
 private:
-    std::list<NKSprite*> *_sprites;
+    std::list<std::shared_ptr<NKSprite>> _sprites;
     bool _isPaused;
 };
 
