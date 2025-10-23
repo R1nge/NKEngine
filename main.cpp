@@ -67,6 +67,7 @@ bool init() {
             } else {
                 //Initialize renderer color
                 SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+                SDL_RenderSetVSync(gRenderer, 1);
 
                 //Initialize PNG loading
                 int imgFlags = IMG_INIT_PNG;

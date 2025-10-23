@@ -13,6 +13,6 @@ MyGameEventSubscriber::MyGameEventSubscriber(std::shared_ptr<NKSprite> sprite) {
 void MyGameEventSubscriber::Invoke(NKEventType type) {
     std::cout << type << '\n';
     if (type == InputEnd) {
-        _sprite->dimensions->x += 0;
+        _sprite->dimensions->x += 1;
     }
 }
