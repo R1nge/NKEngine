@@ -12,6 +12,10 @@ add_executable(NKEngine main.cpp
         NKVector2Int.h
         NKEvent.cpp
         NKEvent.h
+        NKEventSubscriber.cpp
+        NKEventSubscriber.h
+        NKEventDispatcher.cpp
+        NKEventDispatcher.h
 )
 INCLUDE(FindPkgConfig)
 
