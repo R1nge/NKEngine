@@ -9,7 +9,7 @@
 
 class NKEventSubscriber {
 public:
-    virtual void Invoke(NKEventType type);
+    virtual void Invoke(NKEventType type) = 0;
 };
 
 

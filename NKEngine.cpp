@@ -16,6 +16,7 @@
 //TODO: engine core -> callbacks -> modules -> callbacks -> developer
 
 NKEngine::NKEngine() {
+    EventDispatcher = new NKEventDispatcher();
     _isPaused = false;
 }
 
@@ -33,8 +34,8 @@ void NKEngine::Update(SDL_Renderer *renderer) {
 
     //While application is running
     while (!quit) {
-
-        //TODO: input start callback
+        EventDispatcher->AddEvent(InputStart);
+        EventDispatcher->Dispatch();
 
         //Handle events on queue
         while (SDL_PollEvent(&event) != 0) {
@@ -52,7 +53,11 @@ void NKEngine::Update(SDL_Renderer *renderer) {
             }
         }
 
-        //TODO: input end callback
+        EventDispatcher->AddEvent(InputEnd);
+        EventDispatcher->Dispatch();
+
+        EventDispatcher->AddEvent(RenderStart);
+        EventDispatcher->Dispatch();
 
         if (!_isPaused) {
             SDL_RenderClear(renderer);
@@ -67,7 +72,8 @@ void NKEngine::Update(SDL_Renderer *renderer) {
             SDL_RenderPresent(renderer);
         }
 
-        //TODO: render end callback
+        EventDispatcher->AddEvent(RenderEnd);
+        EventDispatcher->Dispatch();
     }
 }
 

@@ -10,6 +10,8 @@
 #include <SDL_keycode.h>
 #include <SDL_render.h>
 #include <string>
+
+#include "NKEventDispatcher.h"
 #include "NKSprite.h"
 
 
@@ -24,6 +26,7 @@ public:
     void Update(SDL_Renderer *renderer);
 
     SDL_Keycode GetLastKeyInput() const;
+    NKEventDispatcher* EventDispatcher;
 private:
     std::list<std::shared_ptr<NKSprite> > _sprites;
     bool _isPaused;

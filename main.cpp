@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include <string>
 
+#include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
 //TODO: event system for engine stages
 //TODO: display a part from a png
@@ -107,8 +108,12 @@ int main() {
         printf("Failed to initialize!\n");
     } else {
         gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100);
-        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", (SCREEN_WIDTH - 425) / 2,(SCREEN_HEIGHT - 50) / 2, 100, 100);
+        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", (SCREEN_WIDTH - 425) / 2,
+                                            (SCREEN_HEIGHT - 50) / 2, 100, 100);
         //Main loop
+        NKEventSubscriber *mySub = new MyGameEventSubscriber();
+        gEngine->EventDispatcher->AddSubscriber(mySub);
+
         gEngine->Update(gRenderer);
     }
 
