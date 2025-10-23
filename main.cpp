@@ -6,7 +6,7 @@
 
 #include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
-//TODO: event system for engine stages
+//TODO: target fps + frametime + deltatime
 //TODO: display a part from a png
 //TODO: display player as a space ship
 //TODO: load engine as a lib
@@ -111,7 +111,7 @@ int main() {
         auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", (SCREEN_WIDTH - 425) / 2,
                                             (SCREEN_HEIGHT - 50) / 2, 100, 100);
         //Main loop
-        NKEventSubscriber *mySub = new MyGameEventSubscriber();
+        NKEventSubscriber *mySub = new MyGameEventSubscriber(player);
         gEngine->EventDispatcher->AddSubscriber(mySub);
 
         gEngine->Update(gRenderer);
