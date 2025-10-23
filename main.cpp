@@ -5,13 +5,13 @@
 #include <string>
 
 #include "NKEngine.h"
+//TODO: event system for engine stages
 //TODO: display a part from a png
 //TODO: display player as a space ship
-//TODO: create an engine class
-//TODO: engine should use callbacks to allow to sub to the engine events like (Start, Update)
 //TODO: load engine as a lib
 //TODO: call engine API to do things
 //TODO: separate space invaders and engine repositories
+//TODO: C# binding jff
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
