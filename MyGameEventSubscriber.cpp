@@ -19,16 +19,16 @@ void MyGameEventSubscriber::Invoke(NKEventType type) {
     if (type == InputEnd) {
         switch (_engine->GetLastKeyInput()) {
             case SDLK_w:
-                _sprite->dimensions->y -= 1;
+                _sprite->spriteRect->y -= 1;
                 break;
             case SDLK_s:
-                _sprite->dimensions->y += 1;
+                _sprite->spriteRect->y += 1;
                 break;
             case SDLK_a:
-                _sprite->dimensions->x -= 1;
+                _sprite->spriteRect->x -= 1;
                 break;
             case SDLK_d:
-                _sprite->dimensions->x += 1;
+                _sprite->spriteRect->x += 1;
                 break;
             default:
                 break;

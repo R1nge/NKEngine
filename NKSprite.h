@@ -10,9 +10,10 @@
 
 class NKSprite {
 public:
-    NKSprite(int width, int height, int positionX, int positionY);
-    SDL_Texture* texture;
-    SDL_Rect* dimensions;
+    NKSprite(int spriteWidth, int spriteHeight, int textureWidth, int textureHeight, int textureX, int textureY,int positionX, int positionY);
+    SDL_Texture *texture;
+    SDL_Rect *spriteRect;
+    SDL_Rect *inputTextureRect;
 };
 
 

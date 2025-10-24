@@ -4,10 +4,7 @@
 
 #include "NKSprite.h"
 
-NKSprite::NKSprite(int width, int height, int positionX, int positionY) {
-    dimensions = new SDL_Rect(positionX, positionY, width, height);
-    dimensions->w = width;
-    dimensions->h = height;
-    dimensions->x = positionX;
-    dimensions->y = positionY;
+NKSprite::NKSprite(int spriteWidth, int spriteHeight, int textureWidth, int textureHeight, int textureX, int textureY,int positionX, int positionY) {
+    spriteRect = new SDL_Rect(positionX, positionY, spriteWidth, spriteHeight);
+    inputTextureRect = new SDL_Rect(textureX, textureY, textureWidth, textureHeight);
 }

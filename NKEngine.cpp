@@ -68,7 +68,7 @@ void NKEngine::Update(SDL_Renderer *renderer) {
             int i = 0;
             for (const auto &sprite: _sprites) {
                 SDL_Texture *texture = sprite->texture;
-                SDL_RenderCopy(renderer, texture, nullptr, sprite->dimensions);
+                SDL_RenderCopy(renderer, texture, sprite->inputTextureRect, sprite->spriteRect);
                 i++;
             }
 
@@ -115,7 +115,7 @@ std::shared_ptr<NKSprite> NKEngine::CreateSprite(int positionX, int positionY, i
     //Center pivot
     positionX -= width / 2;
     positionY -= height / 2;
-    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width, height, positionX, positionY);
+    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width, height, width, height, 100,100,positionX, positionY);
     _sprites.push_back(sprite);
     return sprite;
 }
