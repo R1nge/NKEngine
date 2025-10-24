@@ -49,7 +49,9 @@ void NKEngine::Update(SDL_Renderer *renderer) {
                 }
             } else if (event.type == SDL_KEYUP) {
                 if (!_isPaused) {
-                    _lastKeyInput = 0;
+                    if (event.key.keysym.sym == _lastKeyInput) {
+                        _lastKeyInput = 0;
+                    }
                 }
             }
         }
