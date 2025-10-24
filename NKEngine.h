@@ -13,6 +13,7 @@
 
 #include "NKEventDispatcher.h"
 #include "NKSprite.h"
+#include "NKUuidGenerator.h"
 
 
 class NKEngine {
@@ -27,6 +28,7 @@ public:
 
     SDL_Keycode GetLastKeyInput() const;
     NKEventDispatcher* EventDispatcher;
+    NKUuidGenerator* UuidGenerator;
 private:
     std::list<std::shared_ptr<NKSprite> > _sprites;
     bool _isPaused;

@@ -8,7 +8,7 @@
 #include "NKEngine.h"
 #include "uuid.h"
 //TODO: target fps + frametime + deltatime
-//TODO: store object in dict, destroy by id/guid version 7 https://en.wikipedia.org/wiki/Universally_unique_identifier
+//TODO: store object in dict<uuid, NKObject>, destroy by id
 //TODO: display a part from a png
 //TODO: display player as a space ship
 //TODO: load engine as a lib
@@ -116,15 +116,7 @@ int main() {
         NKEventSubscriber *mySub = new MyGameEventSubscriber(player);
         gEngine->EventDispatcher->AddSubscriber(mySub);
 
-        std::random_device rd;
-        auto seed_data = std::array<int, std::mt19937::state_size> {};
-        std::generate(std::begin(seed_data), std::end(seed_data), std::ref(rd));
-        std::seed_seq seq(std::begin(seed_data), std::end(seed_data));
-        std::mt19937 generator(seq);
-        uuids::uuid_random_generator gen{generator};
-
-        uuids::uuid const id = gen();
-        std::cout << id;
+        std::cout << gEngine->UuidGenerator->Generate();
         gEngine->Update(gRenderer);
     }
 

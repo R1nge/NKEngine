@@ -17,6 +17,7 @@
 
 NKEngine::NKEngine() {
     EventDispatcher = new NKEventDispatcher();
+    UuidGenerator = new NKUuidGenerator();
     _isPaused = false;
 }
 
