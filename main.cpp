@@ -28,7 +28,7 @@ void close();
 //Loads individual image as texture
 SDL_Texture *loadTexture(std::string path);
 
-NKEngine *gEngine = nullptr;
+std::shared_ptr<NKEngine> gEngine = nullptr;
 
 //The window we'll be rendering to
 SDL_Window *gWindow = nullptr;
@@ -104,7 +104,7 @@ SDL_Texture *loadTexture(std::string path) {
 }
 
 int main() {
-    gEngine = new NKEngine();
+    gEngine = std::make_shared<NKEngine>();
 
     if (!init()) {
         printf("Failed to initialize!\n");
@@ -113,7 +113,7 @@ int main() {
         auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", (SCREEN_WIDTH - 425) / 2,
                                             (SCREEN_HEIGHT - 50) / 2, 100, 100);
         //Main loop
-        NKEventSubscriber *mySub = new MyGameEventSubscriber(player);
+        NKEventSubscriber *mySub = new MyGameEventSubscriber(player, gEngine);
         gEngine->EventDispatcher->AddSubscriber(mySub);
 
         std::cout << gEngine->UuidGenerator->Generate();

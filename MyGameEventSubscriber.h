@@ -6,16 +6,18 @@
 #define NKENGINE_MYGAMEEVENTSUBSCRIBER_H
 #include <memory>
 
+#include "NKEngine.h"
 #include "NKEventSubscriber.h"
 #include "NKSprite.h"
 
 
 class MyGameEventSubscriber : public NKEventSubscriber {
 public:
-    MyGameEventSubscriber(std::shared_ptr<NKSprite> sprite);
+    MyGameEventSubscriber(std::shared_ptr<NKSprite> sprite, std::shared_ptr<NKEngine> engine);
     void Invoke(NKEventType type) override;
 private:
     std::shared_ptr<NKSprite> _sprite;
+    std::shared_ptr<NKEngine> _engine;
 };
 
 

@@ -9,6 +9,7 @@ void NKEventDispatcher::AddEvent(NKEventType type) {
 }
 
 void NKEventDispatcher::Dispatch() {
+    //TODO: test
     for (int i = 0; i < _eventQueue.size(); ++i) {
         auto event = _eventQueue.front();
         if (event != None) {
