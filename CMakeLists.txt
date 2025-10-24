@@ -18,6 +18,7 @@ add_executable(NKEngine main.cpp
         NKEventDispatcher.h
         MyGameEventSubscriber.cpp
         MyGameEventSubscriber.h
+        uuid.h
 )
 INCLUDE(FindPkgConfig)
 
