@@ -16,8 +16,8 @@
 //TODO: separate space invaders and engine repositories
 //TODO: C# binding jff
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 256;  //space invaders
+const int SCREEN_HEIGHT = 224; //space invaders
 
 //Starts up SDL and creates window
 bool init();
@@ -48,6 +48,10 @@ bool init() {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
         success = false;
     } else {
+
+
+        SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+
         //Set texture filtering to linear
         if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
             printf("Warning: Linear texture filtering not enabled!");
@@ -110,8 +114,8 @@ int main() {
         printf("Failed to initialize!\n");
     } else {
         gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100);
-        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", (SCREEN_WIDTH - 425) / 2,
-                                            (SCREEN_HEIGHT - 50) / 2, 100, 100);
+        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2,
+                                            SCREEN_HEIGHT / 2, 100, 100);
         //Main loop
         NKEventSubscriber *mySub = new MyGameEventSubscriber(player, gEngine);
         gEngine->EventDispatcher->AddSubscriber(mySub);
