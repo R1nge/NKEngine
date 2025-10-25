@@ -22,6 +22,8 @@ add_executable(NKEngine main.cpp
         NKUuidGenerator.cpp
         NKUuidGenerator.h
         NKSpriteData.h
+        NKRenderer.cpp
+        NKRenderer.h
 )
 INCLUDE(FindPkgConfig)
 

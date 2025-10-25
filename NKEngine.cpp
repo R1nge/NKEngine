@@ -16,8 +16,9 @@
 //TODO: engine core -> callbacks -> modules -> callbacks -> developer
 
 NKEngine::NKEngine() {
-    EventDispatcher = new NKEventDispatcher();
-    UuidGenerator = new NKUuidGenerator();
+    EventDispatcher = std::make_unique<NKEventDispatcher>();
+    UuidGenerator = std::make_unique<NKUuidGenerator>();
+    Renderer = std::make_unique<NKRenderer>();
     _isPaused = false;
 }
 
@@ -27,10 +28,10 @@ NKEngine::~NKEngine() {
     //TODO: clear all texture
 
 
-    SDL_DestroyRenderer(Renderer);
-    Renderer = nullptr;
-    SDL_DestroyWindow(Window);
-    Window = nullptr;
+    //SDL_DestroyRenderer(Renderer);
+    //Renderer = nullptr;
+    //SDL_DestroyWindow(Window);
+    //Window = nullptr;
 
     IMG_Quit();
     SDL_Quit();
@@ -72,16 +73,16 @@ void NKEngine::Update() {
         EventDispatcher->Dispatch();
 
         if (!_isPaused) {
-            SDL_RenderClear(Renderer);
+            SDL_RenderClear(Renderer->Renderer);
 
             int i = 0;
             for (const auto &sprite: _sprites) {
                 SDL_Texture *texture = sprite->texture;
-                SDL_RenderCopy(Renderer, texture, sprite->inputTextureRect, sprite->spriteRect);
+                SDL_RenderCopy(Renderer->Renderer, texture, sprite->inputTextureRect, sprite->spriteRect);
                 i++;
             }
 
-            SDL_RenderPresent(Renderer);
+            SDL_RenderPresent(Renderer->Renderer);
         }
 
         EventDispatcher->AddEvent(RenderEnd);
@@ -91,31 +92,6 @@ void NKEngine::Update() {
 
 SDL_Keycode NKEngine::GetLastKeyInput() const {
     return _lastKeyInput;
-}
-
-
-SDL_Window *NKEngine::CreateWindow(const char *title, int positionX, int positionY, int width, int height) {
-    Window = SDL_CreateWindow(title, positionX, positionY, width, height, SDL_WINDOW_SHOWN);
-    return Window;
-}
-
-SDL_Renderer *NKEngine::CreateRenderer(SDL_Window *window) {
-    Renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (Renderer == nullptr) {
-        printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
-    } else {
-        //Initialize renderer color
-        SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-        SDL_RenderSetVSync(Renderer, 1);
-
-        //Initialize PNG loading
-        int imgFlags = IMG_INIT_PNG;
-        if (!(IMG_Init(imgFlags) & imgFlags)) {
-            printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-        }
-    }
-
-    return Renderer;
 }
 
 SDL_Texture *NKEngine::LoadTexture(SDL_Renderer *renderer, std::string path) {
@@ -153,7 +129,7 @@ std::shared_ptr<NKSprite> NKEngine::CreateSprite(NKSpriteData *data) {
 
 
 std::shared_ptr<NKSprite> NKEngine::CreateSprite(std::string path, NKSpriteData *data) {
-    SDL_Texture *texture = LoadTexture(Renderer, path);
+    SDL_Texture *texture = LoadTexture(Renderer->Renderer, path);
     std::shared_ptr<NKSprite> sprite = CreateSprite(data);
     SDL_SetTextureColorMod(texture, data->colorR, data->colorG, data->colorB);
     sprite->texture = texture;
