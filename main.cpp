@@ -108,8 +108,8 @@ int main() {
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
-        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20, 10, 0, 0, 20, 10, 0, 0, 0));
-        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20, 10, 50, 50, 20, 10, 0, 255,0));
+        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20, 10, 0, 0, 20, 10, 255, 255, 255));
+        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20, 10, 0, 48, 20, 10, 255, 255,255));
         //Main loop
         NKEventSubscriber *mySub = new MyGameEventSubscriber(player, gEngine);
         gEngine->EventDispatcher->AddSubscriber(mySub);
