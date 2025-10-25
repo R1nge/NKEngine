@@ -115,16 +115,17 @@ std::shared_ptr<NKSprite> NKEngine::CreateSprite(int positionX, int positionY, i
     //Center pivot
     positionX -= width / 2;
     positionY -= height / 2;
-    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width, height, 20, 10, 0,0,positionX, positionY);
+    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(width, height, 20, 10, 0, 0, positionX, positionY);
     _sprites.push_back(sprite);
     return sprite;
 }
 
 
 std::shared_ptr<NKSprite> NKEngine::CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY,
-                                                 int width, int height) {
+                                                 int width, int height, int r, int g, int b) {
     SDL_Texture *texture = LoadTexture(renderer, path);
     std::shared_ptr<NKSprite> sprite = CreateSprite(positionX, positionY, width, height);
+    SDL_SetTextureColorMod(texture, r, g, b);
     sprite->texture = texture;
     return sprite;
 }

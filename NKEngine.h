@@ -23,7 +23,7 @@ public:
     SDL_Window *CreateWindow(const char *title, int positionX, int positionY, int width, int height);
     SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
     std::shared_ptr<NKSprite> CreateSprite(int positionX, int positionY, int width, int height);
-    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY,int width, int height);
+    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY,int width, int height, int r, int g, int b);
     void Update(SDL_Renderer *renderer);
 
     SDL_Keycode GetLastKeyInput() const;

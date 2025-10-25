@@ -7,10 +7,11 @@
 #include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
 #include "uuid.h"
-//TODO: target fps + frametime + deltatime
+
+//TODO: set overlay color of the sprite SDL_SetTextureColorMod
+//TODO: set reference resolution and scale sprites with it?
 //TODO: store object in dict<uuid, NKObject>, destroy by id
-//TODO: display a part from a png
-//TODO: display player as a space ship
+//TODO: target fps + frametime + deltatime
 //TODO: load engine as a lib
 //TODO: call engine API to do things
 //TODO: separate space invaders and engine repositories
@@ -113,9 +114,8 @@ int main() {
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
-        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100);
-        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2,
-                                            SCREEN_HEIGHT / 2, 100, 100);
+        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100,0,0,0);
+        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2, 100, 100,0,255,0);
         //Main loop
         NKEventSubscriber *mySub = new MyGameEventSubscriber(player, gEngine);
         gEngine->EventDispatcher->AddSubscriber(mySub);
