@@ -36,7 +36,7 @@ NKEngine::~NKEngine() {
     SDL_Quit();
 }
 
-void NKEngine::Update(SDL_Renderer *renderer) {
+void NKEngine::Update() {
     bool quit = false;
 
     //Event handler
@@ -72,16 +72,16 @@ void NKEngine::Update(SDL_Renderer *renderer) {
         EventDispatcher->Dispatch();
 
         if (!_isPaused) {
-            SDL_RenderClear(renderer);
+            SDL_RenderClear(Renderer);
 
             int i = 0;
             for (const auto &sprite: _sprites) {
                 SDL_Texture *texture = sprite->texture;
-                SDL_RenderCopy(renderer, texture, sprite->inputTextureRect, sprite->spriteRect);
+                SDL_RenderCopy(Renderer, texture, sprite->inputTextureRect, sprite->spriteRect);
                 i++;
             }
 
-            SDL_RenderPresent(renderer);
+            SDL_RenderPresent(Renderer);
         }
 
         EventDispatcher->AddEvent(RenderEnd);
@@ -152,8 +152,8 @@ std::shared_ptr<NKSprite> NKEngine::CreateSprite(NKSpriteData *data) {
 }
 
 
-std::shared_ptr<NKSprite> NKEngine::CreateSprite(SDL_Renderer *renderer, std::string path, NKSpriteData *data) {
-    SDL_Texture *texture = LoadTexture(renderer, path);
+std::shared_ptr<NKSprite> NKEngine::CreateSprite(std::string path, NKSpriteData *data) {
+    SDL_Texture *texture = LoadTexture(Renderer, path);
     std::shared_ptr<NKSprite> sprite = CreateSprite(data);
     SDL_SetTextureColorMod(texture, data->colorR, data->colorG, data->colorB);
     sprite->texture = texture;

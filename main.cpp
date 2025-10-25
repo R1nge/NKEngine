@@ -59,15 +59,14 @@ int main() {
     if (!init(nk_engine)) {
         printf("Failed to initialize!\n");
     } else {
-        auto renderer = nk_engine->Renderer;
-        nk_engine->CreateSprite(renderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 0, 20, 10, 255, 255, 255));
-        auto player = nk_engine->CreateSprite(renderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 48, 20, 10, 255, 255,255));
+        nk_engine->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 0, 20, 10, 255, 255, 255));
+        auto player = nk_engine->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 48, 20, 10, 255, 255,255));
         //Main loop
         NKEventSubscriber *mySub = new MyGameEventSubscriber(player, nk_engine);
         nk_engine->EventDispatcher->AddSubscriber(mySub);
 
         std::cout << nk_engine->UuidGenerator->Generate();
-        nk_engine->Update(renderer);
+        nk_engine->Update();
     }
 
     return 0;

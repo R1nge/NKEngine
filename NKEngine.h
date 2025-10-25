@@ -25,8 +25,8 @@ public:
     SDL_Renderer* CreateRenderer(SDL_Window* window);
     SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
     std::shared_ptr<NKSprite> CreateSprite(NKSpriteData *data);
-    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, NKSpriteData *data);
-    void Update(SDL_Renderer *renderer);
+    std::shared_ptr<NKSprite> CreateSprite(std::string path, NKSpriteData *data);
+    void Update();
 
     SDL_Keycode GetLastKeyInput() const;
     NKEventDispatcher *EventDispatcher;
