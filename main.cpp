@@ -8,7 +8,6 @@
 #include "NKEngine.h"
 #include "uuid.h"
 
-//TODO: set overlay color of the sprite SDL_SetTextureColorMod
 //TODO: set reference resolution and scale sprites with it?
 //TODO: store object in dict<uuid, NKObject>, destroy by id
 //TODO: target fps + frametime + deltatime
@@ -17,9 +16,12 @@
 //TODO: separate space invaders and engine repositories
 //TODO: C# binding jff
 //Screen dimension constants
-const int SCREEN_WIDTH = 256; //space invaders
-const int SCREEN_HEIGHT = 224; //space invaders
-
+const int SCREEN_WIDTH = 256*2; //space invaders
+const int SCREEN_HEIGHT = 224*2; //space invaders
+const int REFERENCE_RESOLUTION_WIDTH = 256;
+const int REFERENCE_RESOLUTION_HEIGHT = 224;
+const int SCALE_X = SCREEN_WIDTH / REFERENCE_RESOLUTION_WIDTH;
+const int SCALE_Y = SCREEN_HEIGHT / REFERENCE_RESOLUTION_HEIGHT;
 //Starts up SDL and creates window
 bool init();
 
@@ -108,8 +110,8 @@ int main() {
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
-        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20, 10, 0, 0, 20, 10, 255, 255, 255));
-        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20, 10, 0, 48, 20, 10, 255, 255,255));
+        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 0, 20, 10, 255, 255, 255));
+        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 48, 20, 10, 255, 255,255));
         //Main loop
         NKEventSubscriber *mySub = new MyGameEventSubscriber(player, gEngine);
         gEngine->EventDispatcher->AddSubscriber(mySub);
