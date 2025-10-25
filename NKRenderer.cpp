@@ -28,11 +28,8 @@ NKRenderer::NKRenderer(NKUuidGenerator *generator) : _uuidGenerator(generator) {
 void NKRenderer::Render() {
     SDL_RenderClear(Renderer);
 
-    int i = 0;
     for (const auto &pair: Sprites) {
-        SDL_Texture *texture = pair.second->texture;
-        SDL_RenderCopy(Renderer, texture, pair.second->inputTextureRect, pair.second->spriteRect);
-        i++;
+        SDL_RenderCopy(Renderer, pair.second->texture, pair.second->inputTextureRect, pair.second->spriteRect);
     }
 
     SDL_RenderPresent(Renderer);
