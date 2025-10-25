@@ -6,40 +6,30 @@
 
 #include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
-#include "uuid.h"
 
-//TODO: set reference resolution and scale sprites with it?
+//TODO: create a separate window class, expose via engine
+//TODO: save engine settings into ini file https://github.com/dujingning/inicpp    (resolution, reference resolution, scale (width-height 0-1)
+
 //TODO: store object in dict<uuid, NKObject>, destroy by id
-//TODO: target fps + frametime + deltatime
+//TODO: target fps + frametime + deltatime (add target fps to the config)
+
+
+//TODO: transformation matrix (position, scale, rotation)
 //TODO: load engine as a lib
 //TODO: call engine API to do things
 //TODO: separate space invaders and engine repositories
 //TODO: C# binding jff
 //Screen dimension constants
-const int SCREEN_WIDTH = 256*2; //space invaders
-const int SCREEN_HEIGHT = 224*2; //space invaders
+const int SCREEN_WIDTH = 256*4; //space invaders
+const int SCREEN_HEIGHT = 224*4; //space invaders
 const int REFERENCE_RESOLUTION_WIDTH = 256;
 const int REFERENCE_RESOLUTION_HEIGHT = 224;
 const int SCALE_X = SCREEN_WIDTH / REFERENCE_RESOLUTION_WIDTH;
 const int SCALE_Y = SCREEN_HEIGHT / REFERENCE_RESOLUTION_HEIGHT;
-//Starts up SDL and creates window
-bool init();
 
-//Frees media and shuts down SDL
-void close();
+bool init(std::shared_ptr<NKEngine> engine);
 
-//Loads individual image as texture
-SDL_Texture *loadTexture(std::string path);
-
-std::shared_ptr<NKEngine> gEngine = nullptr;
-
-//The window we'll be rendering to
-SDL_Window *gWindow = nullptr;
-
-//The window renderer
-SDL_Renderer *gRenderer = nullptr;
-
-bool init() {
+bool init(std::shared_ptr<NKEngine> engine) {
     //Initialization flag
     bool success = true;
 
@@ -56,72 +46,29 @@ bool init() {
         }
 
         //Create window
-        gWindow = gEngine->CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
-                                        SCREEN_HEIGHT);
-        if (gWindow == nullptr) {
-            printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
-            success = false;
-        } else {
-            //Create renderer for window
-            gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
-            if (gRenderer == nullptr) {
-                printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
-                success = false;
-            } else {
-                //Initialize renderer color
-                SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-                SDL_RenderSetVSync(gRenderer, 1);
-
-                //Initialize PNG loading
-                int imgFlags = IMG_INIT_PNG;
-                if (!(IMG_Init(imgFlags) & imgFlags)) {
-                    printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-                    success = false;
-                }
-            }
-        }
+        engine->CreateWindow("NKEngine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,SCREEN_HEIGHT);
+        engine->CreateRenderer(engine->Window);
     }
 
     return success;
 }
 
-void close() {
-    //SDL_DestroyTexture(gTexture);
-    //gTexture = nullptr;
-
-    //Destroy window
-    SDL_DestroyRenderer(gRenderer);
-    SDL_DestroyWindow(gWindow);
-    gWindow = nullptr;
-    gRenderer = nullptr;
-
-    //Quit SDL subsystems
-    IMG_Quit();
-    SDL_Quit();
-}
-
-SDL_Texture *loadTexture(std::string path) {
-    return gEngine->LoadTexture(gRenderer, path);
-}
-
 int main() {
-    gEngine = std::make_shared<NKEngine>();
+    auto nk_engine = std::make_shared<NKEngine>();
 
-    if (!init()) {
+    if (!init(nk_engine)) {
         printf("Failed to initialize!\n");
     } else {
-        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 0, 20, 10, 255, 255, 255));
-        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 48, 20, 10, 255, 255,255));
+        auto renderer = nk_engine->Renderer;
+        nk_engine->CreateSprite(renderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 0, 20, 10, 255, 255, 255));
+        auto player = nk_engine->CreateSprite(renderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 48, 20, 10, 255, 255,255));
         //Main loop
-        NKEventSubscriber *mySub = new MyGameEventSubscriber(player, gEngine);
-        gEngine->EventDispatcher->AddSubscriber(mySub);
+        NKEventSubscriber *mySub = new MyGameEventSubscriber(player, nk_engine);
+        nk_engine->EventDispatcher->AddSubscriber(mySub);
 
-        std::cout << gEngine->UuidGenerator->Generate();
-        gEngine->Update(gRenderer);
+        std::cout << nk_engine->UuidGenerator->Generate();
+        nk_engine->Update(renderer);
     }
-
-    //Free resources and close SDL
-    close();
 
     return 0;
 }

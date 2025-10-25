@@ -25,6 +25,15 @@ NKEngine::~NKEngine() {
     //TODO: clear all sprites memory;
     _sprites.clear();
     //TODO: clear all texture
+
+
+    SDL_DestroyRenderer(Renderer);
+    Renderer = nullptr;
+    SDL_DestroyWindow(Window);
+    Window = nullptr;
+
+    IMG_Quit();
+    SDL_Quit();
 }
 
 void NKEngine::Update(SDL_Renderer *renderer) {
@@ -86,9 +95,28 @@ SDL_Keycode NKEngine::GetLastKeyInput() const {
 
 
 SDL_Window *NKEngine::CreateWindow(const char *title, int positionX, int positionY, int width, int height) {
-    return SDL_CreateWindow(title, positionX, positionY, width, height, SDL_WINDOW_SHOWN);
+    Window = SDL_CreateWindow(title, positionX, positionY, width, height, SDL_WINDOW_SHOWN);
+    return Window;
 }
 
+SDL_Renderer *NKEngine::CreateRenderer(SDL_Window *window) {
+    Renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (Renderer == nullptr) {
+        printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+    } else {
+        //Initialize renderer color
+        SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_RenderSetVSync(Renderer, 1);
+
+        //Initialize PNG loading
+        int imgFlags = IMG_INIT_PNG;
+        if (!(IMG_Init(imgFlags) & imgFlags)) {
+            printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+        }
+    }
+
+    return Renderer;
+}
 
 SDL_Texture *NKEngine::LoadTexture(SDL_Renderer *renderer, std::string path) {
     SDL_Texture *loadedTexture = nullptr;
@@ -111,11 +139,14 @@ SDL_Texture *NKEngine::LoadTexture(SDL_Renderer *renderer, std::string path) {
 }
 
 //Return a center-pivoted rect, oppose to the left-top corner pivoted provided by SDL2
-std::shared_ptr<NKSprite> NKEngine::CreateSprite(NKSpriteData* data) {
+std::shared_ptr<NKSprite> NKEngine::CreateSprite(NKSpriteData *data) {
     //Center pivot
     data->positionX -= data->spriteWidth / 2;
     data->positionY -= data->spriteHeight / 2;
-    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(data->spriteWidth, data->spriteHeight, data->textureWidth, data->textureHeight, data->texturePositionX, data->texturePositionY, data->positionX, data->positionY);
+    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(data->spriteWidth, data->spriteHeight,
+                                                                  data->textureWidth, data->textureHeight,
+                                                                  data->texturePositionX, data->texturePositionY,
+                                                                  data->positionX, data->positionY);
     _sprites.push_back(sprite);
     return sprite;
 }

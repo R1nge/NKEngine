@@ -22,14 +22,18 @@ public:
     NKEngine();
     ~NKEngine();
     SDL_Window *CreateWindow(const char *title, int positionX, int positionY, int width, int height);
+    SDL_Renderer* CreateRenderer(SDL_Window* window);
     SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
-    std::shared_ptr<NKSprite> CreateSprite(NKSpriteData* data);
-    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, NKSpriteData* data);
+    std::shared_ptr<NKSprite> CreateSprite(NKSpriteData *data);
+    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, NKSpriteData *data);
     void Update(SDL_Renderer *renderer);
 
     SDL_Keycode GetLastKeyInput() const;
-    NKEventDispatcher* EventDispatcher;
-    NKUuidGenerator* UuidGenerator;
+    NKEventDispatcher *EventDispatcher;
+    NKUuidGenerator *UuidGenerator;
+    SDL_Window *Window;
+    SDL_Renderer *Renderer;
+
 private:
     std::list<std::shared_ptr<NKSprite> > _sprites;
     bool _isPaused;
