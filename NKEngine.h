@@ -13,6 +13,7 @@
 
 #include "NKEventDispatcher.h"
 #include "NKSprite.h"
+#include "NKSpriteData.h"
 #include "NKUuidGenerator.h"
 
 
@@ -22,8 +23,8 @@ public:
     ~NKEngine();
     SDL_Window *CreateWindow(const char *title, int positionX, int positionY, int width, int height);
     SDL_Texture *LoadTexture(SDL_Renderer *renderer, std::string path);
-    std::shared_ptr<NKSprite> CreateSprite(int positionX, int positionY, int width, int height);
-    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, int positionX, int positionY,int width, int height, int r, int g, int b);
+    std::shared_ptr<NKSprite> CreateSprite(NKSpriteData* data);
+    std::shared_ptr<NKSprite> CreateSprite(SDL_Renderer *renderer, std::string path, NKSpriteData* data);
     void Update(SDL_Renderer *renderer);
 
     SDL_Keycode GetLastKeyInput() const;

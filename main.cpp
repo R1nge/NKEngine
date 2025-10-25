@@ -17,7 +17,7 @@
 //TODO: separate space invaders and engine repositories
 //TODO: C# binding jff
 //Screen dimension constants
-const int SCREEN_WIDTH = 256;  //space invaders
+const int SCREEN_WIDTH = 256; //space invaders
 const int SCREEN_HEIGHT = 224; //space invaders
 
 //Starts up SDL and creates window
@@ -37,9 +37,6 @@ SDL_Window *gWindow = nullptr;
 //The window renderer
 SDL_Renderer *gRenderer = nullptr;
 
-//Current displayed texture
-SDL_Texture *gTexture = nullptr;
-
 bool init() {
     //Initialization flag
     bool success = true;
@@ -49,8 +46,6 @@ bool init() {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
         success = false;
     } else {
-
-
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
         //Set texture filtering to linear
@@ -89,9 +84,8 @@ bool init() {
 }
 
 void close() {
-    //Free loaded image
-    SDL_DestroyTexture(gTexture);
-    gTexture = nullptr;
+    //SDL_DestroyTexture(gTexture);
+    //gTexture = nullptr;
 
     //Destroy window
     SDL_DestroyRenderer(gRenderer);
@@ -114,8 +108,8 @@ int main() {
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
-        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 100,0,0,0);
-        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png", SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2, 100, 100,0,255,0);
+        gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20, 10, 0, 0, 20, 10, 0, 0, 0));
+        auto player = gEngine->CreateSprite(gRenderer, "assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20, 10, 50, 50, 20, 10, 0, 255,0));
         //Main loop
         NKEventSubscriber *mySub = new MyGameEventSubscriber(player, gEngine);
         gEngine->EventDispatcher->AddSubscriber(mySub);
