@@ -18,16 +18,11 @@
 NKEngine::NKEngine() {
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
-    Renderer = std::make_unique<NKRenderer>();
+    Renderer = std::make_unique<NKRenderer>(UuidGenerator.get());
     _isPaused = false;
 }
 
 NKEngine::~NKEngine() {
-    //TODO: clear all sprites memory;
-    _sprites.clear();
-    //TODO: clear all texture
-
-
     //SDL_DestroyRenderer(Renderer);
     //Renderer = nullptr;
     //SDL_DestroyWindow(Window);
@@ -73,16 +68,7 @@ void NKEngine::Update() {
         EventDispatcher->Dispatch();
 
         if (!_isPaused) {
-            SDL_RenderClear(Renderer->Renderer);
-
-            int i = 0;
-            for (const auto &sprite: _sprites) {
-                SDL_Texture *texture = sprite->texture;
-                SDL_RenderCopy(Renderer->Renderer, texture, sprite->inputTextureRect, sprite->spriteRect);
-                i++;
-            }
-
-            SDL_RenderPresent(Renderer->Renderer);
+            Renderer->Render();
         }
 
         EventDispatcher->AddEvent(RenderEnd);
@@ -92,46 +78,4 @@ void NKEngine::Update() {
 
 SDL_Keycode NKEngine::GetLastKeyInput() const {
     return _lastKeyInput;
-}
-
-SDL_Texture *NKEngine::LoadTexture(SDL_Renderer *renderer, std::string path) {
-    SDL_Texture *loadedTexture = nullptr;
-
-    //Load image at specified path
-    SDL_Surface *loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == nullptr) {
-        printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
-    } else {
-        //Create texture from surface pixels
-        loadedTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-        if (loadedTexture == nullptr) {
-            printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-        }
-
-        //Get rid of old loaded surface
-        SDL_FreeSurface(loadedSurface);
-    }
-    return loadedTexture;
-}
-
-//Return a center-pivoted rect, oppose to the left-top corner pivoted provided by SDL2
-std::shared_ptr<NKSprite> NKEngine::CreateSprite(NKSpriteData *data) {
-    //Center pivot
-    data->positionX -= data->spriteWidth / 2;
-    data->positionY -= data->spriteHeight / 2;
-    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(data->spriteWidth, data->spriteHeight,
-                                                                  data->textureWidth, data->textureHeight,
-                                                                  data->texturePositionX, data->texturePositionY,
-                                                                  data->positionX, data->positionY);
-    _sprites.push_back(sprite);
-    return sprite;
-}
-
-
-std::shared_ptr<NKSprite> NKEngine::CreateSprite(std::string path, NKSpriteData *data) {
-    SDL_Texture *texture = LoadTexture(Renderer->Renderer, path);
-    std::shared_ptr<NKSprite> sprite = CreateSprite(data);
-    SDL_SetTextureColorMod(texture, data->colorR, data->colorG, data->colorB);
-    sprite->texture = texture;
-    return sprite;
 }

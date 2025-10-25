@@ -26,8 +26,12 @@
 int main() {
     auto nk_engine = std::make_shared<NKEngine>();
 
-    nk_engine->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 0, 20, 10, 255, 255, 255));
-    auto player = nk_engine->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y, 0, 48, 20, 10, 255, 255,255));
+    nk_engine->Renderer->CreateSprite("assets/space_invaders.png",
+                                      new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y,
+                                                       0, 0, 20, 10, 255, 255, 255));
+    auto player = nk_engine->Renderer->CreateSprite("assets/space_invaders.png",
+                                                    new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X,
+                                                                     10 * SCALE_Y, 0, 48, 20, 10, 255, 255, 255));
 
     NKEventSubscriber *mySub = new MyGameEventSubscriber(player, nk_engine);
     nk_engine->EventDispatcher->AddSubscriber(mySub);
