@@ -7,6 +7,7 @@
 #include <memory>
 #include <SDL_keycode.h>
 
+#include "NKEntity.h"
 #include "NKEventDispatcher.h"
 #include "NKRenderer.h"
 #include "NKUuidGenerator.h"
@@ -18,6 +19,8 @@ public:
     ~NKEngine();
     void Update();
 
+    void CreateEntity();
+
     SDL_Keycode GetLastKeyInput() const;
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
@@ -26,6 +29,7 @@ public:
 private:
     bool _isPaused;
     SDL_Keycode _lastKeyInput;
+    std::list<std::unique_ptr<NKEntity> > _entities;
 };
 
 

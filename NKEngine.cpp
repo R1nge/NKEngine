@@ -76,6 +76,11 @@ void NKEngine::Update() {
     }
 }
 
+void NKEngine::CreateEntity() {
+    auto entity = std::make_unique<NKEntity>(UuidGenerator->Generate());
+    _entities.emplace_back(std::move(entity));
+}
+
 SDL_Keycode NKEngine::GetLastKeyInput() const {
     return _lastKeyInput;
 }

@@ -10,10 +10,14 @@
 //TODO: engine -> phys engine (col)
 //TODO: engine -> transform
 //TODO: stored by the same id
+//TODO: it boils down to this renderer.getById() transform.getByid() phys.getById()
+//TODO: it's all good, but I need to identify an entity, so it should store an id instead
+//TODO: it's ECS in the end, huh?
+
+//TODO: game/scene coordinates
 
 //TODO: save engine settings into ini file https://github.com/dujingning/inicpp    (resolution, reference resolution, scale (width-height 0-1)
 
-//TODO: store object in dict<uuid, NKObject>, destroy by id
 //TODO: target fps + frametime + deltatime (add target fps to the config)
 
 

@@ -24,6 +24,8 @@ add_executable(NKEngine main.cpp
         NKSpriteData.h
         NKRenderer.cpp
         NKRenderer.h
+        NKEntity.cpp
+        NKEntity.h
 )
 INCLUDE(FindPkgConfig)
 
