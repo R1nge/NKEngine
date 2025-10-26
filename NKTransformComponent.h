@@ -7,15 +7,11 @@
 #include "NKReversibleVector2Int.h"
 
 
-class NKTransform {
+class NKTransformComponent {
 public:
-    NKTransform(int x, int y);
+    NKTransformComponent(int x, int y);
 
     NKReversibleVector2Int *position;
-
-    void Move(int tick, int deltaX, int deltaY);
-
-    void Rewind(int tick);
 };
 
 

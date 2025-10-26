@@ -8,7 +8,7 @@ NKSprite::NKSprite(int spriteWidth, int spriteHeight, int textureWidth, int text
                    int positionX, int positionY) {
     spriteRect = new SDL_Rect(positionX, positionY, spriteWidth, spriteHeight);
     inputTextureRect = new SDL_Rect(textureX, textureY, textureWidth, textureHeight);
-    transform = new NKTransform(positionX, positionY);
+    transform = new NKTransformComponent(positionX, positionY);
 }
 
 //TODO: make movable tranform component

@@ -4,8 +4,7 @@
 #include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
 
-//TODO: reversible struct
-//TODO: reversible transform component
+//TODO: base class????
 
 //TODO: engine generate id, store in a map by id, e.x renderer has a map of sprites, physics engine has a map of colliders, they are synced by id
 //TODO: so, when engine destroys an object it destroys if everywhere it exists and releases resources

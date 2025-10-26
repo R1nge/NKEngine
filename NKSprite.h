@@ -5,7 +5,7 @@
 #ifndef NKENGINE_NKSPRITE_H
 #define NKENGINE_NKSPRITE_H
 #include <SDL_render.h>
-#include "NKTransform.h"
+#include "NKTransformComponent.h"
 
 
 class NKSprite {
@@ -14,7 +14,7 @@ public:
              int positionX, int positionY);
 
     SDL_Texture *texture;
-    NKTransform *transform;
+    NKTransformComponent *transform;
     SDL_Rect *spriteRect;
     SDL_Rect *inputTextureRect;
 
