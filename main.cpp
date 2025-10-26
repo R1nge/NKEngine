@@ -12,6 +12,9 @@
 //TODO: rendering system that uses transform component
 //TODO: game/scene coordinates
 
+//TODO: support 3 types of api? (ECS, event-driven, base class)????
+//TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
+
 //TODO: save engine settings into ini file https://github.com/dujingning/inicpp    (resolution, reference resolution, scale (width-height 0-1)
 
 //TODO: target fps + frametime + deltatime (add target fps to the config)
@@ -27,11 +30,10 @@ int main() {
     nk_engine->addSystem(std::move(transformSystem));
 
     auto testEntity = nk_engine->CreateEntity();
-    nk_engine->AddComponent<NKReversiblePositionComponent>(
-        testEntity, std::make_unique<NKReversiblePositionComponent>(50, 50));
+    nk_engine->AddComponent<NKReversiblePositionComponent>(testEntity, std::make_unique<NKReversiblePositionComponent>(50, 50));
     //TODO: load textures
     //auto player = LoadTexture(nk_engine->)
-    auto player = new SDL_Rect(100, 100, 100, 100);
+    auto player = new SDL_Rect(50, 50, 100, 100);
     auto texture = nk_engine->Window->LoadTexture("assets/space_invaders.png");
     nk_engine->AddComponent<NKRenderComponent>(testEntity, std::make_unique<NKRenderComponent>(texture, player, player));
 
