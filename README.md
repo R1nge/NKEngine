@@ -14,4 +14,8 @@ Refs:
 https://powerlisting.fandom.com/wiki/Time_Manipulation
 
 
-Also, NKEngine sounds lame...
+Also, NKEngine sounds lame...  
+Chronos?  
+Jikan?  
+Saturn?  
+Norns?  
