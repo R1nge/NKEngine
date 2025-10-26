@@ -80,6 +80,8 @@ void NKEngine::Update() {
             _currentTick++;
         } else {
             _currentTick--;
+            Renderer->Rewind(_currentTick);
+            //TODO: reset
             if (_currentTick == 0) {
                 _isRewinding = false;
             }

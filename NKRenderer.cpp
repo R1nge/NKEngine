@@ -35,6 +35,12 @@ void NKRenderer::Render() {
     SDL_RenderPresent(Renderer);
 }
 
+void NKRenderer::Rewind(int tick) {
+    for (const auto &pair: Sprites) {
+        pair.second->Rewind(tick);
+    }
+}
+
 SDL_Window *NKRenderer::CreateWindow(const char *title, int positionX, int positionY, int width, int height) {
     Window = SDL_CreateWindow(title, positionX, positionY, width, height, SDL_WINDOW_SHOWN);
     return Window;

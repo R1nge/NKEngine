@@ -27,6 +27,8 @@ public:
 
     void Render();
 
+    void Rewind(int tick);
+
     SDL_Window *CreateWindow(const char *title, int positionX, int positionY, int width, int height);
     SDL_Renderer* CreateRenderer();
 

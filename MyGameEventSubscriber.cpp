@@ -14,21 +14,23 @@ MyGameEventSubscriber::MyGameEventSubscriber(std::shared_ptr<NKSprite> sprite, s
 }
 
 void MyGameEventSubscriber::Invoke(NKEventType type) {
-    std::cout << type << '\n';
-    std::cout << _engine->GetLastKeyInput() << '\n';
     if (type == InputEnd) {
+        auto tick = _engine->GetTick();
         switch (_engine->GetLastKeyInput()) {
             case SDLK_w:
-                _sprite->spriteRect->y -= 1;
+                _sprite->Move(tick, 0, -1);
                 break;
             case SDLK_s:
-                _sprite->spriteRect->y += 1;
+                _sprite->Move(tick, 0, 1);
                 break;
             case SDLK_a:
-                _sprite->spriteRect->x -= 1;
+                _sprite->Move(tick, -1, 0);
                 break;
             case SDLK_d:
-                _sprite->spriteRect->x += 1;
+                _sprite->Move(tick, 1, 0);
+                break;
+            case SDLK_r:
+                _engine->Rewind();
                 break;
             default:
                 break;
