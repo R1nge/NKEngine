@@ -39,14 +39,19 @@ public:
 
     template<typename ComponentType>
     void AddComponent(int entityId, std::unique_ptr<ComponentType> component) {
-        _components[entityId] = std::move(component);
+        auto &componentsList = _components[entityId];
+        componentsList.emplace_back(std::move(component));
     }
 
     template<typename ComponentType>
     ComponentType *getComponent(int entityId) {
         auto it = _components.find(entityId);
         if (it != _components.end()) {
-            return dynamic_cast<ComponentType *>(it->second.get());
+            for (const auto &component: it->second) {
+                if (auto castedComponent = dynamic_cast<ComponentType *>(component.get())) {
+                    return castedComponent;
+                }
+            }
         }
         // Entity or component not found
         return nullptr;
@@ -59,7 +64,7 @@ public:
         _systemId++;
     }
 
-    std::map<int, std::unique_ptr<NKComponent> > _components;
+    std::map<int, std::list<std::unique_ptr<NKComponent> > > _components;
     std::map<int, std::unique_ptr<NKSystem> > _systems;
 private:
     int _systemId;

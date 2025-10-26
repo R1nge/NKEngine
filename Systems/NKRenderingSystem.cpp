@@ -9,6 +9,7 @@
 #include <SDL_image.h>
 
 #include "../Components/NKRenderComponent.h"
+#include "../Components/NKReversiblePositionComponent.h"
 
 NKRenderingSystem::NKRenderingSystem(NKWindow *window) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -34,9 +35,15 @@ void NKRenderingSystem::Render() {
     SDL_RenderClear(_window->Renderer);
 
     for (const auto &pair: engine->_components) {
-        NKRenderComponent *component = engine->getComponent<NKRenderComponent>(pair.first);
-        if (component != nullptr) {
-            SDL_RenderCopy(_window->Renderer, component->texture, component->textureRect, component->spriteRect);
+        auto renderComponent = engine->getComponent<NKRenderComponent>(pair.first);
+        if (renderComponent != nullptr) {
+            //TODO: move into transform-render sync system??
+            auto transformComponent = engine->getComponent<NKReversiblePositionComponent>(pair.first);
+            if (transformComponent != nullptr) {
+                renderComponent->spriteRect->x = transformComponent->position->X->currentValue;
+                renderComponent->spriteRect->y = transformComponent->position->Y->currentValue;
+                SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect, renderComponent->spriteRect);
+            }
         }
     }
 
