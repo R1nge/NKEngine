@@ -36,6 +36,11 @@
 
 int main() {
     auto nk_engine = std::make_shared<NKEngine>();
+    auto systemTest = std::make_unique<NKSystem>();
+    nk_engine->addSystem(0, std::move(systemTest));
+
+    nk_engine->CreateEntity();
+    nk_engine->addComponent<NKReversiblePositionComponent>(0, std::make_unique<NKReversiblePositionComponent>(50, 50));
 
     nk_engine->Renderer->CreateSprite("assets/space_invaders.png",
                                       new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y,

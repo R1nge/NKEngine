@@ -10,6 +10,7 @@
 #include "NKEntity.h"
 #include "NKEventDispatcher.h"
 #include "NKRenderer.h"
+#include "NKSystem.h"
 #include "NKUuidGenerator.h"
 
 
@@ -31,12 +32,12 @@ public:
     std::unique_ptr<NKRenderer> Renderer;
 
     template<typename ComponentType>
-    void addComponent(NKEntity entityId, std::unique_ptr<ComponentType> component) {
+    void addComponent(int entityId, std::unique_ptr<ComponentType> component) {
         _components[entityId] = std::move(component);
     }
 
     template<typename ComponentType>
-    ComponentType *getComponent(NKEntity entityId) {
+    ComponentType *getComponent(int entityId) {
         auto it = _components.find(entityId);
         if (it != _components.end()) {
             return dynamic_cast<ComponentType *>(it->second.get());
@@ -45,12 +46,18 @@ public:
         return nullptr;
     }
 
+    template<typename SystemType>
+    void addSystem(int systemId, std::unique_ptr<SystemType> system) {
+        _systems[systemId] = std::move(system);
+    }
+
 private:
     int _currentTick;
     bool _isRewinding;
     bool _isPaused;
     SDL_Keycode _lastKeyInput;
-    std::map<NKEntity, std::unique_ptr<NKComponent> > _components;
+    std::map<int, std::unique_ptr<NKComponent> > _components;
+    std::map<int, std::unique_ptr<NKSystem> > _systems;
     std::list<std::unique_ptr<NKEntity> > _entities;
 };
 

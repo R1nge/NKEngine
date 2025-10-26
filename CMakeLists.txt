@@ -34,6 +34,8 @@ add_executable(NKEngine main.cpp
         NKComponent.h
         NKTransformSystem.cpp
         NKTransformSystem.h
+        NKSystem.cpp
+        NKSystem.h
 )
 INCLUDE(FindPkgConfig)
 

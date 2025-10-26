@@ -64,6 +64,12 @@ void NKEngine::Update() {
         EventDispatcher->AddEvent(InputEnd);
         EventDispatcher->Dispatch();
 
+        for (const auto &systemPair: _systems) {
+            //TODO: call update
+            //TODO: systems should be able to get entities with components
+            systemPair.second->Update();
+        }
+
         EventDispatcher->AddEvent(RenderStart);
         EventDispatcher->Dispatch();
 
