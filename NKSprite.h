@@ -5,7 +5,7 @@
 #ifndef NKENGINE_NKSPRITE_H
 #define NKENGINE_NKSPRITE_H
 #include <SDL_render.h>
-#include "NKReversibleVector2Int.h"
+#include "NKTransform.h"
 
 
 class NKSprite {
@@ -14,7 +14,7 @@ public:
              int positionX, int positionY);
 
     SDL_Texture *texture;
-    NKReversibleVector2Int *position;
+    NKTransform *transform;
     SDL_Rect *spriteRect;
     SDL_Rect *inputTextureRect;
 

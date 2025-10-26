@@ -28,6 +28,8 @@ add_executable(NKEngine main.cpp
         NKEntity.h
         NKReversibleInt.cpp
         NKReversibleInt.h
+        NKTransform.cpp
+        NKTransform.h
 )
 INCLUDE(FindPkgConfig)
 
