@@ -4,27 +4,46 @@
 
 #include "NKTransformSystem.h"
 
+#include <iostream>
+
+#include "../NKEngine.h"
+
+
+void NKTransformSystem::Update() {
+    NKSystem::Update();
+    Move(engine->GetTick(), 1, 1);
+}
+
 void NKTransformSystem::Move(int tick, int deltaX, int deltaY) {
-/*
-    position->X->deltas.emplace(tick, deltaX);
-    position->Y->deltas.emplace(tick, deltaY);
-    position->X->currentValue += deltaX;
-    position->Y->currentValue += deltaY;
-    */
+    for (const auto &entityPair: engine->_components) {
+        NKReversiblePositionComponent *component = engine->getComponent<
+            NKReversiblePositionComponent>(entityPair.first);
+        if (component != nullptr) {
+            component->position->X->deltas.emplace(tick, deltaX);
+            component->position->Y->deltas.emplace(tick, deltaY);
+            component->position->X->currentValue += deltaX;
+            component->position->Y->currentValue += deltaY;
+            std::cout << "Move";
+        }
+    }
 }
 
 void NKTransformSystem::Rewind(int tick) {
-    /*
-    if (position->X->deltas.contains(tick)) {
-        auto deltaX = position->X->deltas.at(tick);
-        position->X->currentValue -= deltaX;
-        position->X->deltas.erase(tick);
-    }
+    for (const auto &entityPair: engine->_components) {
+        NKReversiblePositionComponent *component = engine->getComponent<
+            NKReversiblePositionComponent>(entityPair.first);
+        if (component != nullptr) {
+            if (component->position->X->deltas.contains(tick)) {
+                auto deltaX = component->position->X->deltas.at(tick);
+                component->position->X->currentValue -= deltaX;
+                component->position->X->deltas.erase(tick);
+            }
 
-    if (position->Y->deltas.contains(tick)) {
-        auto deltaY = position->Y->deltas.at(tick);
-        position->Y->currentValue -= deltaY;
-        position->Y->deltas.erase(tick);
+            if (component->position->Y->deltas.contains(tick)) {
+                auto deltaY = component->position->Y->deltas.at(tick);
+                component->position->Y->currentValue -= deltaY;
+                component->position->Y->deltas.erase(tick);
+            }
+        }
     }
-    */
 }

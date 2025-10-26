@@ -14,10 +14,12 @@ public:
     }
 
     void Init();
-    void Update();
+
+    virtual void Update();
+
     void Dispose();
 
-private:
+protected:
     NKEngine *engine;
 };
 

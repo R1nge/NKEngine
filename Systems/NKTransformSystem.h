@@ -4,12 +4,14 @@
 
 #ifndef NKENGINE_NKTRANSFORMSYSTEM_H
 #define NKENGINE_NKTRANSFORMSYSTEM_H
+#include "NKSystem.h"
 
 
-class NKTransformSystem {
+class NKTransformSystem : public NKSystem {
 public:
-    void Move(int tick, int deltaX, int deltaY);
+    void Update() override;
 
+    void Move(int tick, int deltaX, int deltaY);
     void Rewind(int tick);
 };
 

@@ -3,6 +3,7 @@
 
 #include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
+#include "Systems/NKTransformSystem.h"
 
 //TODO: base class????
 
@@ -36,7 +37,7 @@
 
 int main() {
     auto nk_engine = std::make_shared<NKEngine>();
-    auto systemTest = std::make_unique<NKSystem>();
+    auto systemTest = std::make_unique<NKTransformSystem>();
     nk_engine->addSystem(std::move(systemTest));
 
     auto testEntity = nk_engine->CreateEntity();

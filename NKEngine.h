@@ -18,7 +18,9 @@
 class NKEngine {
 public:
     NKEngine();
+
     ~NKEngine();
+
     void Update();
 
     void Rewind();
@@ -26,6 +28,7 @@ public:
     int GetTick() const;
 
     SDL_Keycode GetLastKeyInput() const;
+
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKRenderer> Renderer;
@@ -54,6 +57,9 @@ public:
         _systemId++;
     }
 
+    std::map<int, std::unique_ptr<NKComponent> > _components;
+    std::map<int, std::unique_ptr<NKSystem> > _systems;
+
 private:
     int _systemId;
     int _entityId;
@@ -61,8 +67,6 @@ private:
     bool _isRewinding;
     bool _isPaused;
     SDL_Keycode _lastKeyInput;
-    std::map<int, std::unique_ptr<NKComponent> > _components;
-    std::map<int, std::unique_ptr<NKSystem> > _systems;
 };
 
 
