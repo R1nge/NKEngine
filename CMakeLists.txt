@@ -26,6 +26,8 @@ add_executable(NKEngine main.cpp
         NKRenderer.h
         NKEntity.cpp
         NKEntity.h
+        NKReversibleInt.cpp
+        NKReversibleInt.h
 )
 INCLUDE(FindPkgConfig)
 

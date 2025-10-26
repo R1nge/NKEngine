@@ -73,12 +73,31 @@ void NKEngine::Update() {
 
         EventDispatcher->AddEvent(RenderEnd);
         EventDispatcher->Dispatch();
+
+        //TODO: if is rewinding - stop increasing ticks
+        //TODO: start decreasing ticks
+        if (!_isRewinding) {
+            _currentTick++;
+        } else {
+            _currentTick--;
+            if (_currentTick == 0) {
+                _isRewinding = false;
+            }
+        }
     }
+}
+
+void NKEngine::Rewind() {
+    _isRewinding = true;
 }
 
 void NKEngine::CreateEntity() {
     auto entity = std::make_unique<NKEntity>(UuidGenerator->Generate());
     _entities.emplace_back(std::move(entity));
+}
+
+int NKEngine::GetTick() {
+    return _currentTick;
 }
 
 SDL_Keycode NKEngine::GetLastKeyInput() const {

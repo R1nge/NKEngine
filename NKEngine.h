@@ -19,14 +19,19 @@ public:
     ~NKEngine();
     void Update();
 
+    void Rewind();
+
     void CreateEntity();
+
+    int GetTick();
 
     SDL_Keycode GetLastKeyInput() const;
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKRenderer> Renderer;
-
 private:
+    int _currentTick;
+    bool _isRewinding;
     bool _isPaused;
     SDL_Keycode _lastKeyInput;
     std::list<std::unique_ptr<NKEntity> > _entities;

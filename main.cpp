@@ -13,19 +13,26 @@
 //TODO: it boils down to this renderer.getById() transform.getByid() phys.getById()
 //TODO: it's all good, but I need to identify an entity, so it should store an id instead
 //TODO: it's ECS in the end, huh?
-
+//
+//
+//TODO: array of entities with unique ids
+//TODO: every added components goes into respective sub-module (system?)
+//TODO: and gets manipulated with the data
+//TODO: createEntity -> addSprite -> addToSpritesMap -> getData
+//TODO: yep, it's missing the component part
+//TODO: entity -> abstract virtual component (data) -> cast to type? -> use data
+//
 //TODO: game/scene coordinates
 
 //TODO: save engine settings into ini file https://github.com/dujingning/inicpp    (resolution, reference resolution, scale (width-height 0-1)
 
 //TODO: target fps + frametime + deltatime (add target fps to the config)
 
+//TODO: reversable values; delta compression (tick, delta) if no change - use last value, but keep updating the ticK?
 
-//TODO: transformation matrix (position, scale, rotation)
 //TODO: load engine as a lib
 //TODO: call engine API to do things
 //TODO: separate space invaders and engine repositories
-//TODO: C# binding jff
 
 int main() {
     auto nk_engine = std::make_shared<NKEngine>();
