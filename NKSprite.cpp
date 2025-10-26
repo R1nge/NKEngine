@@ -30,13 +30,13 @@ void NKSprite::Rewind(int tick) {
         auto deltaX = position_x->deltas.at(tick);
         position_x->currentValue -= deltaX;
         spriteRect->x = position_x->currentValue;
-        //TODO: reset
+        position_x->deltas.erase(tick);
     }
 
     if (position_y->deltas.contains(tick)) {
         auto deltaY = position_y->deltas.at(tick);
         position_y->currentValue -= deltaY;
         spriteRect->y = position_y->currentValue;
-        //TODO: reset
+        position_y->deltas.erase(tick);
     }
 }
