@@ -21,7 +21,7 @@ public:
 
     void Rewind();
 
-    int GetTick();
+    int GetTick() const;
 
     SDL_Keycode GetLastKeyInput() const;
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
@@ -46,11 +46,13 @@ public:
     }
 
     template<typename SystemType>
-    void addSystem(int systemId, std::unique_ptr<SystemType> system) {
-        _systems[systemId] = std::move(system);
+    void addSystem(std::unique_ptr<SystemType> system) {
+        _systems[_systemId] = std::move(system);
+        _systemId++;
     }
 
 private:
+    int _systemId;
     int _entityId;
     int _currentTick;
     bool _isRewinding;

@@ -79,14 +79,11 @@ void NKEngine::Update() {
         EventDispatcher->AddEvent(RenderEnd);
         EventDispatcher->Dispatch();
 
-        //TODO: if is rewinding - stop increasing ticks
-        //TODO: start decreasing ticks
         if (!_isRewinding) {
             _currentTick++;
         } else {
             _currentTick--;
             Renderer->Rewind(_currentTick);
-            //TODO: reset
             if (_currentTick == 0) {
                 _isRewinding = false;
             }
@@ -98,7 +95,7 @@ void NKEngine::Rewind() {
     _isRewinding = true;
 }
 
-int NKEngine::GetTick() {
+int NKEngine::GetTick() const {
     return _currentTick;
 }
 

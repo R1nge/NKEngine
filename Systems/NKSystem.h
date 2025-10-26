@@ -5,9 +5,9 @@
 #ifndef NKENGINE_NKSYSTEM_H
 #define NKENGINE_NKSYSTEM_H
 
-
 class NKSystem {
 public:
+    //TODO: query an entity with/without components
     void Init();
     void Update();
     void Dispose();

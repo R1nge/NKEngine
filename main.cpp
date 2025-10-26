@@ -37,7 +37,7 @@
 int main() {
     auto nk_engine = std::make_shared<NKEngine>();
     auto systemTest = std::make_unique<NKSystem>();
-    nk_engine->addSystem(0, std::move(systemTest));
+    nk_engine->addSystem(std::move(systemTest));
 
     auto testEntity = nk_engine->CreateEntity();
     nk_engine->AddComponent<NKReversiblePositionComponent>(
