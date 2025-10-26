@@ -105,3 +105,8 @@ int NKEngine::GetTick() {
 SDL_Keycode NKEngine::GetLastKeyInput() const {
     return _lastKeyInput;
 }
+
+int NKEngine::CreateEntity() {
+    _entityId++;
+    return _entityId;
+}

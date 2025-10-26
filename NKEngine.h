@@ -28,8 +28,10 @@ public:
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKRenderer> Renderer;
 
+    int CreateEntity();
+
     template<typename ComponentType>
-    void addComponent(int entityId, std::unique_ptr<ComponentType> component) {
+    void AddComponent(int entityId, std::unique_ptr<ComponentType> component) {
         _components[entityId] = std::move(component);
     }
 
@@ -49,6 +51,7 @@ public:
     }
 
 private:
+    int _entityId;
     int _currentTick;
     bool _isRewinding;
     bool _isPaused;
