@@ -7,6 +7,7 @@
 
 
 struct NKComponent {
+    virtual ~NKComponent() = default;
 };
 
 

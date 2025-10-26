@@ -29,11 +29,28 @@ public:
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKRenderer> Renderer;
+
+    template<typename ComponentType>
+    void addComponent(NKEntity entityId, std::unique_ptr<ComponentType> component) {
+        _components[entityId] = std::move(component);
+    }
+
+    template<typename ComponentType>
+    ComponentType *getComponent(NKEntity entityId) {
+        auto it = _components.find(entityId);
+        if (it != _components.end()) {
+            return dynamic_cast<ComponentType *>(it->second.get());
+        }
+        // Entity or component not found
+        return nullptr;
+    }
+
 private:
     int _currentTick;
     bool _isRewinding;
     bool _isPaused;
     SDL_Keycode _lastKeyInput;
+    std::map<NKEntity, std::unique_ptr<NKComponent> > _components;
     std::list<std::unique_ptr<NKEntity> > _entities;
 };
 

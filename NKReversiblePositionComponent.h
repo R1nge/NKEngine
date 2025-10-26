@@ -4,12 +4,13 @@
 
 #ifndef NKENGINE_NKTRANSFORM_H
 #define NKENGINE_NKTRANSFORM_H
+#include "NKComponent.h"
 #include "NKReversibleVector2Int.h"
 
 
-class NKTransformComponent {
+class NKReversiblePositionComponent : public NKComponent {
 public:
-    NKTransformComponent(int x, int y);
+    NKReversiblePositionComponent(int x, int y);
 
     NKReversibleVector2Int *position;
 };

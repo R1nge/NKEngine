@@ -28,8 +28,8 @@ add_executable(NKEngine main.cpp
         NKEntity.h
         NKReversibleInt.cpp
         NKReversibleInt.h
-        NKTransformComponent.cpp
-        NKTransformComponent.h
+        NKReversiblePositionComponent.cpp
+        NKReversiblePositionComponent.h
         NKComponent.cpp
         NKComponent.h
         NKTransformSystem.cpp
