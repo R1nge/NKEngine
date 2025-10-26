@@ -98,11 +98,6 @@ void NKEngine::Rewind() {
     _isRewinding = true;
 }
 
-void NKEngine::CreateEntity() {
-    auto entity = std::make_unique<NKEntity>(UuidGenerator->Generate());
-    _entities.emplace_back(std::move(entity));
-}
-
 int NKEngine::GetTick() {
     return _currentTick;
 }

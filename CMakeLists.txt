@@ -24,8 +24,6 @@ add_executable(NKEngine main.cpp
         NKSpriteData.h
         NKRenderer.cpp
         NKRenderer.h
-        NKEntity.cpp
-        NKEntity.h
         NKReversibleInt.cpp
         NKReversibleInt.h
         Components/NKReversiblePositionComponent.cpp

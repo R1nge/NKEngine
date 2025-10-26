@@ -39,7 +39,7 @@ int main() {
     auto systemTest = std::make_unique<NKSystem>();
     nk_engine->addSystem(0, std::move(systemTest));
 
-    nk_engine->CreateEntity();
+    //nk_engine->CreateEntity();
     nk_engine->addComponent<NKReversiblePositionComponent>(0, std::make_unique<NKReversiblePositionComponent>(50, 50));
 
     nk_engine->Renderer->CreateSprite("assets/space_invaders.png",

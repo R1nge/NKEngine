@@ -7,7 +7,6 @@
 #include <memory>
 #include <SDL_keycode.h>
 
-#include "NKEntity.h"
 #include "Events/NKEventDispatcher.h"
 #include "NKRenderer.h"
 #include "Systems/NKSystem.h"
@@ -21,8 +20,6 @@ public:
     void Update();
 
     void Rewind();
-
-    void CreateEntity();
 
     int GetTick();
 
@@ -58,7 +55,6 @@ private:
     SDL_Keycode _lastKeyInput;
     std::map<int, std::unique_ptr<NKComponent> > _components;
     std::map<int, std::unique_ptr<NKSystem> > _systems;
-    std::list<std::unique_ptr<NKEntity> > _entities;
 };
 
 
