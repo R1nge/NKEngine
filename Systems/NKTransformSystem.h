@@ -5,6 +5,7 @@
 #ifndef NKENGINE_NKTRANSFORMSYSTEM_H
 #define NKENGINE_NKTRANSFORMSYSTEM_H
 #include "NKSystem.h"
+#include "../Components/NKReversiblePositionComponent.h"
 
 
 class NKTransformSystem : public NKSystem {

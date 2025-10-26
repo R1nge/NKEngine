@@ -2,13 +2,15 @@
 // Created by r1nge on 10/25/25.
 //
 
-#include "NKRenderer.h"
-#include "NKEngine.h"
+#include "NKRenderingSystem.h"
+#include "../NKEngine.h"
 
 #include <SDL.h>
 #include <SDL_image.h>
 
-NKRenderer::NKRenderer(NKUuidGenerator *generator) : _uuidGenerator(generator) {
+#include "../Components/NKRenderComponent.h"
+
+NKRenderingSystem::NKRenderingSystem() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
     } else {
@@ -25,28 +27,39 @@ NKRenderer::NKRenderer(NKUuidGenerator *generator) : _uuidGenerator(generator) {
     }
 }
 
-void NKRenderer::Render() {
+void NKRenderingSystem::Update() {
+    //NKSystem::Update();
+    Render();
+}
+
+void NKRenderingSystem::Render() {
     SDL_RenderClear(Renderer);
 
-    for (const auto &pair: Sprites) {
-        SDL_RenderCopy(Renderer, pair.second->texture, pair.second->inputTextureRect, pair.second->spriteRect);
+    for (const auto &pair: engine->_components) {
+        NKRenderComponent *component = engine->getComponent<NKRenderComponent>(pair.first);
+        if (component != nullptr) {
+            SDL_RenderCopy(Renderer, component->texture, component->textureRect, component->spriteRect);
+        }
     }
 
     SDL_RenderPresent(Renderer);
 }
 
-void NKRenderer::Rewind(int tick) {
-    for (const auto &pair: Sprites) {
-        pair.second->Rewind(tick);
+void NKRenderingSystem::Rewind(int tick) {
+    for (const auto &pair: engine->_components) {
+        NKRenderComponent *component = engine->getComponent<NKRenderComponent>(pair.first);
+        if (component != nullptr) {
+            //pair.second->Rewind(tick);
+        }
     }
 }
 
-SDL_Window *NKRenderer::CreateWindow(const char *title, int positionX, int positionY, int width, int height) {
+SDL_Window *NKRenderingSystem::CreateWindow(const char *title, int positionX, int positionY, int width, int height) {
     Window = SDL_CreateWindow(title, positionX, positionY, width, height, SDL_WINDOW_SHOWN);
     return Window;
 }
 
-SDL_Renderer *NKRenderer::CreateRenderer() {
+SDL_Renderer *NKRenderingSystem::CreateRenderer() {
     Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
     if (Renderer == nullptr) {
         printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
@@ -65,7 +78,8 @@ SDL_Renderer *NKRenderer::CreateRenderer() {
     return Renderer;
 }
 
-SDL_Texture *NKRenderer::LoadTexture(SDL_Renderer *renderer, std::string path) {
+
+SDL_Texture *NKRenderingSystem::LoadTexture(std::string path) {
     SDL_Texture *loadedTexture = nullptr;
 
     //Load image at specified path
@@ -74,7 +88,7 @@ SDL_Texture *NKRenderer::LoadTexture(SDL_Renderer *renderer, std::string path) {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     } else {
         //Create texture from surface pixels
-        loadedTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+        loadedTexture = SDL_CreateTextureFromSurface(Renderer, loadedSurface);
         if (loadedTexture == nullptr) {
             printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
         }
@@ -83,26 +97,4 @@ SDL_Texture *NKRenderer::LoadTexture(SDL_Renderer *renderer, std::string path) {
         SDL_FreeSurface(loadedSurface);
     }
     return loadedTexture;
-}
-
-//Return a center-pivoted rect, oppose to the left-top corner pivoted provided by SDL2
-std::shared_ptr<NKSprite> NKRenderer::CreateSprite(NKSpriteData *data) {
-    //Center pivot
-    data->positionX -= data->spriteWidth / 2;
-    data->positionY -= data->spriteHeight / 2;
-    std::shared_ptr<NKSprite> sprite = std::make_shared<NKSprite>(data->spriteWidth, data->spriteHeight,
-                                                                  data->textureWidth, data->textureHeight,
-                                                                  data->texturePositionX, data->texturePositionY,
-                                                                  data->positionX, data->positionY);
-    Sprites.emplace(_uuidGenerator->Generate(), sprite);
-    return sprite;
-}
-
-
-std::shared_ptr<NKSprite> NKRenderer::CreateSprite(std::string path, NKSpriteData *data) {
-    SDL_Texture *texture = LoadTexture(Renderer, path);
-    std::shared_ptr<NKSprite> sprite = CreateSprite(data);
-    SDL_SetTextureColorMod(texture, data->colorR, data->colorG, data->colorB);
-    sprite->texture = texture;
-    return sprite;
 }

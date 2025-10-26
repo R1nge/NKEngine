@@ -1,30 +1,15 @@
+#include <algorithm>
 #include <iostream>
+#include <SDL_image.h>
 #include <string>
 
 #include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
+#include "Components/NKRenderComponent.h"
+#include "Components/NKReversiblePositionComponent.h"
 #include "Systems/NKTransformSystem.h"
 
-//TODO: base class????
-
-//TODO: engine generate id, store in a map by id, e.x renderer has a map of sprites, physics engine has a map of colliders, they are synced by id
-//TODO: so, when engine destroys an object it destroys if everywhere it exists and releases resources
-//TODO: engine -> renderer (sprite)
-//TODO: engine -> phys engine (col)
-//TODO: engine -> transform
-//TODO: stored by the same id
-//TODO: it boils down to this renderer.getById() transform.getByid() phys.getById()
-//TODO: it's all good, but I need to identify an entity, so it should store an id instead
-//TODO: it's ECS in the end, huh?
-//
-//
-//TODO: array of entities with unique ids
-//TODO: every added components goes into respective sub-module (system?)
-//TODO: and gets manipulated with the data
-//TODO: createEntity -> addSprite -> addToSpritesMap -> getData
-//TODO: yep, it's missing the component part
-//TODO: entity -> abstract virtual component (data) -> cast to type? -> use data
-//
+//TODO: rendering system that uses transform component
 //TODO: game/scene coordinates
 
 //TODO: save engine settings into ini file https://github.com/dujingning/inicpp    (resolution, reference resolution, scale (width-height 0-1)
@@ -35,24 +20,27 @@
 //TODO: call engine API to do things
 //TODO: separate space invaders and engine repositories
 
+
 int main() {
     auto nk_engine = std::make_shared<NKEngine>();
-    auto systemTest = std::make_unique<NKTransformSystem>();
-    nk_engine->addSystem(std::move(systemTest));
+    auto transformSystem = std::make_unique<NKTransformSystem>();
+    nk_engine->addSystem(std::move(transformSystem));
 
     auto testEntity = nk_engine->CreateEntity();
     nk_engine->AddComponent<NKReversiblePositionComponent>(
         testEntity, std::make_unique<NKReversiblePositionComponent>(50, 50));
+    //TODO: load textures
+    //auto player = LoadTexture(nk_engine->)
+    auto player = new SDL_Rect(100, 100, 100, 100);
+    NKRenderingSystem *rendering_system = dynamic_cast<NKRenderingSystem *>(nk_engine->_systems.at(0).get().);
+    nk_engine->AddComponent<
+        NKRenderComponent>(testEntity, std::make_unique<NKRenderComponent>(nullptr, player, player));
 
-    nk_engine->Renderer->CreateSprite("assets/space_invaders.png",
-                                      new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y,
-                                                       0, 0, 20, 10, 255, 255, 255));
-    auto player = nk_engine->Renderer->CreateSprite("assets/space_invaders.png",
-                                                    new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X,
-                                                                     10 * SCALE_Y, 0, 48, 20, 10, 255, 255, 255));
+    //nk_engine->Renderer->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y,0, 0, 20, 10, 255, 255, 255));
+    //auto player = nk_engine->Renderer->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X,10 * SCALE_Y, 0, 48, 20, 10, 255, 255, 255));
 
-    NKEventSubscriber *mySub = new MyGameEventSubscriber(player, nk_engine);
-    nk_engine->EventDispatcher->AddSubscriber(mySub);
+    //NKEventSubscriber *mySub = new MyGameEventSubscriber(player, nk_engine);
+    //nk_engine->EventDispatcher->AddSubscriber(mySub);
 
     std::cout << nk_engine->UuidGenerator->Generate();
     nk_engine->Update();

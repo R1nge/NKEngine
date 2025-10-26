@@ -4,11 +4,8 @@
 
 #include "NKEngine.h"
 
-#include <iostream>
 #include <memory>
 #include <SDL_image.h>
-
-#include "NKSprite.h"
 
 //TODO: create a sprite class (base position on a sprite sheet)
 //TODO: create a base class { position, sprite }
@@ -18,7 +15,7 @@
 NKEngine::NKEngine() {
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
-    Renderer = std::make_unique<NKRenderer>(UuidGenerator.get());
+    addSystem(std::make_unique<NKRenderingSystem>());
     _isPaused = false;
 }
 
@@ -65,25 +62,16 @@ void NKEngine::Update() {
         EventDispatcher->Dispatch();
 
         for (const auto &systemPair: _systems) {
-            //TODO: systems should be able to get entities with components
-            systemPair.second->Update();
+            if (!_isPaused) {
+                systemPair.second->Update();
+            }
         }
-
-        EventDispatcher->AddEvent(RenderStart);
-        EventDispatcher->Dispatch();
-
-        if (!_isPaused) {
-            Renderer->Render();
-        }
-
-        EventDispatcher->AddEvent(RenderEnd);
-        EventDispatcher->Dispatch();
 
         if (!_isRewinding) {
             _currentTick++;
         } else {
             _currentTick--;
-            Renderer->Rewind(_currentTick);
+            //Renderer->Rewind(_currentTick);
             if (_currentTick == 0) {
                 _isRewinding = false;
             }

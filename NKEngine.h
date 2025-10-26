@@ -4,13 +4,15 @@
 
 #ifndef NKENGINE_NKENGINE_H
 #define NKENGINE_NKENGINE_H
+#include <map>
 #include <memory>
 #include <SDL_keycode.h>
 
 #include "Events/NKEventDispatcher.h"
-#include "NKRenderer.h"
+#include "Systems/NKRenderingSystem.h"
 #include "Systems/NKSystem.h"
 #include "NKUuidGenerator.h"
+#include "Components/NKComponent.h"
 
 //World -> systems
 //World -> entities
@@ -31,7 +33,6 @@ public:
 
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
-    std::unique_ptr<NKRenderer> Renderer;
 
     int CreateEntity();
 
@@ -59,7 +60,6 @@ public:
 
     std::map<int, std::unique_ptr<NKComponent> > _components;
     std::map<int, std::unique_ptr<NKSystem> > _systems;
-
 private:
     int _systemId;
     int _entityId;

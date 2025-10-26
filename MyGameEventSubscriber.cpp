@@ -4,12 +4,9 @@
 
 #include "MyGameEventSubscriber.h"
 
-#include <iostream>
-
 #include "NKEngine.h"
 
-MyGameEventSubscriber::MyGameEventSubscriber(std::shared_ptr<NKSprite> sprite, std::shared_ptr<NKEngine> engine) {
-    _sprite = sprite;
+MyGameEventSubscriber::MyGameEventSubscriber(std::shared_ptr<NKEngine> engine) {
     _engine = engine;
 }
 
@@ -18,16 +15,16 @@ void MyGameEventSubscriber::Invoke(NKEventType type) {
         auto tick = _engine->GetTick();
         switch (_engine->GetLastKeyInput()) {
             case SDLK_w:
-                _sprite->Move(tick, 0, -1);
+                //_sprite->Move(tick, 0, -1);
                 break;
             case SDLK_s:
-                _sprite->Move(tick, 0, 1);
+                //_sprite->Move(tick, 0, 1);
                 break;
             case SDLK_a:
-                _sprite->Move(tick, -1, 0);
+                //_sprite->Move(tick, -1, 0);
                 break;
             case SDLK_d:
-                _sprite->Move(tick, 1, 0);
+                //_sprite->Move(tick, 1, 0);
                 break;
             case SDLK_r:
                 _engine->Rewind();

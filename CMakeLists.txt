@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(NKEngine main.cpp
         NKEngine.cpp
         NKEngine.h
-        NKSprite.cpp
-        NKSprite.h
         NKReversibleVector2Int.cpp
         NKReversibleVector2Int.h
         Events/NKEvent.cpp
@@ -21,9 +19,8 @@ add_executable(NKEngine main.cpp
         uuid.h
         NKUuidGenerator.cpp
         NKUuidGenerator.h
-        NKSpriteData.h
-        NKRenderer.cpp
-        NKRenderer.h
+        Systems/NKRenderingSystem.cpp
+        Systems/NKRenderingSystem.h
         NKReversibleInt.cpp
         NKReversibleInt.h
         Components/NKReversiblePositionComponent.cpp
@@ -34,6 +31,8 @@ add_executable(NKEngine main.cpp
         Systems/NKTransformSystem.h
         Systems/NKSystem.cpp
         Systems/NKSystem.h
+        Components/NKRenderComponent.cpp
+        Components/NKRenderComponent.h
 )
 INCLUDE(FindPkgConfig)
 
