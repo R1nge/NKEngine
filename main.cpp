@@ -4,6 +4,9 @@
 #include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
 
+//TODO: reversible struct
+//TODO: reversible transform component
+
 //TODO: engine generate id, store in a map by id, e.x renderer has a map of sprites, physics engine has a map of colliders, they are synced by id
 //TODO: so, when engine destroys an object it destroys if everywhere it exists and releases resources
 //TODO: engine -> renderer (sprite)
@@ -27,8 +30,6 @@
 //TODO: save engine settings into ini file https://github.com/dujingning/inicpp    (resolution, reference resolution, scale (width-height 0-1)
 
 //TODO: target fps + frametime + deltatime (add target fps to the config)
-
-//TODO: reversable values; delta compression (tick, delta) if no change - use last value, but keep updating the ticK?
 
 //TODO: load engine as a lib
 //TODO: call engine API to do things

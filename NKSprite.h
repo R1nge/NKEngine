@@ -5,18 +5,16 @@
 #ifndef NKENGINE_NKSPRITE_H
 #define NKENGINE_NKSPRITE_H
 #include <SDL_render.h>
-#include <memory>
-
-#include "NKReversibleInt.h"
+#include "NKReversibleVector2Int.h"
 
 
 class NKSprite {
 public:
-    NKSprite(int spriteWidth, int spriteHeight, int textureWidth, int textureHeight, int textureX, int textureY,int positionX, int positionY);
+    NKSprite(int spriteWidth, int spriteHeight, int textureWidth, int textureHeight, int textureX, int textureY,
+             int positionX, int positionY);
+
     SDL_Texture *texture;
-    //TODO: instead of adjusting sprite rect directly make it repat after transform
-    NKReversibleInt *position_x;
-    NKReversibleInt *position_y;
+    NKReversibleVector2Int *position;
     SDL_Rect *spriteRect;
     SDL_Rect *inputTextureRect;
 

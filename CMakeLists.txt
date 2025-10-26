@@ -8,8 +8,8 @@ add_executable(NKEngine main.cpp
         NKEngine.h
         NKSprite.cpp
         NKSprite.h
-        NKVector2Int.cpp
-        NKVector2Int.h
+        NKReversibleVector2Int.cpp
+        NKReversibleVector2Int.h
         NKEvent.cpp
         NKEvent.h
         NKEventSubscriber.cpp
