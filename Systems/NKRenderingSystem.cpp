@@ -42,7 +42,8 @@ void NKRenderingSystem::Render() {
             if (transformComponent != nullptr) {
                 renderComponent->spriteRect->x = transformComponent->position->X->currentValue;
                 renderComponent->spriteRect->y = transformComponent->position->Y->currentValue;
-                SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect, renderComponent->spriteRect);
+                SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
+                               renderComponent->spriteRect);
             }
         }
     }
