@@ -33,6 +33,7 @@ public:
 
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
+    std::unique_ptr<NKWindow> Window;
 
     int CreateEntity();
 

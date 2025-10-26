@@ -33,6 +33,8 @@ add_executable(NKEngine main.cpp
         Systems/NKSystem.h
         Components/NKRenderComponent.cpp
         Components/NKRenderComponent.h
+        NKWindow.cpp
+        NKWindow.h
 )
 INCLUDE(FindPkgConfig)
 

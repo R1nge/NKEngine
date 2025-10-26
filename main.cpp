@@ -32,9 +32,8 @@ int main() {
     //TODO: load textures
     //auto player = LoadTexture(nk_engine->)
     auto player = new SDL_Rect(100, 100, 100, 100);
-    NKRenderingSystem *rendering_system = dynamic_cast<NKRenderingSystem *>(nk_engine->_systems.at(0).get().);
-    nk_engine->AddComponent<
-        NKRenderComponent>(testEntity, std::make_unique<NKRenderComponent>(nullptr, player, player));
+    auto texture = nk_engine->Window->LoadTexture("assets/space_invaders.png");
+    nk_engine->AddComponent<NKRenderComponent>(testEntity, std::make_unique<NKRenderComponent>(texture, player, player));
 
     //nk_engine->Renderer->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y,0, 0, 20, 10, 255, 255, 255));
     //auto player = nk_engine->Renderer->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X,10 * SCALE_Y, 0, 48, 20, 10, 255, 255, 255));

@@ -15,7 +15,8 @@
 NKEngine::NKEngine() {
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
-    addSystem(std::make_unique<NKRenderingSystem>());
+    Window = std::make_unique<NKWindow>();
+    addSystem(std::make_unique<NKRenderingSystem>(Window.get()));
     _isPaused = false;
 }
 
