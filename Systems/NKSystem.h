@@ -5,12 +5,20 @@
 #ifndef NKENGINE_NKSYSTEM_H
 #define NKENGINE_NKSYSTEM_H
 
+class NKEngine;
+
 class NKSystem {
 public:
-    //TODO: query an entity with/without components
+    void SetEngine(NKEngine *engine) {
+        this->engine = engine;
+    }
+
     void Init();
     void Update();
     void Dispose();
+
+private:
+    NKEngine *engine;
 };
 
 

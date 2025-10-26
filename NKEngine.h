@@ -12,7 +12,9 @@
 #include "Systems/NKSystem.h"
 #include "NKUuidGenerator.h"
 
-
+//World -> systems
+//World -> entities
+//Engine -> world
 class NKEngine {
 public:
     NKEngine();
@@ -47,6 +49,7 @@ public:
 
     template<typename SystemType>
     void addSystem(std::unique_ptr<SystemType> system) {
+        system->SetEngine(this);
         _systems[_systemId] = std::move(system);
         _systemId++;
     }
