@@ -8,9 +8,9 @@
 #include <SDL_keycode.h>
 
 #include "NKEntity.h"
-#include "NKEventDispatcher.h"
+#include "Events/NKEventDispatcher.h"
 #include "NKRenderer.h"
-#include "NKSystem.h"
+#include "Systems/NKSystem.h"
 #include "NKUuidGenerator.h"
 
 

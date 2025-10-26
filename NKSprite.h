@@ -5,7 +5,7 @@
 #ifndef NKENGINE_NKSPRITE_H
 #define NKENGINE_NKSPRITE_H
 #include <SDL_render.h>
-#include "NKReversiblePositionComponent.h"
+#include "Components/NKReversiblePositionComponent.h"
 
 
 class NKSprite {

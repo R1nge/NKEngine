@@ -5,7 +5,7 @@
 #ifndef NKENGINE_NKTRANSFORM_H
 #define NKENGINE_NKTRANSFORM_H
 #include "NKComponent.h"
-#include "NKReversibleVector2Int.h"
+#include "../NKReversibleVector2Int.h"
 
 
 class NKReversiblePositionComponent : public NKComponent {

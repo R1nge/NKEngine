@@ -65,7 +65,6 @@ void NKEngine::Update() {
         EventDispatcher->Dispatch();
 
         for (const auto &systemPair: _systems) {
-            //TODO: call update
             //TODO: systems should be able to get entities with components
             systemPair.second->Update();
         }

@@ -10,12 +10,12 @@ add_executable(NKEngine main.cpp
         NKSprite.h
         NKReversibleVector2Int.cpp
         NKReversibleVector2Int.h
-        NKEvent.cpp
-        NKEvent.h
-        NKEventSubscriber.cpp
-        NKEventSubscriber.h
-        NKEventDispatcher.cpp
-        NKEventDispatcher.h
+        Events/NKEvent.cpp
+        Events/NKEvent.h
+        Events/NKEventSubscriber.cpp
+        Events/NKEventSubscriber.h
+        Events/NKEventDispatcher.cpp
+        Events/NKEventDispatcher.h
         MyGameEventSubscriber.cpp
         MyGameEventSubscriber.h
         uuid.h
@@ -28,14 +28,14 @@ add_executable(NKEngine main.cpp
         NKEntity.h
         NKReversibleInt.cpp
         NKReversibleInt.h
-        NKReversiblePositionComponent.cpp
-        NKReversiblePositionComponent.h
-        NKComponent.cpp
-        NKComponent.h
-        NKTransformSystem.cpp
-        NKTransformSystem.h
-        NKSystem.cpp
-        NKSystem.h
+        Components/NKReversiblePositionComponent.cpp
+        Components/NKReversiblePositionComponent.h
+        Components/NKComponent.cpp
+        Components/NKComponent.h
+        Systems/NKTransformSystem.cpp
+        Systems/NKTransformSystem.h
+        Systems/NKSystem.cpp
+        Systems/NKSystem.h
 )
 INCLUDE(FindPkgConfig)
 
