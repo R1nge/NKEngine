@@ -19,3 +19,4 @@ Chronos?
 Jikan?  
 Saturn?  
 Norns?  
+移動時間?  
