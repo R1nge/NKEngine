@@ -12,6 +12,7 @@
 void NKInputSystem::Update() {
     NKSystem::Update();
 
+    //TODO: account for the case when 2 keys on the same axis are pressed
     for (const auto &pair: engine->_components) {
         auto inputComponent = engine->getComponent<NKInputComponent>(pair.first);
         if (inputComponent != nullptr) {
@@ -35,10 +36,30 @@ void NKInputSystem::Update() {
                         inputComponent->VerticalAxis = 1;
                     }
                 } else if (event.type == SDL_KEYUP) {
+                    auto key = event.key.keysym.sym;
+                    if (key == SDLK_a) {
+                        if (inputComponent->HorizontalAxis == -1) {
+                            inputComponent->HorizontalAxis = 0;
+                        }
+                    } else if (key == SDLK_d) {
+                        if (inputComponent->HorizontalAxis == 1) {
+                            inputComponent->HorizontalAxis = 0;
+                        }
+                    }
+
+                    if (key == SDLK_w) {
+                        if (inputComponent->VerticalAxis == -1) {
+                            inputComponent->VerticalAxis = 0;
+                        }
+                    } else if (key == SDLK_s) {
+                        if (inputComponent->VerticalAxis == 1) {
+                            inputComponent->VerticalAxis = 0;
+                        }
+                    }
                 }
 
-                std::cout << "Vertical " << inputComponent->VerticalAxis << "\n";
-                std::cout << "Horizontal " << inputComponent->HorizontalAxis << "\n";
+                std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->
+                        HorizontalAxis << "\n";
             }
         }
     }
