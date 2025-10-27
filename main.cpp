@@ -31,12 +31,6 @@
 int main() {
     auto nk_engine = std::make_unique<NKEngine>();
 
-    auto transformSystem = std::make_unique<NKTransformSystem>();
-    nk_engine->AddSystem(std::move(transformSystem));
-
-    auto inputSystem = std::make_unique<NKInputSystem>();
-    nk_engine->AddSystem(std::move(inputSystem));
-
     auto testEntity = nk_engine->CreateEntity();
     nk_engine->AddComponent<NKReversiblePositionComponent>(testEntity, std::make_unique<NKReversiblePositionComponent>(50, 50));
     auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",

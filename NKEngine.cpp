@@ -8,6 +8,7 @@
 #include <SDL_image.h>
 
 #include "Systems/NKInputSystem.h"
+#include "Systems/NKTransformSystem.h"
 
 //TODO: create a sprite class (base position on a sprite sheet)
 //TODO: create a base class { position, sprite }
@@ -19,6 +20,7 @@ NKEngine::NKEngine() {
     UuidGenerator = std::make_unique<NKUuidGenerator>();
     Window = std::make_unique<NKWindow>();
     SpriteCreator = std::make_unique<NKSpriteCreator>(Window->Renderer);
+    AddSystem(std::make_unique<NKTransformSystem>());
     AddSystem(std::make_unique<NKInputSystem>());
     AddSystem(std::make_unique<NKRenderingSystem>(Window.get()));
     _isPaused = false;
