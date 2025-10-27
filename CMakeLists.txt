@@ -55,6 +55,8 @@ add_executable(NKEngine main.cpp
         Systems/NKCollisionSystem.h
         Components/NKCollisionTag.cpp
         Components/NKCollisionTag.h
+        Systems/NKCollisionTransformSyncSystem.cpp
+        Systems/NKCollisionTransformSyncSystem.h
 )
 INCLUDE(FindPkgConfig)
 
