@@ -21,11 +21,7 @@ public:
     NKWindow();
 
     SDL_Window *CreateWindow(const char *title, int positionX, int positionY, int width, int height);
-
     SDL_Renderer *CreateRenderer();
-
-    SDL_Texture *LoadTexture(std::string path);
-
     SDL_Window *Window;
     SDL_Renderer *Renderer;
 };

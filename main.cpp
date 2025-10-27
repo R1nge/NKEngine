@@ -9,15 +9,16 @@
 #include "Components/NKReversiblePositionComponent.h"
 #include "Systems/NKTransformSystem.h"
 
-//TODO: rendering system that uses transform component
-//TODO: game/scene coordinates
+//TODO: SpriteCreator
+//TODO: Fix rewind (separate transform rewind system)???
+//TODO: game/scene coordinates (origin)
 
 //TODO: support 3 types of api? (ECS, event-driven, base class)????
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 
-//TODO: save engine settings into ini file https://github.com/dujingning/inicpp    (resolution, reference resolution, scale (width-height 0-1)
+//TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1)
 
-//TODO: target fps + frametime + deltatime (add target fps to the config)
+//TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 
 //TODO: load engine as a lib
 //TODO: call engine API to do things
@@ -36,7 +37,7 @@ int main() {
     auto playerTexture = new SDL_Rect(50, 50, 100, 100);
     auto playerSprite = new SDL_Rect(50, 50, 100, 100);
 
-    auto texture = nk_engine->Window->LoadTexture("assets/space_invaders.png");
+    auto texture = nk_engine->SpriteCreator->LoadTexture("assets/space_invaders.png");
     nk_engine->AddComponent<NKRenderComponent>(
         testEntity, std::make_unique<NKRenderComponent>(texture, playerSprite, playerTexture));
 

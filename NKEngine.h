@@ -8,6 +8,7 @@
 #include <memory>
 #include <SDL_keycode.h>
 
+#include "NKSpriteCreator.h"
 #include "Events/NKEventDispatcher.h"
 #include "Systems/NKRenderingSystem.h"
 #include "Systems/NKSystem.h"
@@ -34,6 +35,7 @@ public:
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKWindow> Window;
+    std::unique_ptr<NKSpriteCreator> SpriteCreator;
 
     int CreateEntity();
 
