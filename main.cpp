@@ -8,8 +8,10 @@
 #include "Components/NKInputComponent.h"
 #include "Components/NKRenderComponent.h"
 #include "Components/NKReversiblePositionComponent.h"
+#include "Components/Game/GamePlayerTag.h"
 #include "Systems/NKInputSystem.h"
 #include "Systems/NKTransformSystem.h"
+#include "Systems/Game/GamePlayerMovementSystem.h"
 
 //TODO: input system (horizontal, vertical, key)
 //TODO: system order property (int)
@@ -22,6 +24,8 @@
 //TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1)
 
 //TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
+
+//TODO: engine core -> callbacks -> modules -> callbacks -> developer
 
 //TODO: load engine as a lib
 //TODO: call engine API to do things
@@ -38,11 +42,8 @@ int main() {
     nk_engine->AddComponent<NKRenderComponent>(testEntity, std::move(spriteComponent));
     nk_engine->AddComponent<NKInputComponent>(testEntity, std::make_unique<NKInputComponent>());
 
-    //nk_engine->Renderer->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y,0, 0, 20, 10, 255, 255, 255));
-    //auto player = nk_engine->Renderer->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X,10 * SCALE_Y, 0, 48, 20, 10, 255, 255, 255));
-
-    //NKEventSubscriber *mySub = new MyGameEventSubscriber(player, nk_engine);
-    //nk_engine->EventDispatcher->AddSubscriber(mySub);
+    nk_engine->AddSystem(std::make_unique<GamePlayerMovementSystem>());
+    nk_engine->AddComponent<GamePlayerTag>(testEntity, std::make_unique<GamePlayerTag>());
 
     std::cout << nk_engine->UuidGenerator->Generate();
     while (true) {

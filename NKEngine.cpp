@@ -10,11 +10,6 @@
 #include "Systems/NKInputSystem.h"
 #include "Systems/NKTransformSystem.h"
 
-//TODO: create a sprite class (base position on a sprite sheet)
-//TODO: create a base class { position, sprite }
-
-//TODO: engine core -> callbacks -> modules -> callbacks -> developer
-
 NKEngine::NKEngine() {
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();

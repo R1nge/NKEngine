@@ -43,6 +43,10 @@ add_executable(NKEngine main.cpp
         Components/NKInputComponent.h
         Systems/NKInputSystem.cpp
         Systems/NKInputSystem.h
+        Systems/Game/GamePlayerMovementSystem.cpp
+        Systems/Game/GamePlayerMovementSystem.h
+        Components/Game/GamePlayerTag.cpp
+        Components/Game/GamePlayerTag.h
 )
 INCLUDE(FindPkgConfig)
 
