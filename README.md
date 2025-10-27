@@ -19,4 +19,9 @@ Chronos?
 Jikan?  
 Saturn?  
 Norns?  
+(  
+Urd – Representing the past, Urd is often depicted as the eldest of the Norns. She embodies the events and actions that have already transpired, influencing the present and future.  
+Verdandi – Symbolizing the present, Verdandi plays a crucial role in weaving the current threads of life. She is the active force, reflecting the choices and actions that define existence at any given moment.  
+Skuld – The youngest sister, Skuld represents the future. Her role is to determine the potential outcomes and paths that lie ahead, reminding all beings of the uncertainty and possibilities that await.  
+)  
 移動時間?  
