@@ -5,6 +5,7 @@
 #include "NKCollisionSystem.h"
 #include "../NKEngine.h"
 #include "../Components/NKCollisionComponent.h"
+#include "../Components/NKCollisionTag.h"
 
 void NKCollisionSystem::Update() {
     for (const auto &entityPair: engine->_components) {
@@ -49,8 +50,8 @@ void NKCollisionSystem::Update() {
                         continue;
                     }
 
-                    //TODO: add collision tag
-                    //engine->AddComponent(,std::make_unique<>())
+                    engine->AddComponent(entityPair.first, std::make_unique<NKCollisionTag>());
+                    engine->AddComponent(entityPair2.first, std::make_unique<NKCollisionTag>());
                     std::cout << "Collided" << "\n";
                 }
             }

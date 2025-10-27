@@ -8,6 +8,7 @@
 #include <map>
 #include <memory>
 #include <SDL_keycode.h>
+#include <typeindex>
 
 #include "NKSpriteCreator.h"
 #include "Events/NKEventDispatcher.h"
@@ -39,6 +40,15 @@ public:
     void AddComponent(int entityId, std::unique_ptr<ComponentType> component) {
         auto &componentsList = _components[entityId];
         componentsList.emplace_back(std::move(component));
+    }
+
+    template<typename ComponentType>
+    void RemoveComponent(int entityId) {
+        auto &componentsList = _components[entityId];
+        componentsList.remove_if([](const std::unique_ptr<NKComponent> &component) {
+            std::cout << "Removed a component";
+            return typeid(*component) == typeid(ComponentType);
+        });
     }
 
     template<typename ComponentType>

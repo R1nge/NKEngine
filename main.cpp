@@ -10,6 +10,7 @@
 #include "Components/NKRenderComponent.h"
 #include "Components/NKReversiblePositionComponent.h"
 #include "Components/Game/GamePlayerTag.h"
+#include "Systems/NKCollisionResetSystem.h"
 #include "Systems/NKCollisionSystem.h"
 #include "Systems/NKCollisionTransformSyncSystem.h"
 #include "Systems/NKInputSystem.h"
@@ -69,6 +70,8 @@ int main() {
     nk_engine->AddSystem(0, std::make_unique<RewindTriggerSystem>());
     nk_engine->AddSystem(0, std::make_unique<NKCollisionTransformSyncSystem>());
     nk_engine->AddSystem(0, std::make_unique<NKCollisionSystem>());
+    //TODO: collision something system
+    nk_engine->AddSystem(0, std::make_unique<NKCollisionResetSystem>());
 
     std::cout << nk_engine->UuidGenerator->Generate();
 
