@@ -18,10 +18,12 @@
 #include "Systems/Game/GamePlayerMovementSystem.h"
 #include "Systems/Game/RewindTriggerSystem.h"
 
-//TODO: box collision system
-//TODO: separate collision rect component, collision system
-//TODO: so, they collided, add a tag that have both rects/object, later systems can use that to determine what to do
 
+//TODO: think about if I want to allow player to insert systems in between engine systems or allow to add any engine system???
+//TODO: the latter is boilerplaty, also requires the basic understanding on how the engine should behave, so it's a no go
+
+//TODO: store actions as commands that can be done/undone to be able to restore the game state
+//TODO: if a ship has fired I can rewind the position and destroy the bullet, undo damage, reset timer, ect...
 
 //TODO: game/scene coordinates (origin)
 //TODO: camera
