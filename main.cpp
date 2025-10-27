@@ -30,7 +30,7 @@
 
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 
-//TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1)
+//TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1), debug (on/off))
 
 //TODO: engine core -> callbacks -> modules -> callbacks -> developer
 
@@ -48,13 +48,20 @@ int main() {
     auto collider = nk_engine->CreateEntity();
 
     //Components
-    nk_engine->AddComponent<NKReversiblePositionComponent>(testEntity, std::make_unique<NKReversiblePositionComponent>(10, 550));
-    auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png", new NKSpriteData(10, 550, 100, 100, 10, 10, 10, 10));
+    nk_engine->AddComponent<NKReversiblePositionComponent>(
+        testEntity, std::make_unique<NKReversiblePositionComponent>(10, 550));
+    auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
+                                                                  new NKSpriteData(10, 550, 100, 100, 10, 10, 10, 10));
     nk_engine->AddComponent<NKRenderComponent>(testEntity, std::move(spriteComponent));
     nk_engine->AddComponent<NKInputComponent>(testEntity, std::make_unique<NKInputComponent>());
     nk_engine->AddComponent<NKCollisionComponent>(testEntity, std::make_unique<NKCollisionComponent>(new SDL_Rect(50,50,100,100)));
     nk_engine->AddComponent<GamePlayerTag>(testEntity, std::make_unique<GamePlayerTag>());
 
+    nk_engine->AddComponent<NKReversiblePositionComponent>(
+        collider, std::make_unique<NKReversiblePositionComponent>(300, 550));
+    auto spriteComponent2 = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
+                                                                   new NKSpriteData(10, 550, 100, 100, 10, 10, 10, 10));
+    nk_engine->AddComponent<NKRenderComponent>(collider, std::move(spriteComponent2));
     nk_engine->AddComponent<NKCollisionComponent>(collider, std::make_unique<NKCollisionComponent>(new SDL_Rect(300, 550, 100, 100)));
 
     //Systems
