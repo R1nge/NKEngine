@@ -66,6 +66,8 @@ public:
         _systemId++;
     }
 
+    bool IsRewinding();
+
     std::map<int, std::list<std::unique_ptr<NKComponent> > > _components;
     std::map<int, std::unique_ptr<NKSystem> > _systems;
 private:

@@ -97,3 +97,7 @@ int NKEngine::CreateEntity() {
     _entityId++;
     return _entityId;
 }
+
+bool NKEngine::IsRewinding() {
+    return _isRewinding;
+}

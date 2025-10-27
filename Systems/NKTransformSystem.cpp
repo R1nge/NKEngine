@@ -11,7 +11,15 @@
 
 void NKTransformSystem::Update() {
     NKSystem::Update();
-    Move(engine->GetTick(), 1, 1);
+    if (engine->IsRewinding()) {
+        Rewind(engine->GetTick());
+    } else {
+        Move(engine->GetTick(), 1, 1);
+    }
+
+    if (engine->GetLastKeyInput() == SDLK_r) {
+        engine->Rewind();
+    }
 }
 
 void NKTransformSystem::Move(int tick, int deltaX, int deltaY) {

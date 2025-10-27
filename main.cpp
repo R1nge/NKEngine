@@ -9,7 +9,6 @@
 #include "Components/NKReversiblePositionComponent.h"
 #include "Systems/NKTransformSystem.h"
 
-//TODO: SpriteCreator
 //TODO: Fix rewind (separate transform rewind system)???
 //TODO: game/scene coordinates (origin)
 
@@ -26,7 +25,7 @@
 
 
 int main() {
-    auto nk_engine = std::make_shared<NKEngine>();
+    auto nk_engine = std::make_unique<NKEngine>();
     auto transformSystem = std::make_unique<NKTransformSystem>();
     nk_engine->addSystem(std::move(transformSystem));
 
