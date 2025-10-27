@@ -17,9 +17,7 @@ void GamePlayerMovementSystem::Update() {
                 auto *inputComponent = engine->getComponent<NKInputComponent>(entityPair.first);
                 auto tick = engine->GetTick();
                 movementComponent->position->X->deltas.emplace(tick, inputComponent->HorizontalAxis);
-                movementComponent->position->Y->deltas.emplace(tick, inputComponent->VerticalAxis);
                 movementComponent->position->X->currentValue += inputComponent->HorizontalAxis;
-                movementComponent->position->Y->currentValue += inputComponent->VerticalAxis;
             }
         }
     }
