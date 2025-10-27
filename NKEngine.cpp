@@ -66,3 +66,11 @@ int NKEngine::CreateEntity() {
 bool NKEngine::IsRewinding() {
     return _isRewinding;
 }
+
+void NKEngine::Quit() {
+    _isQuiting = true;
+}
+
+bool NKEngine::Quitting() {
+    return _isQuiting;
+}

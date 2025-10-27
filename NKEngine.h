@@ -16,9 +16,6 @@
 #include "NKUuidGenerator.h"
 #include "Components/NKComponent.h"
 
-//World -> systems
-//World -> entities
-//Engine -> world
 class NKEngine {
 public:
     NKEngine();
@@ -58,8 +55,7 @@ public:
         return nullptr;
     }
 
-    //TODO: order in a group
-    //TODO: print all systems names on add
+    //TODO: allow to set order in a group on add
     template<typename SystemType>
     void AddSystem(int groupId, std::unique_ptr<SystemType> system) {
         system->SetEngine(this);
@@ -99,6 +95,11 @@ public:
 
     bool IsRewinding();
 
+    void Quit();
+
+    bool Quitting();
+
+    //TODO: create a world class (wrapper for systems and components)
     std::map<int, std::list<std::unique_ptr<NKComponent> > > _components;
     std::map<int, std::map<int, std::unique_ptr<NKSystem> > > _groups;
 
@@ -107,6 +108,7 @@ private:
     int _currentTick;
     bool _isRewinding;
     bool _isPaused;
+    bool _isQuiting;
 };
 
 

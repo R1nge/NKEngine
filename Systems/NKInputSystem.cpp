@@ -21,7 +21,7 @@ void NKInputSystem::Update() {
             while (SDL_PollEvent(&event) != 0) {
                 //User requests quit
                 if (event.type == SDL_QUIT) {
-                    quit = true;
+                    engine->Quit();
                 } else if (event.type == SDL_KEYDOWN) {
                     auto key = event.key.keysym.sym;
                     if (key == SDLK_a) {

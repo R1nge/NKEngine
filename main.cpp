@@ -14,16 +14,18 @@
 #include "Systems/Game/GamePlayerMovementSystem.h"
 #include "Systems/Game/RewindTriggerSystem.h"
 
-//TODO: system groups (systems, order property) update loops (fixed, update, lateUpdate) make 3 dicts + methods to add, execute system in separate loops
-//TODO: system order property (int)
+//TODO: box collision system
+
 
 //TODO: game/scene coordinates (origin)
+//TODO: camera
+
+//TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
+//TODO: update loops (fixed, update, lateUpdate) make 3 dicts + methods to add, execute system in separate loops
 
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 
 //TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1)
-
-//TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 
 //TODO: engine core -> callbacks -> modules -> callbacks -> developer
 
@@ -51,10 +53,9 @@ int main() {
 
     nk_engine->PrintAllSystem();
 
-    while (true) {
+    while (!nk_engine->Quitting()) {
         nk_engine->Update();
     }
-
 
     return 0;
 }
