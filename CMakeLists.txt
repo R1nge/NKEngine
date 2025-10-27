@@ -37,6 +37,8 @@ add_executable(NKEngine main.cpp
         NKWindow.h
         NKSpriteCreator.cpp
         NKSpriteCreator.h
+        NKSpriteData.cpp
+        NKSpriteData.h
 )
 INCLUDE(FindPkgConfig)
 

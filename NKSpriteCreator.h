@@ -8,12 +8,18 @@
 #include <SDL_render.h>
 #include <SDL_image.h>
 
+#include "Components/NKRenderComponent.h"
+
 
 class NKSpriteCreator {
 public:
     NKSpriteCreator(SDL_Renderer *renderer);
 
     SDL_Texture *LoadTexture(std::string path);
+
+    std::unique_ptr<NKRenderComponent> CreateSprite(NKSpriteData *data);
+
+    std::unique_ptr<NKRenderComponent> CreateSprite(std::string path, NKSpriteData *data);
 
 private:
     SDL_Renderer *_renderer;

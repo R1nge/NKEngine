@@ -32,14 +32,10 @@ int main() {
 
     auto testEntity = nk_engine->CreateEntity();
     nk_engine->AddComponent<NKReversiblePositionComponent>(testEntity, std::make_unique<NKReversiblePositionComponent>(50, 50));
-    //TODO: load textures
-    //auto player = LoadTexture(nk_engine->)
-    auto playerTexture = new SDL_Rect(50, 50, 100, 100);
-    auto playerSprite = new SDL_Rect(50, 50, 100, 100);
-
-    auto texture = nk_engine->SpriteCreator->LoadTexture("assets/space_invaders.png");
-    nk_engine->AddComponent<NKRenderComponent>(
-        testEntity, std::make_unique<NKRenderComponent>(texture, playerSprite, playerTexture));
+    auto sprite = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
+                                                         new NKSpriteData(
+                                                             50, 50, 100, 100, 10, 10, 10, 10, 255, 255, 255));
+    nk_engine->AddComponent<NKRenderComponent>(testEntity, std::move(sprite));
 
     //nk_engine->Renderer->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X, 10 * SCALE_Y,0, 0, 20, 10, 255, 255, 255));
     //auto player = nk_engine->Renderer->CreateSprite("assets/space_invaders.png",new NKSpriteData(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 20 * SCALE_X,10 * SCALE_Y, 0, 48, 20, 10, 255, 255, 255));

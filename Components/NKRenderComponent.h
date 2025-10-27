@@ -7,14 +7,16 @@
 #include <SDL_render.h>
 
 #include "NKComponent.h"
+#include "../NKSpriteData.h"
 
 
 struct NKRenderComponent : NKComponent {
-    NKRenderComponent(SDL_Texture *Texture, SDL_Rect *SpriteRect, SDL_Rect *TextureRect);
+    NKRenderComponent(SDL_Texture *Texture, SDL_Rect *SpriteRect, SDL_Rect *TextureRect, NKSpriteData *data);
 
     SDL_Texture *texture;
     SDL_Rect *spriteRect;
     SDL_Rect *textureRect;
+    NKSpriteData *data;
 };
 
 

@@ -4,6 +4,9 @@
 
 #include "NKSpriteCreator.h"
 
+#include "NKSpriteData.h"
+#include "Components/NKRenderComponent.h"
+
 NKSpriteCreator::NKSpriteCreator(SDL_Renderer *renderer) {
     _renderer = renderer;
 }
@@ -26,4 +29,23 @@ SDL_Texture *NKSpriteCreator::LoadTexture(std::string path) {
         SDL_FreeSurface(loadedSurface);
     }
     return loadedTexture;
+}
+
+std::unique_ptr<NKRenderComponent> NKSpriteCreator::CreateSprite(NKSpriteData *data) {
+    //Center pivot
+    data->positionX -= data->spriteWidth / 2;
+    data->positionY -= data->spriteHeight / 2;
+    auto sprite = std::make_unique<NKRenderComponent>(
+        nullptr, new SDL_Rect(data->positionX, data->positionY, data->spriteWidth, data->spriteHeight),
+        new SDL_Rect(data->texturePositionX, data->texturePositionY, data->textureWidth, data->textureHeight), data);
+    return sprite;
+}
+
+
+std::unique_ptr<NKRenderComponent> NKSpriteCreator::CreateSprite(std::string path, NKSpriteData *data) {
+    auto sprite = CreateSprite(data);
+    SDL_Texture *texture = LoadTexture(path);
+    SDL_SetTextureColorMod(texture, data->colorR, data->colorG, data->colorB);
+    sprite->texture = texture;
+    return sprite;
 }
