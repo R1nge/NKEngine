@@ -15,9 +15,9 @@ NKEngine::NKEngine() {
     UuidGenerator = std::make_unique<NKUuidGenerator>();
     Window = std::make_unique<NKWindow>();
     SpriteCreator = std::make_unique<NKSpriteCreator>(Window->Renderer);
-    AddSystem(std::make_unique<NKTransformSystem>());
-    AddSystem(std::make_unique<NKInputSystem>());
-    AddSystem(std::make_unique<NKRenderingSystem>(Window.get()));
+    AddSystem(0, std::make_unique<NKTransformSystem>());
+    AddSystem(0, std::make_unique<NKInputSystem>());
+    AddSystem(0, std::make_unique<NKRenderingSystem>(Window.get()));
     _isPaused = false;
 }
 
@@ -32,9 +32,11 @@ NKEngine::~NKEngine() {
 }
 
 void NKEngine::Update() {
-    for (const auto &systemPair: _systems) {
-        if (!_isPaused) {
-            systemPair.second->Update();
+    for (const auto &groupPair: _groups) {
+        for (const auto &systemPair: groupPair.second) {
+            if (!_isPaused) {
+                systemPair.second->Update();
+            }
         }
     }
 

@@ -14,9 +14,9 @@
 #include "Systems/Game/GamePlayerMovementSystem.h"
 #include "Systems/Game/RewindTriggerSystem.h"
 
-//TODO: input system (key)
+//TODO: system groups (systems, order property) update loops (fixed, update, lateUpdate) make 3 dicts + methods to add, execute system in separate loops
 //TODO: system order property (int)
-//TODO: system groups (systems, order property)
+
 //TODO: game/scene coordinates (origin)
 
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
@@ -42,10 +42,10 @@ int main() {
     nk_engine->AddComponent<NKRenderComponent>(testEntity, std::move(spriteComponent));
     nk_engine->AddComponent<NKInputComponent>(testEntity, std::make_unique<NKInputComponent>());
 
-    nk_engine->AddSystem(std::make_unique<GamePlayerMovementSystem>());
+    nk_engine->AddSystem(0, std::make_unique<GamePlayerMovementSystem>());
     nk_engine->AddComponent<GamePlayerTag>(testEntity, std::make_unique<GamePlayerTag>());
 
-    nk_engine->AddSystem(std::make_unique<RewindTriggerSystem>());
+    nk_engine->AddSystem(0, std::make_unique<RewindTriggerSystem>());
 
     std::cout << nk_engine->UuidGenerator->Generate();
     while (true) {
