@@ -65,15 +65,13 @@ public:
         auto it = _groups.find(groupId);
         if (it != _groups.end()) {
             // Group exists, add the system to the existing group
-            it->second.emplace(_systemId, std::move(system));
+            it->second.emplace(it->second.size(), std::move(system));
         } else {
             // Group doesn't exist, create it and add the system
             std::map<int, std::unique_ptr<NKSystem> > newGroup; // Replace std::set with your preferred container type
-            newGroup.emplace(_systemId, std::move(system)); // Add system to the new group
+            newGroup.emplace(0, std::move(system)); // Add system to the new group
             _groups.emplace(groupId, std::move(newGroup)); // Initialize the group in the map
         }
-
-        _systemId++;
     }
 
     bool IsRewinding();
@@ -82,7 +80,6 @@ public:
     std::map<int, std::map<int, std::unique_ptr<NKSystem> > > _groups;
 
 private:
-    int _systemId;
     int _entityId;
     int _currentTick;
     bool _isRewinding;
