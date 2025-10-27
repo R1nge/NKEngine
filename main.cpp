@@ -12,6 +12,7 @@
 #include "Systems/NKInputSystem.h"
 #include "Systems/NKTransformSystem.h"
 #include "Systems/Game/GamePlayerMovementSystem.h"
+#include "Systems/Game/RewindTriggerSystem.h"
 
 //TODO: input system (key)
 //TODO: system order property (int)
@@ -43,6 +44,8 @@ int main() {
 
     nk_engine->AddSystem(std::make_unique<GamePlayerMovementSystem>());
     nk_engine->AddComponent<GamePlayerTag>(testEntity, std::make_unique<GamePlayerTag>());
+
+    nk_engine->AddSystem(std::make_unique<RewindTriggerSystem>());
 
     std::cout << nk_engine->UuidGenerator->Generate();
     while (true) {
