@@ -66,14 +66,20 @@ public:
     }
 
     //TODO: allow to set order in a group on add
+    //TODO: I can't use Id?
+    //TODO: 0,1,2 -> place 0 -> x,1,2,3 -> place 2 -> 0,1,2,3
+    //TODO: So, I would need to keep track after adding a new system and changing all indexes prior to it by 1
+    //TODO: what if instead use System type?
+    //TODO: x,y,z -> place x, -> f,x,y,z -> place y -> f,x,h,y,z
     template<typename SystemType>
-    void AddSystem(int groupId, std::unique_ptr<SystemType> system) {
+    void AddSystem(int groupId, int placeBeforeId, std::unique_ptr<SystemType> system) {
         system->SetEngine(this);
 
         // Check if the group exists
         auto it = _groups.find(groupId);
         if (it != _groups.end()) {
             // Group exists, add the system to the existing group
+            it->second.insert()
             it->second.emplace(it->second.size(), std::move(system));
         } else {
             // Group doesn't exist, create it and add the system
