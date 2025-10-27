@@ -32,15 +32,6 @@ NKEngine::~NKEngine() {
 }
 
 void NKEngine::Update() {
-    EventDispatcher->AddEvent(InputStart);
-    EventDispatcher->Dispatch();
-
-    //Handle events on queue
-
-
-    EventDispatcher->AddEvent(InputEnd);
-    EventDispatcher->Dispatch();
-
     for (const auto &systemPair: _systems) {
         if (!_isPaused) {
             systemPair.second->Update();
@@ -51,7 +42,6 @@ void NKEngine::Update() {
         _currentTick++;
     } else {
         _currentTick--;
-        //Renderer->Rewind(_currentTick);
         if (_currentTick == 0) {
             _isRewinding = false;
         }

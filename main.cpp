@@ -13,12 +13,11 @@
 #include "Systems/NKTransformSystem.h"
 #include "Systems/Game/GamePlayerMovementSystem.h"
 
-//TODO: input system (horizontal, vertical, key)
+//TODO: input system (key)
 //TODO: system order property (int)
 //TODO: system groups (systems, order property)
 //TODO: game/scene coordinates (origin)
 
-//TODO: support 3 types of api? (ECS, event-driven, base class)????
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 
 //TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1)

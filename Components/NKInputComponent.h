@@ -4,12 +4,15 @@
 
 #ifndef NKENGINE_NKINPUTCOMPONENT_H
 #define NKENGINE_NKINPUTCOMPONENT_H
+#include <SDL_keycode.h>
+
 #include "NKComponent.h"
 
 
 struct NKInputComponent : NKComponent {
     int HorizontalAxis;
     int VerticalAxis;
+    SDL_Keycode LastKey;
 };
 
 

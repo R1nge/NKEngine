@@ -35,6 +35,10 @@ void NKInputSystem::Update() {
                     } else if (key == SDLK_s) {
                         inputComponent->VerticalAxis = 1;
                     }
+
+                    if (key != SDLK_a && key != SDLK_d && key != SDLK_w && key != SDLK_s) {
+                        inputComponent->LastKey = key;
+                    }
                 } else if (event.type == SDL_KEYUP) {
                     auto key = event.key.keysym.sym;
                     if (key == SDLK_a) {
@@ -56,10 +60,14 @@ void NKInputSystem::Update() {
                             inputComponent->VerticalAxis = 0;
                         }
                     }
+
+                    if (key != SDLK_a && key != SDLK_d && key != SDLK_w && key != SDLK_s) {
+                        inputComponent->LastKey = 0;
+                    }
                 }
 
                 std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->
-                        HorizontalAxis << "\n";
+                        HorizontalAxis << " Last key code " << inputComponent->LastKey <<"\n";
             }
         }
     }
