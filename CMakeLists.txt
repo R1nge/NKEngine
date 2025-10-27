@@ -47,8 +47,8 @@ add_executable(NKEngine main.cpp
         Systems/Game/GamePlayerMovementSystem.h
         Components/Game/GamePlayerTag.cpp
         Components/Game/GamePlayerTag.h
-        Systems/Game/RewindTriggerSystem.cpp
-        Systems/Game/RewindTriggerSystem.h
+        Systems/Game/GameRewindTriggerSystem.cpp
+        Systems/Game/GameRewindTriggerSystem.h
         Components/NKCollisionComponent.cpp
         Components/NKCollisionComponent.h
         Systems/NKCollisionSystem.cpp
@@ -59,6 +59,8 @@ add_executable(NKEngine main.cpp
         Systems/NKCollisionTransformSyncSystem.h
         Systems/NKCollisionResetSystem.cpp
         Systems/NKCollisionResetSystem.h
+        Systems/Game/GamePrintOnCollision.cpp
+        Systems/Game/GamePrintOnCollision.h
 )
 INCLUDE(FindPkgConfig)
 

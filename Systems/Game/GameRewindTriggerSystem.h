@@ -7,7 +7,7 @@
 #include "../NKSystem.h"
 #include "../NKSystem.h"
 
-class RewindTriggerSystem : public NKSystem {
+class GameRewindTriggerSystem : public NKSystem {
     void Update() override;
 };
 

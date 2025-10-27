@@ -16,7 +16,8 @@
 #include "Systems/NKInputSystem.h"
 #include "Systems/NKTransformSystem.h"
 #include "Systems/Game/GamePlayerMovementSystem.h"
-#include "Systems/Game/RewindTriggerSystem.h"
+#include "Systems/Game/GamePrintOnCollision.h"
+#include "Systems/Game/GameRewindTriggerSystem.h"
 
 
 //TODO: think about if I want to allow player to insert systems in between engine systems or allow to add any engine system???
@@ -69,10 +70,12 @@ int main() {
 
     //Systems
     nk_engine->AddSystem(0, std::make_unique<GamePlayerMovementSystem>());
-    nk_engine->AddSystem(0, std::make_unique<RewindTriggerSystem>());
+    nk_engine->AddSystem(0, std::make_unique<GameRewindTriggerSystem>());
     nk_engine->AddSystem(0, std::make_unique<NKCollisionTransformSyncSystem>());
     nk_engine->AddSystem(0, std::make_unique<NKCollisionSystem>());
-    //TODO: collision something system
+
+    nk_engine->AddSystem(0, std::make_unique<GamePrintOnCollision>());
+
     nk_engine->AddSystem(0, std::make_unique<NKCollisionResetSystem>());
 
     std::cout << nk_engine->UuidGenerator->Generate();

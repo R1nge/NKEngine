@@ -16,10 +16,8 @@ void NKCollisionSystem::Update() {
                 if (otherColliderComponent != nullptr) {
                     //Skip self
                     if (colliderComponent == otherColliderComponent) {
-                        std::cout << "\n Skipping self";
+                        //std::cout << "\n Skipping self";
                         continue;
-                    } else {
-                        std::cout << "\n Not skipping self";
                     }
 
                     //Calculate the sides of rect A
@@ -52,7 +50,7 @@ void NKCollisionSystem::Update() {
 
                     engine->AddComponent(entityPair.first, std::make_unique<NKCollisionTag>());
                     engine->AddComponent(entityPair2.first, std::make_unique<NKCollisionTag>());
-                    std::cout << "Collided" << "\n";
+                    //std::cout << "Collided" << "\n";
                 }
             }
         }
