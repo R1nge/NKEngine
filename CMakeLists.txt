@@ -39,6 +39,10 @@ add_executable(NKEngine main.cpp
         NKSpriteCreator.h
         NKSpriteData.cpp
         NKSpriteData.h
+        Components/NKInputComponent.cpp
+        Components/NKInputComponent.h
+        Systems/NKInputSystem.cpp
+        Systems/NKInputSystem.h
 )
 INCLUDE(FindPkgConfig)
 

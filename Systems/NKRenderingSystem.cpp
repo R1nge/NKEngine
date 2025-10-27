@@ -27,7 +27,6 @@ NKRenderingSystem::NKRenderingSystem(NKWindow *window) {
 }
 
 void NKRenderingSystem::Update() {
-    //NKSystem::Update();
     Render();
 }
 
@@ -49,13 +48,4 @@ void NKRenderingSystem::Render() {
     }
 
     SDL_RenderPresent(_window->Renderer);
-}
-
-void NKRenderingSystem::Rewind(int tick) {
-    for (const auto &pair: engine->_components) {
-        NKRenderComponent *component = engine->getComponent<NKRenderComponent>(pair.first);
-        if (component != nullptr) {
-            //pair.second->Rewind(tick);
-        }
-    }
 }

@@ -7,5 +7,5 @@
 #include <iostream>
 
 void NKSystem::Update() {
-    std::cout << "System is updating" << "\n";
+    //std::cout << "System is updating" << "\n";
 }

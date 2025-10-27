@@ -13,24 +13,17 @@ void NKTransformSystem::Update() {
     NKSystem::Update();
     if (engine->IsRewinding()) {
         Rewind(engine->GetTick());
-    } else {
-        Move(engine->GetTick(), 1, 1);
-    }
-
-    if (engine->GetLastKeyInput() == SDLK_r) {
-        engine->Rewind();
     }
 }
 
 void NKTransformSystem::Move(int tick, int deltaX, int deltaY) {
     for (const auto &entityPair: engine->_components) {
-        NKReversiblePositionComponent *component = engine->getComponent<
-            NKReversiblePositionComponent>(entityPair.first);
-        if (component != nullptr) {
-            component->position->X->deltas.emplace(tick, deltaX);
-            component->position->Y->deltas.emplace(tick, deltaY);
-            component->position->X->currentValue += deltaX;
-            component->position->Y->currentValue += deltaY;
+        auto *positionComponent = engine->getComponent<NKReversiblePositionComponent>(entityPair.first);
+        if (positionComponent != nullptr) {
+            positionComponent->position->X->deltas.emplace(tick, deltaX);
+            positionComponent->position->Y->deltas.emplace(tick, deltaY);
+            positionComponent->position->X->currentValue += deltaX;
+            positionComponent->position->Y->currentValue += deltaY;
             std::cout << "Move";
         }
     }

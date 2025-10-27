@@ -11,6 +11,7 @@ MyGameEventSubscriber::MyGameEventSubscriber(std::shared_ptr<NKEngine> engine) {
 }
 
 void MyGameEventSubscriber::Invoke(NKEventType type) {
+    /*
     if (type == InputEnd) {
         auto tick = _engine->GetTick();
         switch (_engine->GetLastKeyInput()) {
@@ -32,5 +33,5 @@ void MyGameEventSubscriber::Invoke(NKEventType type) {
             default:
                 break;
         }
-    }
+    } */
 }

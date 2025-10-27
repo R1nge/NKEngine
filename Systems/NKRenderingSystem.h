@@ -14,7 +14,6 @@ public:
 
     void Update() override;
     void Render();
-    void Rewind(int tick);
 
 private:
     NKWindow *_window;

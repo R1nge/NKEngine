@@ -15,9 +15,9 @@ struct NKSpriteData {
     int texturePositionY;
     int textureWidth;
     int textureHeight;
-    int colorR;
-    int colorG;
-    int colorB;
+    int colorR = 255;
+    int colorG = 255;
+    int colorB = 255;
 };
 
 

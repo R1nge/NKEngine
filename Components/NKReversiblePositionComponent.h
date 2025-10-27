@@ -8,10 +8,8 @@
 #include "../NKReversibleVector2Int.h"
 
 
-class NKReversiblePositionComponent : public NKComponent {
-public:
+struct NKReversiblePositionComponent : NKComponent {
     NKReversiblePositionComponent(int x, int y);
-
     NKReversibleVector2Int *position;
 };
 

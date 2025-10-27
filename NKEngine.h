@@ -30,8 +30,6 @@ public:
 
     int GetTick() const;
 
-    SDL_Keycode GetLastKeyInput() const;
-
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKWindow> Window;
@@ -60,7 +58,7 @@ public:
     }
 
     template<typename SystemType>
-    void addSystem(std::unique_ptr<SystemType> system) {
+    void AddSystem(std::unique_ptr<SystemType> system) {
         system->SetEngine(this);
         _systems[_systemId] = std::move(system);
         _systemId++;
@@ -76,7 +74,6 @@ private:
     int _currentTick;
     bool _isRewinding;
     bool _isPaused;
-    SDL_Keycode _lastKeyInput;
 };
 
 
