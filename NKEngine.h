@@ -4,6 +4,7 @@
 
 #ifndef NKENGINE_NKENGINE_H
 #define NKENGINE_NKENGINE_H
+#include <iostream>
 #include <map>
 #include <memory>
 #include <SDL_keycode.h>
@@ -57,6 +58,8 @@ public:
         return nullptr;
     }
 
+    //TODO: order in a group
+    //TODO: print all systems names on add
     template<typename SystemType>
     void AddSystem(int groupId, std::unique_ptr<SystemType> system) {
         system->SetEngine(this);
@@ -71,6 +74,26 @@ public:
             std::map<int, std::unique_ptr<NKSystem> > newGroup; // Replace std::set with your preferred container type
             newGroup.emplace(0, std::move(system)); // Add system to the new group
             _groups.emplace(groupId, std::move(newGroup)); // Initialize the group in the map
+        }
+    }
+
+    void PrintAllSystem() {
+        std::cout << "\n" << "Printing all systems" << "\n";
+        for (const auto &groupPair: _groups) {
+            for (const auto &systemPair: groupPair.second) {
+                std::string typeName = typeid(*systemPair.second).name();
+
+                size_t startPos = 0;
+                while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
+                    ++startPos;
+                }
+
+                std::string cleanTypeName = typeName.substr(startPos);
+
+                std::cout << "Group order " << groupPair.first
+                        << " System order " << systemPair.first
+                        << " System " << cleanTypeName << "\n";
+            }
         }
     }
 

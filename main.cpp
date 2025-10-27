@@ -48,6 +48,9 @@ int main() {
     nk_engine->AddSystem(0, std::make_unique<RewindTriggerSystem>());
 
     std::cout << nk_engine->UuidGenerator->Generate();
+
+    nk_engine->PrintAllSystem();
+
     while (true) {
         nk_engine->Update();
     }
