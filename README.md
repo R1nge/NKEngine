@@ -25,3 +25,57 @@ Verdandi – Symbolizing the present, Verdandi plays a crucial role in weaving t
 Skuld – The youngest sister, Skuld represents the future. Her role is to determine the potential outcomes and paths that lie ahead, reminding all beings of the uncertainty and possibilities that await.  
 )  
 移動時間?  
+
+
+Example:
+```cpp
+int main() {
+    auto nk_engine = std::make_unique<NKEngine>();
+
+    //Entities
+    auto cameraEntity = nk_engine->CreateEntity();
+    auto testEntity = nk_engine->CreateEntity();
+
+    auto collider = nk_engine->CreateEntity();
+
+    //Components
+    nk_engine->AddComponent<NKReversiblePositionComponent>(cameraEntity,
+                                                           std::make_unique<NKReversiblePositionComponent>(
+                                                               -SCREEN_WIDTH / 2, +SCREEN_HEIGHT / 2));
+    nk_engine->AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
+
+    nk_engine->AddComponent<NKReversiblePositionComponent>(
+        testEntity, std::make_unique<NKReversiblePositionComponent>(0, 0));
+    auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
+                                                                  new NKSpriteData(10, 550, 100, 100, 10, 10, 10, 10));
+    nk_engine->AddComponent<NKRenderComponent>(testEntity, std::move(spriteComponent));
+    nk_engine->AddComponent<NKInputComponent>(testEntity, std::make_unique<NKInputComponent>());
+    nk_engine->AddComponent<NKCollisionComponent>(testEntity, std::make_unique<NKCollisionComponent>(new SDL_Rect(50,50,100,100)));
+    nk_engine->AddComponent<GamePlayerTag>(testEntity, std::make_unique<GamePlayerTag>());
+
+    nk_engine->AddComponent<NKReversiblePositionComponent>(
+        collider, std::make_unique<NKReversiblePositionComponent>(100, 100));
+    auto spriteComponent2 = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
+                                                                   new NKSpriteData(
+                                                                       10, 250, 100, 100, 10, 10, 10, 10, 0, 255, 0));
+    nk_engine->AddComponent<NKRenderComponent>(collider, std::move(spriteComponent2));
+    nk_engine->AddComponent<NKCollisionComponent>(collider, std::make_unique<NKCollisionComponent>(new SDL_Rect(300, 550, 100, 100)));
+
+    //Systems
+    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
+    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameRewindTriggerSystem>());
+    nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
+
+    //Actions
+    nk_engine->AddAction(10, std::make_unique<GameTestAction>());
+
+    std::cout << nk_engine->UuidGenerator->Generate();
+
+    nk_engine->PrintAllSystem();
+
+    while (!nk_engine->Quitting()) {
+        nk_engine->Update();
+    }
+
+    return 0;
+```
