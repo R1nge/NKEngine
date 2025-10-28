@@ -98,7 +98,7 @@ public:
 
                 std::string cleanTypeName = typeName.substr(startPos);
 
-                std::cout << "Group order " //<< groupPair.first
+                std::cout << "Group order " << groupPair.first
                         << " System order " << systemPair.first
                         << " System " << cleanTypeName << "\n";
             }

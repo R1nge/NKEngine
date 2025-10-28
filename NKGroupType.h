@@ -4,6 +4,8 @@
 
 #ifndef NKENGINE_NKGROUPTYPE_H
 #define NKENGINE_NKGROUPTYPE_H
+#include <iosfwd>
+#include <string>
 
 
 enum class NKGroupType {
@@ -15,5 +17,6 @@ enum class NKGroupType {
     NKCollisionReset = 6
 };
 
+std::ostream &operator<<(std::ostream &stream, const NKGroupType groupType);
 
 #endif //NKENGINE_NKGROUPTYPE_H
