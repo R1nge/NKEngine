@@ -87,6 +87,7 @@ public:
 
     void PrintAllSystem() {
         std::cout << "\n" << "Printing all systems" << "\n";
+        std::cout << "---------------\n---------------\n";
         for (const auto &groupPair: _groups) {
             for (const auto &systemPair: groupPair.second) {
                 std::string typeName = typeid(*systemPair.second).name();
@@ -102,6 +103,8 @@ public:
                         << " System order " << systemPair.first
                         << " System " << cleanTypeName << "\n";
             }
+
+            std::cout << "---------------\n---------------\n";
         }
     }
 
