@@ -10,6 +10,7 @@
 #include <SDL_keycode.h>
 #include <typeindex>
 
+#include "NKGroupType.h"
 #include "NKSpriteCreator.h"
 #include "Events/NKEventDispatcher.h"
 #include "Systems/NKRenderingSystem.h"
@@ -65,18 +66,13 @@ public:
         return nullptr;
     }
 
-    //TODO: allow to set order in a group on add
-    //TODO: I can't use Id?
-    //TODO: 0,1,2 -> place 0 -> x,1,2,3 -> place 2 -> 0,1,2,3
-    //TODO: So, I would need to keep track after adding a new system and changing all indexes prior to it by 1
-    //TODO: what if instead use System type?
-    //TODO: x,y,z -> place x, -> f,x,y,z -> place y -> f,x,h,y,z
+    //Adds system to the end of the specified group type
     template<typename SystemType>
-    void AddSystem(int groupId, std::unique_ptr<SystemType> system) {
+    void AddSystem(NKGroupType groupType, std::unique_ptr<SystemType> system) {
         system->SetEngine(this);
 
         // Check if the group exists
-        auto it = _groups.find(groupId);
+        auto it = _groups.find(groupType);
         if (it != _groups.end()) {
             // Group exists, add the system to the existing group
             //it->second.insert()
@@ -85,7 +81,7 @@ public:
             // Group doesn't exist, create it and add the system
             std::map<int, std::unique_ptr<NKSystem> > newGroup; // Replace std::set with your preferred container type
             newGroup.emplace(0, std::move(system)); // Add system to the new group
-            _groups.emplace(groupId, std::move(newGroup)); // Initialize the group in the map
+            _groups.emplace(groupType, std::move(newGroup)); // Initialize the group in the map
         }
     }
 
@@ -102,7 +98,7 @@ public:
 
                 std::string cleanTypeName = typeName.substr(startPos);
 
-                std::cout << "Group order " << groupPair.first
+                std::cout << "Group order " //<< groupPair.first
                         << " System order " << systemPair.first
                         << " System " << cleanTypeName << "\n";
             }
@@ -117,7 +113,7 @@ public:
 
     //TODO: create a world class (wrapper for systems and components)
     std::map<int, std::list<std::unique_ptr<NKComponent> > > _components;
-    std::map<int, std::map<int, std::unique_ptr<NKSystem> > > _groups;
+    std::map<NKGroupType, std::map<int, std::unique_ptr<NKSystem> > > _groups;
 
 private:
     int _entityId;

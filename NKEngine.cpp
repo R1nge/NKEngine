@@ -19,15 +19,13 @@ NKEngine::NKEngine() {
     Window = std::make_unique<NKWindow>();
     SpriteCreator = std::make_unique<NKSpriteCreator>(Window->Renderer);
 
-    AddSystem(1, std::make_unique<NKTransformSystem>());
-    AddSystem(2, std::make_unique<NKInputSystem>());
-    AddSystem(3, std::make_unique<NKRenderingSystem>(Window.get()));
-    AddSystem(4, std::make_unique<NKCollisionTransformSyncSystem>());
-    AddSystem(5, std::make_unique<NKCollisionSystem>());
-    AddSystem(6, std::make_unique<NKCollisionResetSystem>());
+    AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>());
+    AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>());
+    AddSystem(NKGroupType::NKRendering, std::make_unique<NKRenderingSystem>(Window.get()));
+    AddSystem(NKGroupType::NKCollisionTransformSync, std::make_unique<NKCollisionTransformSyncSystem>());
+    AddSystem(NKGroupType::NKCollision, std::make_unique<NKCollisionSystem>());
+    AddSystem(NKGroupType::NKCollisionReset, std::make_unique<NKCollisionResetSystem>());
 
-    //TODO: what if instead of letting player to put a system before one I would store all engine systems in separate group starting from 1
-    //TODO: 0 - before transform, 1 - after transform before input, 2 - after input before rendering and so on...
     _isPaused = false;
 }
 

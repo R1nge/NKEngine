@@ -71,11 +71,11 @@ int main() {
     nk_engine->AddComponent<NKCollisionComponent>(collider, std::make_unique<NKCollisionComponent>(new SDL_Rect(300, 550, 100, 100)));
 
     //Systems
-    nk_engine->AddSystem(1, std::make_unique<GamePlayerMovementSystem>());
-    nk_engine->AddSystem(1, std::make_unique<GameRewindTriggerSystem>());
+    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
+    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameRewindTriggerSystem>());
 
 
-    nk_engine->AddSystem(5, std::make_unique<GamePrintOnCollision>());
+    nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
 
     std::cout << nk_engine->UuidGenerator->Generate();
 
