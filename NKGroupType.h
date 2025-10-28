@@ -9,6 +9,7 @@
 
 
 enum class NKGroupType {
+    NKBeforeTransform = 0,
     NKTransform = 1,
     NKInput = 2,
     NKRendering = 3,

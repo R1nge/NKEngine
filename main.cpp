@@ -15,19 +15,20 @@
 #include "Systems/Game/GamePrintOnCollision.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
-//https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
-
-
-//TODO: camera
-//TODO: to simulate camera viewport - offset all transform components by camera position???
-//TODO: renderer should take camera position into account and only move the render position, so it's cameraPos + transformPos
 
 //TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
-//TODO: update loops (fixed, update, lateUpdate) make 3 dicts + methods to add, execute system in separate loops
+//TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops
+//TODO: do the same for the events???
 
-//TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 
 //TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1), debug (on/off))
+
+//TODO: dear Imgui //https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
+
+//TODO: sld2 cmake clone
+//TODO: resolve headers
+//TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
+
 
 //TODO: engine core -> callbacks -> modules -> callbacks -> developer
 
