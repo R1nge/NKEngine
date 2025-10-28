@@ -40,21 +40,21 @@ NKEngine::~NKEngine() {
 }
 
 void NKEngine::Update() {
-    for (const auto &groupPair: _groups) {
-        for (const auto &systemPair: groupPair.second) {
-            if (!_isPaused) {
+    if (!_isPaused) {
+        for (const auto &groupPair: _groups) {
+            for (const auto &systemPair: groupPair.second) {
                 systemPair.second->Update();
             }
         }
-    }
 
-    if (!_isRewinding) {
-        _currentTick++;
-    } else {
-        ReverseAction(_currentTick);
-        _currentTick--;
-        if (_currentTick == 0) {
-            _isRewinding = false;
+        if (!_isRewinding) {
+            _currentTick++;
+        } else {
+            ReverseAction(_currentTick);
+            _currentTick--;
+            if (_currentTick == 0) {
+                _isRewinding = false;
+            }
         }
     }
 }
