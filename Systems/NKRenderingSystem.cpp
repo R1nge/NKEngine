@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include "../Components/NKCameraTag.h"
 #include "../Components/NKRenderComponent.h"
 #include "../Components/NKReversiblePositionComponent.h"
 
@@ -34,17 +35,29 @@ void NKRenderingSystem::Render() {
     SDL_RenderClear(_window->Renderer);
 
     for (const auto &pair: engine->_components) {
-        auto renderComponent = engine->getComponent<NKRenderComponent>(pair.first);
-        if (renderComponent != nullptr) {
-            auto transformComponent = engine->getComponent<NKReversiblePositionComponent>(pair.first);
-            if (transformComponent != nullptr) {
-                renderComponent->spriteRect->x =
-                        transformComponent->position->X->currentValue - renderComponent->spriteRect->w / 2;
-                renderComponent->spriteRect->y =
-                        transformComponent->position->Y->currentValue - renderComponent->spriteRect->h / 2;
-                SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
-                               renderComponent->spriteRect);
+        auto camera = engine->getComponent<NKCameraTag>(pair.first);
+        if (camera != nullptr) {
+            auto cameraPosition = engine->getComponent<NKReversiblePositionComponent>(pair.first);
+            if (cameraPosition != nullptr) {
+                for (const auto &pair2: engine->_components) {
+                    auto renderComponent = engine->getComponent<NKRenderComponent>(pair2.first);
+                    if (renderComponent != nullptr) {
+                        auto renderPosition = engine->getComponent<NKReversiblePositionComponent>(pair2.first);
+                        if (renderPosition != nullptr) {
+                            renderComponent->spriteRect->x =
+                                    (renderPosition->position->X->currentValue - renderComponent->spriteRect->w / 2) +
+                                    cameraPosition->position->X->currentValue;
+                            renderComponent->spriteRect->y =
+                                    (renderPosition->position->Y->currentValue - renderComponent->spriteRect->h / 2) -
+                                    cameraPosition->position->Y->currentValue;
+                            SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
+                                           renderComponent->spriteRect);
+                        }
+                    }
+                }
+            } else {
             }
+        } else {
         }
     }
 

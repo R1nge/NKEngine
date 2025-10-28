@@ -5,6 +5,7 @@
 
 #include "GameTestAction.h"
 #include "NKEngine.h"
+#include "Components/NKCameraTag.h"
 #include "Components/NKCollisionComponent.h"
 #include "Components/NKInputComponent.h"
 #include "Components/NKRenderComponent.h"
@@ -16,13 +17,10 @@
 
 //https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
 
-//TODO: game/scene coordinates (origin)
-//TODO: use the center of the screen as the origin
-//TODO: -x = left; +x = right;
-//TODO: -y = down; +y = up;
-
 
 //TODO: camera
+//TODO: to simulate camera viewport - offset all transform components by camera position???
+//TODO: renderer should take camera position into account and only move the render position, so it's cameraPos + transformPos
 
 //TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update, lateUpdate) make 3 dicts + methods to add, execute system in separate loops
@@ -42,11 +40,17 @@ int main() {
     auto nk_engine = std::make_unique<NKEngine>();
 
     //Entities
+    auto cameraEntity = nk_engine->CreateEntity();
     auto testEntity = nk_engine->CreateEntity();
 
     auto collider = nk_engine->CreateEntity();
 
     //Components
+    nk_engine->AddComponent<NKReversiblePositionComponent>(cameraEntity,
+                                                           std::make_unique<NKReversiblePositionComponent>(
+                                                               -SCREEN_WIDTH / 2, +SCREEN_HEIGHT / 2));
+    nk_engine->AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
+
     nk_engine->AddComponent<NKReversiblePositionComponent>(
         testEntity, std::make_unique<NKReversiblePositionComponent>(0, 0));
     auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
