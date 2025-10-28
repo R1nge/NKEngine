@@ -11,6 +11,7 @@
 #include <typeindex>
 
 #include "NKGroupType.h"
+#include "NKReversibleAction.h"
 #include "NKSpriteCreator.h"
 #include "Events/NKEventDispatcher.h"
 #include "Systems/NKRenderingSystem.h"
@@ -36,6 +37,12 @@ public:
     std::unique_ptr<NKSpriteCreator> SpriteCreator;
 
     int CreateEntity();
+
+    template<typename ActionType>
+    void AddAction(int tick, std::unique_ptr<ActionType> action) {
+        action->Do();
+        _actions[tick] = std::move(action);
+    }
 
     template<typename ComponentType>
     void AddComponent(int entityId, std::unique_ptr<ComponentType> component) {
@@ -72,11 +79,11 @@ public:
         system->SetEngine(this);
 
         // Check if the group exists
-        auto it = _groups.find(groupType);
-        if (it != _groups.end()) {
+        auto group = _groups.find(groupType);
+        if (group != _groups.end()) {
             // Group exists, add the system to the existing group
             //it->second.insert()
-            it->second.emplace(it->second.size(), std::move(system));
+            group->second.emplace(group->second.size(), std::move(system));
         } else {
             // Group doesn't exist, create it and add the system
             std::map<int, std::unique_ptr<NKSystem> > newGroup; // Replace std::set with your preferred container type
@@ -117,6 +124,9 @@ public:
     //TODO: create a world class (wrapper for systems and components)
     std::map<int, std::list<std::unique_ptr<NKComponent> > > _components;
     std::map<NKGroupType, std::map<int, std::unique_ptr<NKSystem> > > _groups;
+    //TODO: make a list of actions
+    //Tick
+    std::map<int, std::unique_ptr<NKReversibleAction> > _actions;
 
 private:
     int _entityId;

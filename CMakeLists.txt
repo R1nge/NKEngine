@@ -63,6 +63,8 @@ add_executable(NKEngine main.cpp
         Systems/Game/GamePrintOnCollision.h
         NKGroupType.cpp
         NKGroupType.h
+        NKReversibleAction.cpp
+        NKReversibleAction.h
 )
 INCLUDE(FindPkgConfig)
 
