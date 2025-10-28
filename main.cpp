@@ -42,7 +42,7 @@ int main() {
 
     //Entities
     auto cameraEntity = nk_engine->CreateEntity();
-    auto testEntity = nk_engine->CreateEntity();
+    auto playerEntity = nk_engine->CreateEntity();
 
     auto collider = nk_engine->CreateEntity();
 
@@ -53,13 +53,15 @@ int main() {
     nk_engine->AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
 
     nk_engine->AddComponent<NKReversiblePositionComponent>(
-        testEntity, std::make_unique<NKReversiblePositionComponent>(0, 0));
+        playerEntity, std::make_unique<NKReversiblePositionComponent>(0, -SCREEN_HEIGHT / 2 + 50));
     auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
                                                                   new NKSpriteData(10, 550, 100, 100, 10, 10, 10, 10));
-    nk_engine->AddComponent<NKRenderComponent>(testEntity, std::move(spriteComponent));
-    nk_engine->AddComponent<NKInputComponent>(testEntity, std::make_unique<NKInputComponent>());
-    nk_engine->AddComponent<NKCollisionComponent>(testEntity, std::make_unique<NKCollisionComponent>(new SDL_Rect(50,50,100,100)));
-    nk_engine->AddComponent<GamePlayerTag>(testEntity, std::make_unique<GamePlayerTag>());
+    nk_engine->AddComponent<NKRenderComponent>(playerEntity, std::move(spriteComponent));
+    nk_engine->AddComponent<NKInputComponent>(playerEntity, std::make_unique<NKInputComponent>());
+    nk_engine->AddComponent<NKCollisionComponent>(playerEntity,
+                                                  std::make_unique<
+                                                      NKCollisionComponent>(new SDL_Rect(50, 50, 100, 100)));
+    nk_engine->AddComponent<GamePlayerTag>(playerEntity, std::make_unique<GamePlayerTag>());
 
     nk_engine->AddComponent<NKReversiblePositionComponent>(
         collider, std::make_unique<NKReversiblePositionComponent>(100, 100));
