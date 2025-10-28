@@ -15,6 +15,7 @@
 #include "Systems/Game/GamePrintOnCollision.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
+//TODO: make input independent of the selected input language
 
 //TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops
@@ -26,7 +27,7 @@
 //TODO: dear Imgui //https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
 
 //TODO: sld2 cmake clone
-//TODO: resolve headers
+//TODO: resolve headers (src, includes...)
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 
 

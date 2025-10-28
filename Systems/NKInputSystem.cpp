@@ -13,61 +13,50 @@ void NKInputSystem::Update() {
     NKSystem::Update();
 
     //TODO: account for the case when 2 keys on the same axis are pressed
+    //TODO: use SDL_GetKeyboardState(); instead of events
     for (const auto &pair: engine->_components) {
         auto inputComponent = engine->getComponent<NKInputComponent>(pair.first);
         if (inputComponent != nullptr) {
-            bool quit = false;
-            SDL_Event event;
-            while (SDL_PollEvent(&event) != 0) {
-                //User requests quit
-                if (event.type == SDL_QUIT) {
-                    engine->Quit();
-                } else if (event.type == SDL_KEYDOWN) {
-                    auto key = event.key.keysym.sym;
-                    if (key == SDLK_a) {
-                        inputComponent->HorizontalAxis = -1;
-                    } else if (key == SDLK_d) {
-                        inputComponent->HorizontalAxis = 1;
-                    }
+            auto keyboardState = SDL_GetKeyboardState(nullptr);
+            if (keyboardState[SDL_SCANCODE_A] == 1) {
+                inputComponent->HorizontalAxis = -1;
+            }
+            if (keyboardState[SDL_SCANCODE_D] == 1) {
+                inputComponent->HorizontalAxis = 1;
+            }
 
-                    if (key == SDLK_w) {
-                        inputComponent->VerticalAxis = -1;
-                    } else if (key == SDLK_s) {
-                        inputComponent->VerticalAxis = 1;
-                    }
-
-                    if (key != SDLK_a && key != SDLK_d && key != SDLK_w && key != SDLK_s) {
-                        inputComponent->LastKey = key;
-                    }
-                } else if (event.type == SDL_KEYUP) {
-                    auto key = event.key.keysym.sym;
-                    if (key == SDLK_a) {
-                        if (inputComponent->HorizontalAxis == -1) {
-                            inputComponent->HorizontalAxis = 0;
-                        }
-                    } else if (key == SDLK_d) {
-                        if (inputComponent->HorizontalAxis == 1) {
-                            inputComponent->HorizontalAxis = 0;
-                        }
-                    }
-
-                    if (key == SDLK_w) {
-                        if (inputComponent->VerticalAxis == -1) {
-                            inputComponent->VerticalAxis = 0;
-                        }
-                    } else if (key == SDLK_s) {
-                        if (inputComponent->VerticalAxis == 1) {
-                            inputComponent->VerticalAxis = 0;
-                        }
-                    }
-
-                    if (key != SDLK_a && key != SDLK_d && key != SDLK_w && key != SDLK_s) {
-                        inputComponent->LastKey = 0;
-                    }
+            if (keyboardState[SDL_SCANCODE_A] == 0) {
+                if (inputComponent->HorizontalAxis == -1) {
+                    inputComponent->HorizontalAxis = 0;
                 }
+            }
 
-                //std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->HorizontalAxis << " Last key code " << inputComponent->LastKey << "\n";
+            if (keyboardState[SDL_SCANCODE_D] == 0) {
+                if (inputComponent->HorizontalAxis == 1) {
+                    inputComponent->HorizontalAxis = 0;
+                }
+            }
+
+
+            if (keyboardState[SDL_SCANCODE_W] == 1) {
+                inputComponent->VerticalAxis = -1;
+            }
+            if (keyboardState[SDL_SCANCODE_S] == 1) {
+                inputComponent->VerticalAxis = 1;
+            }
+
+            if (keyboardState[SDL_SCANCODE_W] == 0) {
+                if (inputComponent->VerticalAxis == -1) {
+                    inputComponent->VerticalAxis = 0;
+                }
+            }
+            if (keyboardState[SDL_SCANCODE_S]) {
+                if (inputComponent->VerticalAxis == 1) {
+                    inputComponent->VerticalAxis = 0;
+                }
             }
         }
+
+        //std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->HorizontalAxis << " Last key code " << inputComponent->LastKey << "\n";
     }
 }

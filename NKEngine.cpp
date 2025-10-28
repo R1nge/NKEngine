@@ -40,7 +40,15 @@ NKEngine::~NKEngine() {
 }
 
 void NKEngine::Update() {
-    if (!_isPaused) {
+    if (!_isPaused || !_isQuiting) {
+        SDL_Event e;
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                Quit();
+            }
+        }
+
+
         for (const auto &groupPair: _groups) {
             for (const auto &systemPair: groupPair.second) {
                 systemPair.second->Update();
