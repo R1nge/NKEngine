@@ -45,6 +45,11 @@ public:
         _actions[tick] = std::move(action);
     }
 
+    void ReverseAction(int tick) {
+        _actions[tick]->Undo();
+        _actions[tick] = nullptr;
+    }
+
     template<typename ComponentType>
     void AddComponent(int entityId, std::unique_ptr<ComponentType> component) {
         auto &componentsList = _components[entityId];
@@ -62,9 +67,9 @@ public:
 
     template<typename ComponentType>
     ComponentType *getComponent(int entityId) {
-        auto it = _components.find(entityId);
-        if (it != _components.end()) {
-            for (const auto &component: it->second) {
+        auto component = _components.find(entityId);
+        if (component != _components.end()) {
+            for (const auto &component: component->second) {
                 if (auto castedComponent = dynamic_cast<ComponentType *>(component.get())) {
                     return castedComponent;
                 }
