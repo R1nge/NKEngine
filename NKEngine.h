@@ -46,8 +46,10 @@ public:
     }
 
     void ReverseAction(int tick) {
-        _actions[tick]->Undo();
-        _actions[tick] = nullptr;
+        if (_actions.contains(tick)) {
+            _actions[tick]->Undo();
+            _actions[tick] = nullptr;
+        }
     }
 
     template<typename ComponentType>

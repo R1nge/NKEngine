@@ -51,6 +51,7 @@ void NKEngine::Update() {
     if (!_isRewinding) {
         _currentTick++;
     } else {
+        ReverseAction(_currentTick);
         _currentTick--;
         if (_currentTick == 0) {
             _isRewinding = false;

@@ -80,8 +80,6 @@ int main() {
 
     nk_engine->PrintAllSystem();
 
-    nk_engine->ReverseAction(10);
-
     while (!nk_engine->Quitting()) {
         nk_engine->Update();
     }
