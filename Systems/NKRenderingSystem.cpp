@@ -36,11 +36,12 @@ void NKRenderingSystem::Render() {
     for (const auto &pair: engine->_components) {
         auto renderComponent = engine->getComponent<NKRenderComponent>(pair.first);
         if (renderComponent != nullptr) {
-            //TODO: move into transform-render sync system??
             auto transformComponent = engine->getComponent<NKReversiblePositionComponent>(pair.first);
             if (transformComponent != nullptr) {
-                renderComponent->spriteRect->x = transformComponent->position->X->currentValue;
-                renderComponent->spriteRect->y = transformComponent->position->Y->currentValue;
+                renderComponent->spriteRect->x =
+                        transformComponent->position->X->currentValue - renderComponent->spriteRect->w / 2;
+                renderComponent->spriteRect->y =
+                        transformComponent->position->Y->currentValue - renderComponent->spriteRect->h / 2;
                 SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
                                renderComponent->spriteRect);
             }

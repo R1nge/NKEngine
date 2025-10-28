@@ -4,29 +4,24 @@
 #include <string>
 
 #include "GameTestAction.h"
-#include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
 #include "Components/NKCollisionComponent.h"
 #include "Components/NKInputComponent.h"
 #include "Components/NKRenderComponent.h"
 #include "Components/NKReversiblePositionComponent.h"
 #include "Components/Game/GamePlayerTag.h"
-#include "Systems/NKCollisionResetSystem.h"
-#include "Systems/NKCollisionSystem.h"
-#include "Systems/NKCollisionTransformSyncSystem.h"
-#include "Systems/NKInputSystem.h"
-#include "Systems/NKTransformSystem.h"
 #include "Systems/Game/GamePlayerMovementSystem.h"
 #include "Systems/Game/GamePrintOnCollision.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
 //https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
 
-
-//TODO: store actions as commands that can be done/undone to be able to restore the game state
-//TODO: if a ship has fired I can rewind the position and destroy the bullet, undo damage, reset timer, ect...
-
 //TODO: game/scene coordinates (origin)
+//TODO: use the center of the screen as the origin
+//TODO: -x = left; +x = right;
+//TODO: -y = down; +y = up;
+
+
 //TODO: camera
 
 //TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
@@ -53,7 +48,7 @@ int main() {
 
     //Components
     nk_engine->AddComponent<NKReversiblePositionComponent>(
-        testEntity, std::make_unique<NKReversiblePositionComponent>(10, 550));
+        testEntity, std::make_unique<NKReversiblePositionComponent>(0, 0));
     auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
                                                                   new NKSpriteData(10, 550, 100, 100, 10, 10, 10, 10));
     nk_engine->AddComponent<NKRenderComponent>(testEntity, std::move(spriteComponent));
@@ -62,9 +57,10 @@ int main() {
     nk_engine->AddComponent<GamePlayerTag>(testEntity, std::make_unique<GamePlayerTag>());
 
     nk_engine->AddComponent<NKReversiblePositionComponent>(
-        collider, std::make_unique<NKReversiblePositionComponent>(300, 550));
+        collider, std::make_unique<NKReversiblePositionComponent>(100, 100));
     auto spriteComponent2 = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
-                                                                   new NKSpriteData(10, 550, 100, 100, 10, 10, 10, 10));
+                                                                   new NKSpriteData(
+                                                                       10, 250, 100, 100, 10, 10, 10, 10, 0, 255, 0));
     nk_engine->AddComponent<NKRenderComponent>(collider, std::move(spriteComponent2));
     nk_engine->AddComponent<NKCollisionComponent>(collider, std::make_unique<NKCollisionComponent>(new SDL_Rect(300, 550, 100, 100)));
 
