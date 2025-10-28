@@ -92,6 +92,7 @@ Features:
 - [x] Rendering system
 - [x] AABB collision
 - [x] Camera
+- [x] Reversible actions
 - [ ] Delta time
 - [ ] Fixed update
 - [ ] Ini settings file
