@@ -72,14 +72,14 @@ public:
     //TODO: what if instead use System type?
     //TODO: x,y,z -> place x, -> f,x,y,z -> place y -> f,x,h,y,z
     template<typename SystemType>
-    void AddSystem(int groupId, int placeBeforeId, std::unique_ptr<SystemType> system) {
+    void AddSystem(int groupId, std::unique_ptr<SystemType> system) {
         system->SetEngine(this);
 
         // Check if the group exists
         auto it = _groups.find(groupId);
         if (it != _groups.end()) {
             // Group exists, add the system to the existing group
-            it->second.insert()
+            //it->second.insert()
             it->second.emplace(it->second.size(), std::move(system));
         } else {
             // Group doesn't exist, create it and add the system

@@ -19,6 +19,8 @@
 #include "Systems/Game/GamePrintOnCollision.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
+//https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
+
 
 //TODO: think about if I want to allow player to insert systems in between engine systems or allow to add any engine system???
 //TODO: the latter is boilerplaty, also requires the basic understanding on how the engine should behave, so it's a no go
@@ -69,14 +71,11 @@ int main() {
     nk_engine->AddComponent<NKCollisionComponent>(collider, std::make_unique<NKCollisionComponent>(new SDL_Rect(300, 550, 100, 100)));
 
     //Systems
-    nk_engine->AddSystem(0, std::make_unique<GamePlayerMovementSystem>());
-    nk_engine->AddSystem(0, std::make_unique<GameRewindTriggerSystem>());
-    nk_engine->AddSystem(0, std::make_unique<NKCollisionTransformSyncSystem>());
-    nk_engine->AddSystem(0, std::make_unique<NKCollisionSystem>());
+    nk_engine->AddSystem(1, std::make_unique<GamePlayerMovementSystem>());
+    nk_engine->AddSystem(1, std::make_unique<GameRewindTriggerSystem>());
 
-    nk_engine->AddSystem(0, std::make_unique<GamePrintOnCollision>());
 
-    nk_engine->AddSystem(0, std::make_unique<NKCollisionResetSystem>());
+    nk_engine->AddSystem(5, std::make_unique<GamePrintOnCollision>());
 
     std::cout << nk_engine->UuidGenerator->Generate();
 
