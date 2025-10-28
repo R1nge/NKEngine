@@ -65,6 +65,8 @@ add_executable(NKEngine main.cpp
         NKGroupType.h
         NKReversibleAction.cpp
         NKReversibleAction.h
+        GameTestAction.cpp
+        GameTestAction.h
 )
 INCLUDE(FindPkgConfig)
 

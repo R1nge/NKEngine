@@ -40,6 +40,7 @@ public:
 
     template<typename ActionType>
     void AddAction(int tick, std::unique_ptr<ActionType> action) {
+        action->SetEngine(this);
         action->Do();
         _actions[tick] = std::move(action);
     }

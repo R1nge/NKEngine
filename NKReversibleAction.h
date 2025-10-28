@@ -10,8 +10,6 @@ class NKEngine;
 
 class NKReversibleAction {
 public:
-    NKReversibleAction();
-
     void SetEngine(NKEngine *engine) {
         this->_engine = engine;
     }

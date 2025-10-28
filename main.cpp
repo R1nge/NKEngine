@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <string>
 
+#include "GameTestAction.h"
 #include "MyGameEventSubscriber.h"
 #include "NKEngine.h"
 #include "Components/NKCollisionComponent.h"
@@ -70,9 +71,10 @@ int main() {
     //Systems
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameRewindTriggerSystem>());
-
-
     nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
+
+    //Actions
+    nk_engine->AddAction(10, std::make_unique<GameTestAction>());
 
     std::cout << nk_engine->UuidGenerator->Generate();
 
