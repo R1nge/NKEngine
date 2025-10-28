@@ -79,3 +79,20 @@ int main() {
 
     return 0;
 ```
+
+Features:
+- [x] Texture loading
+- [x] Sprites
+- [x] Reversible int
+- [x] Reversible vector2Int
+- [x] Reversible position
+- [x] Coordinate system
+- [x] ECS
+- [x] Input system
+- [x] Rendering system
+- [x] AABB collision
+- [x] Camera
+- [ ] Delta time
+- [ ] Fixed update
+- [ ] Ini settings file
+- [ ] Dear ImGui integration
