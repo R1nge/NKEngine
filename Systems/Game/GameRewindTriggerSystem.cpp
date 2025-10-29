@@ -6,8 +6,7 @@
 #include "../../NKEngine.h"
 #include "../../Components/NKInputComponent.h"
 
-void GameRewindTriggerSystem::Update() {
-    NKSystem::Update();
+void GameRewindTriggerSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
         auto *inputComponent = engine->getComponent<NKInputComponent>(entityPair.first);
         if (inputComponent != nullptr) {

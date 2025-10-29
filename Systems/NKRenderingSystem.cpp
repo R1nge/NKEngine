@@ -27,7 +27,7 @@ NKRenderingSystem::NKRenderingSystem(NKWindow *window) {
     }
 }
 
-void NKRenderingSystem::Update() {
+void NKRenderingSystem::Update(double deltaTime) {
     Render();
 }
 

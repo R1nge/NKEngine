@@ -9,9 +9,7 @@
 #include "../NKEngine.h"
 #include "../Components/NKInputComponent.h"
 
-void NKInputSystem::Update() {
-    NKSystem::Update();
-
+void NKInputSystem::Update(double deltaTime) {
     for (const auto &pair: engine->_components) {
         auto inputComponent = engine->getComponent<NKInputComponent>(pair.first);
         if (inputComponent != nullptr) {

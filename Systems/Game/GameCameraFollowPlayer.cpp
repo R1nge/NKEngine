@@ -8,10 +8,7 @@
 #include "../../Components/NKReversiblePositionComponent.h"
 #include "../../Components/Game/GamePlayerTag.h"
 
-void GameCameraFollowPlayer::Update() {
-    NKSystem::Update();
-
-
+void GameCameraFollowPlayer::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
         auto *cameraTag = engine->getComponent<NKCameraTag>(entityPair.first);
         if (cameraTag != nullptr) {

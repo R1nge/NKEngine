@@ -9,7 +9,7 @@
 
 class NKInputSystem : public NKSystem {
 public:
-    void Update() override;
+    void Update(double deltaTime) override;
 };
 
 

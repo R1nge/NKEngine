@@ -7,7 +7,7 @@
 #include "../Components/NKReversiblePositionComponent.h"
 #include "../Components/NKCollisionComponent.h"
 
-void NKCollisionTransformSyncSystem::Update() {
+void NKCollisionTransformSyncSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
         auto *positionComponent = engine->getComponent<NKReversiblePositionComponent>(entityPair.first);
         if (positionComponent != nullptr) {

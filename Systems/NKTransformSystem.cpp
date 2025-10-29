@@ -9,8 +9,7 @@
 #include "../NKEngine.h"
 
 
-void NKTransformSystem::Update() {
-    NKSystem::Update();
+void NKTransformSystem::Update(double deltaTime) {
     if (engine->IsRewinding()) {
         Rewind(engine->GetTick());
     }

@@ -8,7 +8,7 @@
 #include "../../Components/NKReversiblePositionComponent.h"
 #include "../../Components/Game/GamePlayerTag.h"
 
-void GamePlayerMovementSystem::Update() {
+void GamePlayerMovementSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
         auto *playerTag = engine->getComponent<GamePlayerTag>(entityPair.first);
         if (playerTag != nullptr) {

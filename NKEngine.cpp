@@ -55,7 +55,7 @@ void NKEngine::Update() {
 
         for (const auto &groupPair: _groups) {
             for (const auto &systemPair: groupPair.second) {
-                systemPair.second->Update();
+                systemPair.second->Update(_deltaTime);
             }
         }
 
@@ -69,7 +69,7 @@ void NKEngine::Update() {
             }
         }
 
-        std::cout << "Delta time: " << _deltaTime << "\n";
+        std::cout << _deltaTime << "\n";
     }
 }
 

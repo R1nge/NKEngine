@@ -8,7 +8,7 @@
 
 
 class NKCollisionResetSystem : public NKSystem {
-    void Update() override;
+    void Update(double deltaTime) override;
 };
 
 

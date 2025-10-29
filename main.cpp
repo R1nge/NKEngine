@@ -21,6 +21,7 @@
 
 //TODO: target fps + (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops
+//TODO: https://thenumb.at/cpp-course/sdl2/08/08.html
 //TODO: do the same for the actions???
 
 //TODO: create Filter.With/Filter.Without

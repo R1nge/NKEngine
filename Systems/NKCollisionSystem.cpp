@@ -7,7 +7,7 @@
 #include "../Components/NKCollisionComponent.h"
 #include "../Components/NKCollisionTag.h"
 
-void NKCollisionSystem::Update() {
+void NKCollisionSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
         auto *colliderComponent = engine->getComponent<NKCollisionComponent>(entityPair.first);
         if (colliderComponent != nullptr) {

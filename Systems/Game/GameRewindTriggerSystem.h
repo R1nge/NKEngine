@@ -8,7 +8,7 @@
 #include "../NKSystem.h"
 
 class GameRewindTriggerSystem : public NKSystem {
-    void Update() override;
+    void Update(double deltaTime) override;
 };
 
 

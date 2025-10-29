@@ -15,7 +15,7 @@ public:
 
     void Init();
 
-    virtual void Update();
+    virtual void Update(double deltaTime);
 
     void Dispose();
 

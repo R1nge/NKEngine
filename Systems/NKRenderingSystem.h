@@ -12,7 +12,8 @@ class NKRenderingSystem : public NKSystem {
 public:
     NKRenderingSystem(NKWindow *window);
 
-    void Update() override;
+    void Update(double deltaTime) override;
+
     void Render();
 
 private:
