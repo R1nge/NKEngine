@@ -94,7 +94,7 @@ Features:
 - [x] Camera
 - [x] Reversible actions
 - [ ] Screen to world/World to screen
-- [ ] Delta time
+- [x] Delta time
 - [ ] Fixed update
 - [ ] Ini settings file
 - [ ] Dear ImGui integration
