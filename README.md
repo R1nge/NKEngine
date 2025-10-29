@@ -83,8 +83,8 @@ int main() {
 Features:
 - [x] Texture loading
 - [x] Sprites
-- [x] Reversible int
-- [x] Reversible vector2Int
+- [x] Reversible double
+- [x] Reversible vector2Double
 - [x] Reversible position
 - [x] Coordinate system
 - [x] ECS
