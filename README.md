@@ -95,6 +95,7 @@ Features:
 - [x] Reversible actions
 - [ ] Screen to world/World to screen
 - [x] Delta time
+- [x] Sprite sorting order
 - [ ] Fixed update
 - [ ] Ini settings file
 - [ ] Dear ImGui integration
