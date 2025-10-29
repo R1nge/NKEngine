@@ -16,8 +16,10 @@
 #include "Systems/Game/GamePrintOnCollision.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
+//TODO: screen to world/world to screen
 
-//TODO: target fps + frametime + deltatime (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
+
+//TODO: target fps + (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops
 //TODO: do the same for the actions???
 
@@ -27,7 +29,9 @@
 
 //TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1), debug (on/off))
 
-//TODO: dear Imgui //https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
+//TODO: dear Imgui
+// https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
+// https://github.com/Green-Sky/imgui_entt_entity_editor/tree/master
 //TODO: make UI ecs based
 
 //TODO: sld2 cmake clone

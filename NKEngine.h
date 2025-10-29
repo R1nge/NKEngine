@@ -142,6 +142,9 @@ private:
     bool _isRewinding;
     bool _isPaused;
     bool _isQuiting;
+    Uint64 _currentFrameTime = SDL_GetPerformanceCounter();
+    Uint64 _lastFrameTime = 0;
+    double _deltaTime = 0;
 };
 
 

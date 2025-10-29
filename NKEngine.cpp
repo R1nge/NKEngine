@@ -48,6 +48,10 @@ void NKEngine::Update() {
             }
         }
 
+        _lastFrameTime = _currentFrameTime;
+        _currentFrameTime = SDL_GetPerformanceCounter();
+        _deltaTime = (_currentFrameTime - _lastFrameTime) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency());
+
 
         for (const auto &groupPair: _groups) {
             for (const auto &systemPair: groupPair.second) {
@@ -64,6 +68,8 @@ void NKEngine::Update() {
                 _isRewinding = false;
             }
         }
+
+        std::cout << "Delta time: " << _deltaTime << "\n";
     }
 }
 
