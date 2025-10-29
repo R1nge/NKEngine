@@ -5,12 +5,13 @@
 #ifndef NKENGINE_NKTRANSFORM_H
 #define NKENGINE_NKTRANSFORM_H
 #include "NKComponent.h"
-#include "../NKReversibleVector2Int.h"
+#include "../NKReversibleVector2Double.h"
 
 
 struct NKReversiblePositionComponent : NKComponent {
     NKReversiblePositionComponent(int x, int y);
-    NKReversibleVector2Int *position;
+
+    NKReversibleVector2Double *position;
 };
 
 

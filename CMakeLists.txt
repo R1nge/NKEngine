@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(NKEngine main.cpp
         NKEngine.cpp
         NKEngine.h
-        NKReversibleVector2Int.cpp
-        NKReversibleVector2Int.h
+        NKReversibleVector2Double.cpp
+        NKReversibleVector2Double.h
         Events/NKEvent.cpp
         Events/NKEvent.h
         Events/NKEventSubscriber.cpp
@@ -21,8 +21,8 @@ add_executable(NKEngine main.cpp
         NKUuidGenerator.h
         Systems/NKRenderingSystem.cpp
         Systems/NKRenderingSystem.h
-        NKReversibleInt.cpp
-        NKReversibleInt.h
+        NKReversibleDouble.cpp
+        NKReversibleDouble.h
         Components/NKReversiblePositionComponent.cpp
         Components/NKReversiblePositionComponent.h
         Components/NKComponent.cpp

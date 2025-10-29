@@ -7,13 +7,13 @@
 #include <map>
 
 
-struct NKReversibleInt {
-    int startValue;
+struct NKReversibleDouble {
+    double startValue;
     //TODO: original value
-    int currentValue;
+    double currentValue;
     //TODO: current value to be able to quickly add/sub a delta
     //Tick, delta-value
-    std::map<int, int> deltas;
+    std::map<int, double> deltas;
     //TODO: map<tick, delta>
     //TODO: store original state + delta + tick
 };

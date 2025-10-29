@@ -69,7 +69,7 @@ void NKEngine::Update() {
             }
         }
 
-        std::cout << _deltaTime << "\n";
+        //std::cout << _deltaTime << "\n";
     }
 }
 
