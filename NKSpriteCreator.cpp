@@ -36,7 +36,7 @@ std::unique_ptr<NKRenderComponent> NKSpriteCreator::CreateSprite(NKSpriteData *d
     data->positionX -= data->spriteWidth / 2;
     data->positionY -= data->spriteHeight / 2;
     auto sprite = std::make_unique<NKRenderComponent>(
-        nullptr, new SDL_Rect(data->positionX, data->positionY, data->spriteWidth, data->spriteHeight),
+        nullptr, new SDL_FRect(data->positionX, data->positionY, data->spriteWidth, data->spriteHeight),
         new SDL_Rect(data->texturePositionX, data->texturePositionY, data->textureWidth, data->textureHeight), data);
     return sprite;
 }

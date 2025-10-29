@@ -11,10 +11,10 @@
 
 
 struct NKRenderComponent : NKComponent {
-    NKRenderComponent(SDL_Texture *Texture, SDL_Rect *SpriteRect, SDL_Rect *TextureRect, NKSpriteData *data);
+    NKRenderComponent(SDL_Texture *Texture, SDL_FRect *SpriteRect, SDL_Rect *TextureRect, NKSpriteData *data);
 
     SDL_Texture *texture;
-    SDL_Rect *spriteRect;
+    SDL_FRect *spriteRect;
     SDL_Rect *textureRect;
     NKSpriteData *data;
 };

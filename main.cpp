@@ -16,8 +16,10 @@
 #include "Systems/Game/GamePrintOnCollision.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
+//TODO: fix currently pressed key
+
+
 //TODO: screen to world/world to screen
-//TODO: renderer z-ordering
 
 //TODO: target fps + (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops

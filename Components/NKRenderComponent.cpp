@@ -4,7 +4,7 @@
 
 #include "NKRenderComponent.h"
 
-NKRenderComponent::NKRenderComponent(SDL_Texture *Texture, SDL_Rect *SpriteRect, SDL_Rect *TextureRect,
+NKRenderComponent::NKRenderComponent(SDL_Texture *Texture, SDL_FRect *SpriteRect, SDL_Rect *TextureRect,
                                      NKSpriteData *Data) {
     texture = Texture;
     spriteRect = SpriteRect;

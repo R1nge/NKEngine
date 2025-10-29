@@ -65,13 +65,13 @@ void NKRenderingSystem::Render() {
                 if (worldPosition != nullptr) {
                     auto renderComponent = pair2.second;
                     renderComponent->spriteRect->x =
-                            worldPosition->position->X->currentValue - renderComponent->spriteRect->w / 2 -
-                            cameraPosition->position->X->currentValue;
+                            worldPosition->position->X->currentValue - static_cast<double>(renderComponent->spriteRect->
+                                w) / static_cast<double>(2) - cameraPosition->position->X->currentValue;
                     renderComponent->spriteRect->y =
-                            worldPosition->position->Y->currentValue - renderComponent->spriteRect->h / 2 -
-                            cameraPosition->position->Y->currentValue;
-                    SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
-                                   renderComponent->spriteRect);
+                            worldPosition->position->Y->currentValue - static_cast<double>(renderComponent->spriteRect->
+                                h) / static_cast<double>(2) - cameraPosition->position->Y->currentValue;
+                    SDL_RenderCopyF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
+                                    renderComponent->spriteRect);
                 }
             }
         }
