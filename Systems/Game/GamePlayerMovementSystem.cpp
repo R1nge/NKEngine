@@ -16,8 +16,7 @@ void GamePlayerMovementSystem::Update(double deltaTime) {
             if (movementComponent != nullptr) {
                 auto *inputComponent = engine->getComponent<NKInputComponent>(entityPair.first);
                 auto tick = engine->GetTick();
-                auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * static_cast<double>(4) *
-                                  deltaTime;
+                auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * deltaTime;
                 movementComponent->position->X->deltas.emplace(tick, horizontal);
                 movementComponent->position->X->currentValue += horizontal;
             }
