@@ -12,8 +12,6 @@
 void NKInputSystem::Update() {
     NKSystem::Update();
 
-    //TODO: account for the case when 2 keys on the same axis are pressed
-    //TODO: use SDL_GetKeyboardState(); instead of events
     for (const auto &pair: engine->_components) {
         auto inputComponent = engine->getComponent<NKInputComponent>(pair.first);
         if (inputComponent != nullptr) {
@@ -56,6 +54,8 @@ void NKInputSystem::Update() {
                 }
             }
         }
+
+        //TODO: store pressed keys??
 
         //std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->HorizontalAxis << " Last key code " << inputComponent->LastKey << "\n";
     }

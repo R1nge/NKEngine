@@ -42,13 +42,13 @@ void NKRenderingSystem::Render() {
                 for (const auto &pair2: engine->_components) {
                     auto renderComponent = engine->getComponent<NKRenderComponent>(pair2.first);
                     if (renderComponent != nullptr) {
-                        auto renderPosition = engine->getComponent<NKReversiblePositionComponent>(pair2.first);
-                        if (renderPosition != nullptr) {
+                        auto worldPosition = engine->getComponent<NKReversiblePositionComponent>(pair2.first);
+                        if (worldPosition != nullptr) {
                             renderComponent->spriteRect->x =
-                                    (renderPosition->position->X->currentValue - renderComponent->spriteRect->w / 2) +
+                                    worldPosition->position->X->currentValue - renderComponent->spriteRect->w / 2 -
                                     cameraPosition->position->X->currentValue;
                             renderComponent->spriteRect->y =
-                                    (renderPosition->position->Y->currentValue - renderComponent->spriteRect->h / 2) -
+                                    worldPosition->position->Y->currentValue - renderComponent->spriteRect->h / 2 -
                                     cameraPosition->position->Y->currentValue;
                             SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
                                            renderComponent->spriteRect);
