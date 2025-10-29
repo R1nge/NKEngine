@@ -34,6 +34,8 @@ void NKRenderingSystem::Update(double deltaTime) {
 void NKRenderingSystem::Render() {
     SDL_RenderClear(_window->Renderer);
 
+    std::vector<std::pair<int, NKRenderComponent *> > renderQueue;
+
     for (const auto &pair: engine->_components) {
         auto camera = engine->getComponent<NKCameraTag>(pair.first);
         if (camera != nullptr) {
@@ -41,23 +43,37 @@ void NKRenderingSystem::Render() {
             if (cameraPosition != nullptr) {
                 for (const auto &pair2: engine->_components) {
                     auto renderComponent = engine->getComponent<NKRenderComponent>(pair2.first);
+
                     if (renderComponent != nullptr) {
-                        auto worldPosition = engine->getComponent<NKReversiblePositionComponent>(pair2.first);
-                        if (worldPosition != nullptr) {
-                            renderComponent->spriteRect->x =
-                                    worldPosition->position->X->currentValue - renderComponent->spriteRect->w / 2 -
-                                    cameraPosition->position->X->currentValue;
-                            renderComponent->spriteRect->y =
-                                    worldPosition->position->Y->currentValue - renderComponent->spriteRect->h / 2 -
-                                    cameraPosition->position->Y->currentValue;
-                            SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
-                                           renderComponent->spriteRect);
-                        }
+                        renderQueue.emplace_back(pair2.first, renderComponent);
                     }
                 }
-            } else {
             }
-        } else {
+        }
+    }
+
+    std::sort(renderQueue.begin(), renderQueue.end(), [](const auto &a, const auto &b) {
+        return a.second->data->layer < b.second->data->layer; // Sort in ascending order
+    });
+
+    for (const auto &pair: engine->_components) {
+        auto camera = engine->getComponent<NKCameraTag>(pair.first);
+        if (camera != nullptr) {
+            auto cameraPosition = engine->getComponent<NKReversiblePositionComponent>(pair.first);
+            for (auto &pair2: renderQueue) {
+                auto worldPosition = engine->getComponent<NKReversiblePositionComponent>(pair2.first);
+                if (worldPosition != nullptr) {
+                    auto renderComponent = pair2.second;
+                    renderComponent->spriteRect->x =
+                            worldPosition->position->X->currentValue - renderComponent->spriteRect->w / 2 -
+                            cameraPosition->position->X->currentValue;
+                    renderComponent->spriteRect->y =
+                            worldPosition->position->Y->currentValue - renderComponent->spriteRect->h / 2 -
+                            cameraPosition->position->Y->currentValue;
+                    SDL_RenderCopy(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
+                                   renderComponent->spriteRect);
+                }
+            }
         }
     }
 

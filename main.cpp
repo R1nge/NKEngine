@@ -17,7 +17,7 @@
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
 //TODO: screen to world/world to screen
-
+//TODO: renderer z-ordering
 
 //TODO: target fps + (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops
@@ -65,7 +65,8 @@ int main() {
     nk_engine->AddComponent<NKReversiblePositionComponent>(
         playerEntity, std::make_unique<NKReversiblePositionComponent>(0, 0));
     auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
-                                                                  new NKSpriteData(10, 550, 100, 100, 10, 10, 10, 10));
+                                                                  new NKSpriteData(
+                                                                      10, 550, 100, 100, 10, 10, 10, 10, 1));
     nk_engine->AddComponent<NKRenderComponent>(playerEntity, std::move(spriteComponent));
     nk_engine->AddComponent<NKInputComponent>(playerEntity, std::make_unique<NKInputComponent>());
     nk_engine->AddComponent<NKCollisionComponent>(playerEntity,
@@ -74,10 +75,10 @@ int main() {
     nk_engine->AddComponent<GamePlayerTag>(playerEntity, std::make_unique<GamePlayerTag>());
 
     nk_engine->AddComponent<NKReversiblePositionComponent>(
-        collider, std::make_unique<NKReversiblePositionComponent>(100, 100));
+        collider, std::make_unique<NKReversiblePositionComponent>(100, 50));
     auto spriteComponent2 = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
                                                                    new NKSpriteData(
-                                                                       10, 250, 100, 100, 10, 10, 10, 10, 0, 255, 0));
+                                                                       10, 250, 100, 100, 10, 10, 10, 10, 0,0, 255, 0));
     nk_engine->AddComponent<NKRenderComponent>(collider, std::move(spriteComponent2));
     nk_engine->AddComponent<NKCollisionComponent>(collider, std::make_unique<NKCollisionComponent>(new SDL_Rect(300, 550, 100, 100)));
 
