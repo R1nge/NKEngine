@@ -71,6 +71,7 @@ add_executable(NKEngine main.cpp
         Components/NKCameraTag.h
         Systems/Game/GameCameraFollowPlayer.cpp
         Systems/Game/GameCameraFollowPlayer.h
+        NKCoordinatesConverter.cpp
 )
 INCLUDE(FindPkgConfig)
 

@@ -10,6 +10,7 @@
 #include <SDL_keycode.h>
 #include <typeindex>
 
+#include "NKCoordinatesConverter.h"
 #include "NKGroupType.h"
 #include "NKReversibleAction.h"
 #include "NKSpriteCreator.h"
@@ -35,6 +36,7 @@ public:
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKWindow> Window;
     std::unique_ptr<NKSpriteCreator> SpriteCreator;
+    std::unique_ptr<NKCoordinatesConverter> CoordinatesConverter;
 
     int CreateEntity();
 

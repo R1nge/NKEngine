@@ -14,6 +14,7 @@ void NKInputSystem::Update(double deltaTime) {
         auto inputComponent = engine->getComponent<NKInputComponent>(pair.first);
         if (inputComponent != nullptr) {
             auto keyboardState = SDL_GetKeyboardState(nullptr);
+
             if (keyboardState[SDL_SCANCODE_A] == 1) {
                 inputComponent->HorizontalAxis = -1;
             }

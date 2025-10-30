@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <iostream>
-#include <SDL_image.h>
 #include <string>
 
 #include "GameTestAction.h"
@@ -61,7 +60,8 @@ int main() {
     //Components
     nk_engine->AddComponent<NKReversiblePositionComponent>(cameraEntity,
                                                            std::make_unique<NKReversiblePositionComponent>(
-                                                               -SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)));
+                                                               nk_engine->CoordinatesConverter->ScreenToWorldX(0),
+                                                               nk_engine->CoordinatesConverter->ScreenToWorldY(0)));
     nk_engine->AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
 
     nk_engine->AddComponent<NKReversiblePositionComponent>(
@@ -88,7 +88,7 @@ int main() {
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameRewindTriggerSystem>());
     nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
-    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
+    //nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
 
     //Actions
     nk_engine->AddAction(10, std::make_unique<GameTestAction>());

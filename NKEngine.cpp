@@ -18,6 +18,7 @@ NKEngine::NKEngine() {
     UuidGenerator = std::make_unique<NKUuidGenerator>();
     Window = std::make_unique<NKWindow>();
     SpriteCreator = std::make_unique<NKSpriteCreator>(Window->Renderer);
+    CoordinatesConverter = std::make_unique<NKCoordinatesConverter>();
 
     AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>());
     AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>());
