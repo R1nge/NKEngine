@@ -30,7 +30,7 @@ public:
 
     void Rewind();
 
-    int GetTick() const;
+    std::uint_fast32_t GetTick() const;
 
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
@@ -41,13 +41,13 @@ public:
     int CreateEntity();
 
     template<typename ActionType>
-    void AddAction(int tick, std::unique_ptr<ActionType> action) {
+    void AddAction(std::uint_fast32_t tick, std::unique_ptr<ActionType> action) {
         action->SetEngine(this);
         action->Do();
         _actions[tick] = std::move(action);
     }
 
-    void ReverseAction(int tick) {
+    void ReverseAction(std::uint_fast32_t tick) {
         if (_actions.contains(tick)) {
             _actions[tick]->Undo();
             _actions[tick] = nullptr;
@@ -55,13 +55,13 @@ public:
     }
 
     template<typename ComponentType>
-    void AddComponent(int entityId, std::unique_ptr<ComponentType> component) {
+    void AddComponent(std::uint_fast32_t entityId, std::unique_ptr<ComponentType> component) {
         auto &componentsList = _components[entityId];
         componentsList.emplace_back(std::move(component));
     }
 
     template<typename ComponentType>
-    void RemoveComponent(int entityId) {
+    void RemoveComponent(std::uint_fast32_t entityId) {
         auto &componentsList = _components[entityId];
         componentsList.remove_if([](const std::unique_ptr<NKComponent> &component) {
             std::cout << "Removed a component";
@@ -70,7 +70,7 @@ public:
     }
 
     template<typename ComponentType>
-    ComponentType *getComponent(int entityId) {
+    ComponentType *getComponent(std::uint_fast32_t entityId) {
         auto component = _components.find(entityId);
         if (component != _components.end()) {
             for (const auto &component: component->second) {
@@ -96,7 +96,8 @@ public:
             group->second.emplace(group->second.size(), std::move(system));
         } else {
             // Group doesn't exist, create it and add the system
-            std::map<int, std::unique_ptr<NKSystem> > newGroup; // Replace std::set with your preferred container type
+            std::map<std::uint_fast32_t, std::unique_ptr<NKSystem> > newGroup;
+            // Replace std::set with your preferred container type
             newGroup.emplace(0, std::move(system)); // Add system to the new group
             _groups.emplace(groupType, std::move(newGroup)); // Initialize the group in the map
         }
@@ -132,20 +133,20 @@ public:
     bool Quitting();
 
     //TODO: create a world class (wrapper for systems and components)
-    std::map<int, std::list<std::unique_ptr<NKComponent> > > _components;
-    std::map<NKGroupType, std::map<int, std::unique_ptr<NKSystem> > > _groups;
+    std::map<std::uint_fast16_t, std::list<std::unique_ptr<NKComponent> > > _components;
+    std::map<NKGroupType, std::map<std::uint_fast16_t, std::unique_ptr<NKSystem> > > _groups;
     //TODO: make a list of actions
     //Tick
-    std::map<int, std::unique_ptr<NKReversibleAction> > _actions;
+    std::map<std::uint_fast16_t, std::unique_ptr<NKReversibleAction> > _actions;
 
 private:
-    int _entityId;
-    int _currentTick;
+    std::uint_fast32_t _entityId;
+    std::uint_fast32_t _currentTick;
     bool _isRewinding;
     bool _isPaused;
     bool _isQuiting;
-    Uint64 _currentFrameTime = SDL_GetPerformanceCounter();
-    Uint64 _lastFrameTime = 0;
+    std::uint_fast64_t _currentFrameTime = SDL_GetPerformanceCounter();
+    std::uint_fast64_t _lastFrameTime = 0;
     double _deltaTime = 0;
 };
 

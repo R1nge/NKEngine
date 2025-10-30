@@ -78,7 +78,7 @@ void NKEngine::Rewind() {
     _isRewinding = true;
 }
 
-int NKEngine::GetTick() const {
+std::uint_fast32_t NKEngine::GetTick() const {
     return _currentTick;
 }
 

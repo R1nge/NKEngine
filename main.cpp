@@ -15,10 +15,13 @@
 #include "Systems/Game/GamePrintOnCollision.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
+//https://nullprogram.com/blog/2023/01/08/
+
+//TODO: sdl2 dll
 //TODO: fix currently pressed key
 
 
-//TODO: screen to world/world to screen
+//TODO: world to screen
 
 //TODO: target fps + (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops
@@ -31,12 +34,12 @@
 
 //TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1), debug (on/off))
 
-//TODO: dear Imgui
+//TODO: dear Imgui dll
 // https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
 // https://github.com/Green-Sky/imgui_entt_entity_editor/tree/master
 //TODO: make UI ecs based
 
-//TODO: sld2 cmake clone
+//TODO: sld2 dll
 //TODO: resolve headers (src, includes...)
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 
@@ -88,7 +91,7 @@ int main() {
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameRewindTriggerSystem>());
     nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
-    //nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
+    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
 
     //Actions
     nk_engine->AddAction(10, std::make_unique<GameTestAction>());
