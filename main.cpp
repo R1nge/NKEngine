@@ -17,11 +17,9 @@
 
 //https://nullprogram.com/blog/2023/01/08/
 
-//TODO: sdl2 dll
-//TODO: fix currently pressed key
+//TODO: orthogonal 2d projection??
 
-//TEst local
-//TODO: world to screen
+//TODO: sdl2 dll
 
 //TODO: target fps + (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops
@@ -82,7 +80,7 @@ int main() {
 
     //Systems
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
-    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameRewindTriggerSystem>());
+    nk_engine->AddSystem(NKGroupType::NKInput, std::make_unique<GameRewindTriggerSystem>());
     nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
 

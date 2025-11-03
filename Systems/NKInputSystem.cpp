@@ -54,8 +54,7 @@ void NKInputSystem::Update(double deltaTime) {
                 }
             }
 
-            std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->HorizontalAxis
-                    << " Last key code " << inputComponent->LastKey << "\n";
+            //std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->HorizontalAxis << " Last key code " << inputComponent->LastKey << "\n";
         }
     }
 }

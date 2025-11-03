@@ -19,11 +19,25 @@ void GamePlayerMovementSystem::Update(double deltaTime) {
                 if (inputComponent != nullptr) {
                     auto tick = engine->GetTick();
                     auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * deltaTime;
-                    movementComponent->position->X->deltas.emplace(tick, horizontal);
-                    movementComponent->position->X->currentValue += horizontal;
                     auto vertical = static_cast<double>(inputComponent->VerticalAxis) * deltaTime;
-                    movementComponent->position->Y->deltas.emplace(tick, vertical);
-                    movementComponent->position->Y->currentValue += vertical;
+
+                    auto diagonalFactor = 1 / SDL_sqrt(2);
+
+                    if (horizontal != 0 || vertical != 0) {
+                        horizontal *= diagonalFactor;
+                        vertical *= diagonalFactor;
+                        movementComponent->position->X->deltas.emplace(tick, horizontal);
+                        movementComponent->position->X->currentValue += horizontal;
+                        movementComponent->position->Y->deltas.emplace(tick, vertical);
+                        movementComponent->position->Y->currentValue += vertical;
+                    } else {
+                        movementComponent->position->X->deltas.emplace(tick, horizontal);
+                        movementComponent->position->X->currentValue += horizontal;
+                        movementComponent->position->Y->deltas.emplace(tick, vertical);
+                        movementComponent->position->Y->currentValue += vertical;
+                    }
+
+                    //std::cout << "Horizontal: " << horizontal << " Vertical: " << vertical << "\n";
                 }
             }
         }
