@@ -72,6 +72,10 @@ add_executable(NKEngine main.cpp
         Systems/Game/GameCameraFollowPlayer.cpp
         Systems/Game/GameCameraFollowPlayer.h
         NKCoordinatesConverter.cpp
+        Systems/NKGravitySystem.cpp
+        Systems/NKGravitySystem.h
+        Components/NKGravityComponent.cpp
+        Components/NKGravityComponent.h
 )
 INCLUDE(FindPkgConfig)
 

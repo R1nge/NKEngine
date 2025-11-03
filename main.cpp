@@ -6,6 +6,7 @@
 #include "NKEngine.h"
 #include "Components/NKCameraTag.h"
 #include "Components/NKCollisionComponent.h"
+#include "Components/NKGravityComponent.h"
 #include "Components/NKInputComponent.h"
 #include "Components/NKRenderComponent.h"
 #include "Components/NKReversiblePositionComponent.h"
@@ -64,6 +65,7 @@ int main() {
                                                                   new NKSpriteData(
                                                                       10, 550, 100, 100, 10, 10, 10, 10, 1));
     nk_engine->AddComponent<NKRenderComponent>(playerEntity, std::move(spriteComponent));
+    nk_engine->AddComponent<NKGravityComponent>(playerEntity, std::make_unique<NKGravityComponent>(-10));
     nk_engine->AddComponent<NKInputComponent>(playerEntity, std::make_unique<NKInputComponent>());
     nk_engine->AddComponent<NKCollisionComponent>(playerEntity,
                                                   std::make_unique<

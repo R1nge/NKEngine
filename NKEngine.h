@@ -65,7 +65,7 @@ public:
     void RemoveComponent(std::uint_fast32_t entityId) {
         auto &componentsList = _components[entityId];
         componentsList.remove_if([](const std::unique_ptr<NKComponent> &component) {
-            std::cout << "Removed a component";
+            //std::cout << "Removed a component";
             return typeid(*component) == typeid(ComponentType);
         });
     }

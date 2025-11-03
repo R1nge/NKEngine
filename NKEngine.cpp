@@ -12,6 +12,7 @@
 #include "Systems/NKCollisionResetSystem.h"
 #include "Systems/NKCollisionSystem.h"
 #include "Systems/NKCollisionTransformSyncSystem.h"
+#include "Systems/NKGravitySystem.h"
 #include "Systems/NKInputSystem.h"
 #include "Systems/NKTransformSystem.h"
 
@@ -28,6 +29,7 @@ NKEngine::NKEngine() {
 
 
     AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>());
+    AddSystem(NKGroupType::NKBeforeTransform, std::make_unique<NKGravitySystem>());
     AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>());
     AddSystem(NKGroupType::NKRendering, std::make_unique<NKRenderingSystem>(Window.get()));
     AddSystem(NKGroupType::NKCollisionTransformSync, std::make_unique<NKCollisionTransformSyncSystem>());
