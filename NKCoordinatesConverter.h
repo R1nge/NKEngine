@@ -8,9 +8,13 @@
 
 class NKCoordinatesConverter {
 public:
-    double ScreenToWorldX(double x);
+    double ScreenToWorldX(double x, double cameraX);
 
-    double ScreenToWorldY(double y);
+    double ScreenToWorldY(double y, double cameraY);
+
+    double WorldToScreenX(double x, double cameraX);
+
+    double WorldToScreenY(double y, double cameraY);
 };
 
 

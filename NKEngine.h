@@ -32,6 +32,7 @@ public:
 
     std::uint_fast32_t GetTick() const;
 
+
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKWindow> Window;

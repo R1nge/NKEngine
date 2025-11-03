@@ -7,6 +7,7 @@
 #include <memory>
 #include <SDL_image.h>
 
+#include "Components/NKCameraTag.h"
 #include "Systems/NKCollisionResetSystem.h"
 #include "Systems/NKCollisionSystem.h"
 #include "Systems/NKCollisionTransformSyncSystem.h"
@@ -19,6 +20,14 @@ NKEngine::NKEngine() {
     Window = std::make_unique<NKWindow>();
     SpriteCreator = std::make_unique<NKSpriteCreator>(Window->Renderer);
     CoordinatesConverter = std::make_unique<NKCoordinatesConverter>();
+
+    auto cameraEntity = CreateEntity();
+    AddComponent<NKReversiblePositionComponent>(cameraEntity,
+                                                std::make_unique<NKReversiblePositionComponent>(
+                                                    CoordinatesConverter->ScreenToWorldX(0, 0),
+                                                    CoordinatesConverter->ScreenToWorldY(0, 0)));
+    AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
+
 
     AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>());
     AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>());

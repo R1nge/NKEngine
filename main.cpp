@@ -55,18 +55,11 @@ int main() {
     auto nk_engine = std::make_unique<NKEngine>();
 
     //Entities
-    auto cameraEntity = nk_engine->CreateEntity();
     auto playerEntity = nk_engine->CreateEntity();
 
     auto collider = nk_engine->CreateEntity();
 
     //Components
-    nk_engine->AddComponent<NKReversiblePositionComponent>(cameraEntity,
-                                                           std::make_unique<NKReversiblePositionComponent>(
-                                                               nk_engine->CoordinatesConverter->ScreenToWorldX(0),
-                                                               nk_engine->CoordinatesConverter->ScreenToWorldY(0)));
-    nk_engine->AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
-
     nk_engine->AddComponent<NKReversiblePositionComponent>(
         playerEntity, std::make_unique<NKReversiblePositionComponent>(0, 0));
     auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
