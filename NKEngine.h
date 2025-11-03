@@ -51,7 +51,7 @@ public:
     void ReverseAction(std::uint_fast32_t tick) {
         if (_actions.contains(tick)) {
             _actions[tick]->Undo();
-            _actions[tick] = nullptr;
+            _actions.erase(tick);
         }
     }
 
