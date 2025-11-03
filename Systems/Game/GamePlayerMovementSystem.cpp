@@ -21,6 +21,9 @@ void GamePlayerMovementSystem::Update(double deltaTime) {
                     auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * deltaTime;
                     movementComponent->position->X->deltas.emplace(tick, horizontal);
                     movementComponent->position->X->currentValue += horizontal;
+                    auto vertical = static_cast<double>(inputComponent->VerticalAxis) * deltaTime;
+                    movementComponent->position->Y->deltas.emplace(tick, vertical);
+                    movementComponent->position->Y->currentValue += vertical;
                 }
             }
         }

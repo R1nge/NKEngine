@@ -13,6 +13,7 @@ void NKInputSystem::Update(double deltaTime) {
     for (const auto &pair: engine->_components) {
         auto inputComponent = engine->GetComponent<NKInputComponent>(pair.first);
         if (inputComponent != nullptr) {
+            SDL_Event e;
             auto keyboardState = SDL_GetKeyboardState(nullptr);
 
             if (keyboardState[SDL_SCANCODE_A] == 1) {
@@ -47,15 +48,14 @@ void NKInputSystem::Update(double deltaTime) {
                     inputComponent->VerticalAxis = 0;
                 }
             }
-            if (keyboardState[SDL_SCANCODE_S]) {
+            if (keyboardState[SDL_SCANCODE_S] == 0) {
                 if (inputComponent->VerticalAxis == 1) {
                     inputComponent->VerticalAxis = 0;
                 }
             }
+
+            std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->HorizontalAxis
+                    << " Last key code " << inputComponent->LastKey << "\n";
         }
-
-        //TODO: store pressed keys??
-
-        //std::cout << "Vertical " << inputComponent->VerticalAxis << " Horizontal " << inputComponent->HorizontalAxis << " Last key code " << inputComponent->LastKey << "\n";
     }
 }

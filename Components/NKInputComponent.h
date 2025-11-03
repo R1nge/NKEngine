@@ -12,7 +12,7 @@
 struct NKInputComponent : NKComponent {
     int HorizontalAxis;
     int VerticalAxis;
-    SDL_Keycode LastKey;
+    SDL_Scancode LastKey;
 };
 
 

@@ -53,6 +53,20 @@ void NKEngine::Update() {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 Quit();
+            } else if (e.type == SDL_KEYDOWN) {
+                for (const auto &pair: _components) {
+                    auto inputComponent = GetComponent<NKInputComponent>(pair.first);
+                    if (inputComponent != nullptr) {
+                        inputComponent->LastKey = e.key.keysym.scancode;
+                    }
+                }
+            } else if (e.type == SDL_KEYUP) {
+                for (const auto &pair: _components) {
+                    auto inputComponent = GetComponent<NKInputComponent>(pair.first);
+                    if (inputComponent != nullptr) {
+                        inputComponent->LastKey = SDL_SCANCODE_UNKNOWN;
+                    }
+                }
             }
         }
 
