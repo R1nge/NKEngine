@@ -11,7 +11,7 @@
 
 void GamePlayerMovementSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
-        auto *playerTag = engine->GetComponent<NKCameraTag>(entityPair.first);
+        auto *playerTag = engine->GetComponent<GamePlayerTag>(entityPair.first);
         if (playerTag != nullptr) {
             auto *movementComponent = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
             if (movementComponent != nullptr) {

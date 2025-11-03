@@ -16,9 +16,9 @@ double NKCoordinatesConverter::ScreenToWorldY(double y, double cameraY) {
 }
 
 double NKCoordinatesConverter::WorldToScreenX(double x, double cameraX) {
-    return (x + SCREEN_WIDTH / 2) - cameraX;
+    return (x - SCREEN_WIDTH / 2) - cameraX;
 }
 
 double NKCoordinatesConverter::WorldToScreenY(double y, double cameraY) {
-    return (y - SCREEN_HEIGHT / 2) - cameraY;
+    return (y + SCREEN_HEIGHT / 2) - cameraY;
 }

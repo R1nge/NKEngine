@@ -19,9 +19,9 @@ void GameCameraFollowPlayer::Update(double deltaTime) {
                 if (playerTag != nullptr) {
                     auto *playerTransform = engine->GetComponent<NKReversiblePositionComponent>(entityPair2.first);
                     cameraTransform->position->X->currentValue =
-                            playerTransform->position->X->currentValue;
+                            playerTransform->position->X->currentValue - SCREEN_WIDTH / 2;
                     cameraTransform->position->Y->currentValue =
-                            playerTransform->position->Y->currentValue;
+                            playerTransform->position->Y->currentValue - SCREEN_HEIGHT / 2;
                 }
             }
         }

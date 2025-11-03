@@ -24,7 +24,6 @@ NKEngine::NKEngine() {
 
     auto cameraEntity = CreateEntity();
     AddComponent<NKReversiblePositionComponent>(cameraEntity, std::make_unique<NKReversiblePositionComponent>(0, 190));
-    AddComponent<NKInputComponent>(cameraEntity, std::make_unique<NKInputComponent>());
     AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
 
 
