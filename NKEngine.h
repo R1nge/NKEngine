@@ -19,6 +19,11 @@
 #include "Systems/NKSystem.h"
 #include "NKUuidGenerator.h"
 #include "Components/NKComponent.h"
+#include "Components/NKCollisionComponent.h"
+#include "Components/NKGravityComponent.h"
+#include "Components/NKInputComponent.h"
+#include "Components/NKRenderComponent.h"
+#include "Components/NKReversiblePositionComponent.h"
 
 class NKEngine {
 public:

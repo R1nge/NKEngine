@@ -4,12 +4,6 @@
 
 #include "GameTestAction.h"
 #include "NKEngine.h"
-#include "Components/NKCameraTag.h"
-#include "Components/NKCollisionComponent.h"
-#include "Components/NKGravityComponent.h"
-#include "Components/NKInputComponent.h"
-#include "Components/NKRenderComponent.h"
-#include "Components/NKReversiblePositionComponent.h"
 #include "Components/Game/GamePlayerTag.h"
 #include "Systems/Game/GameCameraFollowPlayer.h"
 #include "Systems/Game/GamePlayerMovementSystem.h"
