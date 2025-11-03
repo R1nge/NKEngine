@@ -14,7 +14,8 @@ void NKGravitySystem::Update(double deltaTime) {
             if (positionComponent != nullptr) {
                 auto *gravityComponent = engine->GetComponent<NKGravityComponent>(entityPair.first);
                 if (gravityComponent != nullptr) {
-                    positionComponent->position->Y->deltas.emplace(engine->GetTick(), -gravityComponent->y);
+                    std::cout << "Engine tick " << engine->GetTick() << "\n";
+                    positionComponent->position->Y->deltas[engine->GetTick()] += -gravityComponent->y;
                     positionComponent->position->Y->currentValue -= gravityComponent->y;
                 }
             }

@@ -26,14 +26,14 @@ void GamePlayerMovementSystem::Update(double deltaTime) {
                     if (horizontal != 0 || vertical != 0) {
                         horizontal *= diagonalFactor;
                         vertical *= diagonalFactor;
-                        movementComponent->position->X->deltas.emplace(tick, horizontal);
+                        movementComponent->position->X->deltas[tick] += horizontal;
                         movementComponent->position->X->currentValue += horizontal;
-                        movementComponent->position->Y->deltas.emplace(tick, vertical);
+                        movementComponent->position->Y->deltas[tick] += vertical;
                         movementComponent->position->Y->currentValue += vertical;
                     } else {
-                        movementComponent->position->X->deltas.emplace(tick, horizontal);
+                        movementComponent->position->X->deltas[tick] += horizontal;
                         movementComponent->position->X->currentValue += horizontal;
-                        movementComponent->position->Y->deltas.emplace(tick, vertical);
+                        movementComponent->position->Y->deltas[tick] += vertical;
                         movementComponent->position->Y->currentValue += vertical;
                     }
 

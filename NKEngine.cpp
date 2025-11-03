@@ -83,9 +83,10 @@ void NKEngine::Update() {
             }
         }
 
-        if (!_isRewinding) {
+        if (_isRewinding == false) {
             _currentTick++;
         } else {
+            std::cout << "Rewind tick: " << _currentTick << "\n";
             ReverseAction(_currentTick);
             _currentTick--;
             if (_currentTick == 0) {
