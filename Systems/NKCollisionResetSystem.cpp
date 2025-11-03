@@ -8,7 +8,7 @@
 
 void NKCollisionResetSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
-        auto *collisionTag = engine->getComponent<NKCollisionTag>(entityPair.first);
+        auto *collisionTag = engine->GetComponent<NKCollisionTag>(entityPair.first);
         if (collisionTag != nullptr) {
             engine->RemoveComponent<NKCollisionTag>(entityPair.first);
         }

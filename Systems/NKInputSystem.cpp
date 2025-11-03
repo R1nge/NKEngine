@@ -11,7 +11,7 @@
 
 void NKInputSystem::Update(double deltaTime) {
     for (const auto &pair: engine->_components) {
-        auto inputComponent = engine->getComponent<NKInputComponent>(pair.first);
+        auto inputComponent = engine->GetComponent<NKInputComponent>(pair.first);
         if (inputComponent != nullptr) {
             auto keyboardState = SDL_GetKeyboardState(nullptr);
 

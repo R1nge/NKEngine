@@ -37,12 +37,12 @@ void NKRenderingSystem::Render() {
     std::vector<std::pair<int, NKRenderComponent *> > renderQueue;
 
     for (const auto &pair: engine->_components) {
-        auto camera = engine->getComponent<NKCameraTag>(pair.first);
+        auto camera = engine->GetComponent<NKCameraTag>(pair.first);
         if (camera != nullptr) {
-            auto cameraPosition = engine->getComponent<NKReversiblePositionComponent>(pair.first);
+            auto cameraPosition = engine->GetComponent<NKReversiblePositionComponent>(pair.first);
             if (cameraPosition != nullptr) {
                 for (const auto &pair2: engine->_components) {
-                    auto renderComponent = engine->getComponent<NKRenderComponent>(pair2.first);
+                    auto renderComponent = engine->GetComponent<NKRenderComponent>(pair2.first);
 
                     if (renderComponent != nullptr) {
                         renderQueue.emplace_back(pair2.first, renderComponent);
@@ -57,11 +57,11 @@ void NKRenderingSystem::Render() {
     });
 
     for (const auto &pair: engine->_components) {
-        auto camera = engine->getComponent<NKCameraTag>(pair.first);
+        auto camera = engine->GetComponent<NKCameraTag>(pair.first);
         if (camera != nullptr) {
-            auto cameraPosition = engine->getComponent<NKReversiblePositionComponent>(pair.first);
+            auto cameraPosition = engine->GetComponent<NKReversiblePositionComponent>(pair.first);
             for (auto &pair2: renderQueue) {
-                auto worldPosition = engine->getComponent<NKReversiblePositionComponent>(pair2.first);
+                auto worldPosition = engine->GetComponent<NKReversiblePositionComponent>(pair2.first);
                 if (worldPosition != nullptr) {
                     auto renderComponent = pair2.second;
                     renderComponent->spriteRect->x =

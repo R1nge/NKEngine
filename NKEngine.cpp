@@ -8,6 +8,7 @@
 #include <SDL_image.h>
 
 #include "Components/NKCameraTag.h"
+#include "Components/NKInputComponent.h"
 #include "Systems/NKCollisionResetSystem.h"
 #include "Systems/NKCollisionSystem.h"
 #include "Systems/NKCollisionTransformSyncSystem.h"
@@ -22,10 +23,8 @@ NKEngine::NKEngine() {
     CoordinatesConverter = std::make_unique<NKCoordinatesConverter>();
 
     auto cameraEntity = CreateEntity();
-    AddComponent<NKReversiblePositionComponent>(cameraEntity,
-                                                std::make_unique<NKReversiblePositionComponent>(
-                                                    CoordinatesConverter->ScreenToWorldX(0, 0),
-                                                    CoordinatesConverter->ScreenToWorldY(0, 0)));
+    AddComponent<NKReversiblePositionComponent>(cameraEntity, std::make_unique<NKReversiblePositionComponent>(0, 190));
+    AddComponent<NKInputComponent>(cameraEntity, std::make_unique<NKInputComponent>());
     AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
 
 

@@ -4,21 +4,24 @@
 
 #include "GamePlayerMovementSystem.h"
 #include "../../NKEngine.h"
+#include "../../Components/NKCameraTag.h"
 #include "../../Components/NKInputComponent.h"
 #include "../../Components/NKReversiblePositionComponent.h"
 #include "../../Components/Game/GamePlayerTag.h"
 
 void GamePlayerMovementSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
-        auto *playerTag = engine->getComponent<GamePlayerTag>(entityPair.first);
+        auto *playerTag = engine->GetComponent<NKCameraTag>(entityPair.first);
         if (playerTag != nullptr) {
-            auto *movementComponent = engine->getComponent<NKReversiblePositionComponent>(entityPair.first);
+            auto *movementComponent = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
             if (movementComponent != nullptr) {
-                auto *inputComponent = engine->getComponent<NKInputComponent>(entityPair.first);
-                auto tick = engine->GetTick();
-                auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * deltaTime;
-                movementComponent->position->X->deltas.emplace(tick, horizontal);
-                movementComponent->position->X->currentValue += horizontal;
+                auto *inputComponent = engine->GetComponent<NKInputComponent>(entityPair.first);
+                if (inputComponent != nullptr) {
+                    auto tick = engine->GetTick();
+                    auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * deltaTime;
+                    movementComponent->position->X->deltas.emplace(tick, horizontal);
+                    movementComponent->position->X->currentValue += horizontal;
+                }
             }
         }
     }

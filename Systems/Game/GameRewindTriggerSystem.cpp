@@ -8,7 +8,7 @@
 
 void GameRewindTriggerSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
-        auto *inputComponent = engine->getComponent<NKInputComponent>(entityPair.first);
+        auto *inputComponent = engine->GetComponent<NKInputComponent>(entityPair.first);
         if (inputComponent != nullptr) {
             if (inputComponent->LastKey == SDLK_r) {
                 engine->Rewind();

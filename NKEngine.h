@@ -71,7 +71,7 @@ public:
     }
 
     template<typename ComponentType>
-    ComponentType *getComponent(std::uint_fast32_t entityId) {
+    ComponentType *GetComponent(std::uint_fast32_t entityId) {
         auto component = _components.find(entityId);
         if (component != _components.end()) {
             for (const auto &component: component->second) {
