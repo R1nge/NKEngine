@@ -10,34 +10,36 @@
 #include "../../Components/Game/GamePlayerTag.h"
 
 void GamePlayerMovementSystem::Update(double deltaTime) {
-    for (const auto &entityPair: engine->_components) {
-        auto *playerTag = engine->GetComponent<GamePlayerTag>(entityPair.first);
-        if (playerTag != nullptr) {
-            auto *movementComponent = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
-            if (movementComponent != nullptr) {
-                auto *inputComponent = engine->GetComponent<NKInputComponent>(entityPair.first);
-                if (inputComponent != nullptr) {
-                    auto tick = engine->GetTick();
-                    auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * deltaTime;
-                    auto vertical = static_cast<double>(inputComponent->VerticalAxis) * deltaTime;
+    if (engine->IsRewinding() == false) {
+        for (const auto &entityPair: engine->_components) {
+            auto *playerTag = engine->GetComponent<GamePlayerTag>(entityPair.first);
+            if (playerTag != nullptr) {
+                auto *movementComponent = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
+                if (movementComponent != nullptr) {
+                    auto *inputComponent = engine->GetComponent<NKInputComponent>(entityPair.first);
+                    if (inputComponent != nullptr) {
+                        auto tick = engine->GetTick();
+                        auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * deltaTime;
+                        auto vertical = static_cast<double>(inputComponent->VerticalAxis) * deltaTime;
 
-                    auto diagonalFactor = 1 / SDL_sqrt(2);
+                        auto diagonalFactor = 1 / SDL_sqrt(2);
 
-                    if (horizontal != 0 || vertical != 0) {
-                        horizontal *= diagonalFactor;
-                        vertical *= diagonalFactor;
-                        movementComponent->position->X->deltas[tick] += horizontal;
-                        movementComponent->position->X->currentValue += horizontal;
-                        movementComponent->position->Y->deltas[tick] += vertical;
-                        movementComponent->position->Y->currentValue += vertical;
-                    } else {
-                        movementComponent->position->X->deltas[tick] += horizontal;
-                        movementComponent->position->X->currentValue += horizontal;
-                        movementComponent->position->Y->deltas[tick] += vertical;
-                        movementComponent->position->Y->currentValue += vertical;
+                        if (horizontal != 0 || vertical != 0) {
+                            horizontal *= diagonalFactor;
+                            vertical *= diagonalFactor;
+                            movementComponent->position->X->deltas[tick] += horizontal;
+                            movementComponent->position->X->currentValue += horizontal;
+                            movementComponent->position->Y->deltas[tick] += vertical;
+                            movementComponent->position->Y->currentValue += vertical;
+                        } else {
+                            movementComponent->position->X->deltas[tick] += horizontal;
+                            movementComponent->position->X->currentValue += horizontal;
+                            movementComponent->position->Y->deltas[tick] += vertical;
+                            movementComponent->position->Y->currentValue += vertical;
+                        }
+
+                        //std::cout << "Horizontal: " << horizontal << " Vertical: " << vertical << "\n";
                     }
-
-                    //std::cout << "Horizontal: " << horizontal << " Vertical: " << vertical << "\n";
                 }
             }
         }

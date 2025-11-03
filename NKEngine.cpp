@@ -29,7 +29,7 @@ NKEngine::NKEngine() {
 
 
     AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>());
-    AddSystem(NKGroupType::NKBeforeTransform, std::make_unique<NKGravitySystem>());
+    AddSystem(NKGroupType::NKTransform, std::make_unique<NKGravitySystem>());
     AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>());
     AddSystem(NKGroupType::NKRendering, std::make_unique<NKRenderingSystem>(Window.get()));
     AddSystem(NKGroupType::NKCollisionTransformSync, std::make_unique<NKCollisionTransformSyncSystem>());
@@ -51,6 +51,18 @@ NKEngine::~NKEngine() {
 
 void NKEngine::Update() {
     if (!_isPaused || !_isQuiting) {
+        if (_isRewinding == false) {
+            _currentTick++;
+        } else {
+            if (_currentTick == 0) {
+                _isRewinding = false;
+            } else {
+                ReverseAction(_currentTick);
+                _currentTick--;
+            }
+        }
+
+
         SDL_Event e;
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
@@ -82,19 +94,6 @@ void NKEngine::Update() {
                 systemPair.second->Update(_deltaTime);
             }
         }
-
-        if (_isRewinding == false) {
-            _currentTick++;
-        } else {
-            std::cout << "Rewind tick: " << _currentTick << "\n";
-            ReverseAction(_currentTick);
-            _currentTick--;
-            if (_currentTick == 0) {
-                _isRewinding = false;
-            }
-        }
-
-        //std::cout << _deltaTime << "\n";
     }
 }
 
