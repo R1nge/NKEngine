@@ -67,7 +67,10 @@ void NKEngine::Update() {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 Quit();
+                //TODO: investigate why it doesn't work with RU on Ubuntu 24.04
+                //TODO: it's possible that I would have to migrate to SDL3
             } else if (e.type == SDL_KEYDOWN) {
+                //std::cout << "Last key" << e.key.keysym.scancode;
                 for (const auto &pair: _components) {
                     auto inputComponent = GetComponent<NKInputComponent>(pair.first);
                     if (inputComponent != nullptr) {

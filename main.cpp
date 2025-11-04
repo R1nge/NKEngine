@@ -10,38 +10,30 @@
 #include "Systems/Game/GamePrintOnCollision.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
+//TODO: create Filter.With/Filter.Without
+//TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
+//TODO: sdl2 dll
+
+
 //https://nullprogram.com/blog/2023/01/08/
 
 //TODO: orthogonal 2d projection??
 
-//TODO: sdl2 dll
+//TODO: make input independent of the selected input language SDL scancodes SDL3???
 
 //TODO: target fps + (add target fps to the config) https://www.gafferongames.com/post/fix_your_timestep/
 //TODO: update loops (fixed, update) make 2 dicts + methods to add, execute system in separate loops
 //TODO: https://thenumb.at/cpp-course/sdl2/08/08.html
 //TODO: do the same for the actions???
 
-//TODO: create Filter.With/Filter.Without
-
-//TODO: make input independent of the selected input language
-
 //TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1), debug (on/off))
 
 //TODO: dear Imgui dll
 // https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
 // https://github.com/Green-Sky/imgui_entt_entity_editor/tree/master
-//TODO: make UI ecs based
-
-//TODO: sld2 dll
-//TODO: resolve headers (src, includes...)
-//TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
-
+//TODO: make UI ecs based???
 
 //TODO: engine core -> callbacks -> modules -> callbacks -> developer
-
-//TODO: load engine as a lib
-//TODO: call engine API to do things
-//TODO: separate space invaders and engine repositories
 
 
 int main() {
@@ -85,7 +77,7 @@ int main() {
     //Systems
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
     nk_engine->AddSystem(NKGroupType::NKBeforeTransform, std::make_unique<GameRewindTriggerSystem>());
-    nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
+    //nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
 
     //Actions
