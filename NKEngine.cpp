@@ -4,8 +4,6 @@
 
 #include "NKEngine.h"
 
-#include "Systems/NKPushOutFromColliderSystem.h"
-
 NKEngine::NKEngine() {
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
@@ -23,7 +21,6 @@ NKEngine::NKEngine() {
     AddSystem(NKGroupType::NKRendering, std::make_unique<NKRenderingSystem>(Window.get()));
     AddSystem(NKGroupType::NKCollisionTransformSync, std::make_unique<NKCollisionTransformSyncSystem>());
     AddSystem(NKGroupType::NKCollision, std::make_unique<NKCollisionSystem>());
-    AddSystem(NKGroupType::NKCollision, std::make_unique<NKPushOutFromColliderSystem>());
     AddSystem(NKGroupType::NKCollision, std::make_unique<NKGravitySystem>());
     AddSystem(NKGroupType::NKCollisionReset, std::make_unique<NKCollisionResetSystem>());
 
