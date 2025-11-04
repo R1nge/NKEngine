@@ -3,3 +3,8 @@
 //
 
 #include "NKReversibleDouble.h"
+
+void NKReversibleDouble::Move(int tick, double delta) {
+    currentValue += delta;
+    deltas[tick] += delta;
+}

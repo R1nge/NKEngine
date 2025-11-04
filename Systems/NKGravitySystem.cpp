@@ -18,8 +18,7 @@ void NKGravitySystem::Update(double deltaTime) {
                     auto *collisionTag = engine->GetComponent<NKCollisionTag>(entityPair.first);
                     //std::cout << "Engine tick " << engine->GetTick() << "\n";
                     if (collisionTag == nullptr) {
-                        positionComponent->position->Y->deltas[engine->GetTick()] += -gravityComponent->y;
-                        positionComponent->position->Y->currentValue -= gravityComponent->y;
+                        positionComponent->position->Y->Move(engine->GetTick(), -gravityComponent->y);
                     }
                 }
             }

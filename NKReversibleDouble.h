@@ -16,6 +16,7 @@ struct NKReversibleDouble {
     std::map<int, double> deltas;
     //TODO: map<tick, delta>
     //TODO: store original state + delta + tick
+    void Move(int tick, double delta);
 };
 
 

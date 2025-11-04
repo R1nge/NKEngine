@@ -27,18 +27,10 @@ void GamePlayerMovementSystem::Update(double deltaTime) {
                         if (horizontal != 0 || vertical != 0) {
                             horizontal *= diagonalFactor;
                             vertical *= diagonalFactor;
-                            movementComponent->position->X->deltas[tick] += horizontal;
-                            movementComponent->position->X->currentValue += horizontal;
-                            movementComponent->position->Y->deltas[tick] += vertical;
-                            movementComponent->position->Y->currentValue += vertical;
-                        } else {
-                            movementComponent->position->X->deltas[tick] += horizontal;
-                            movementComponent->position->X->currentValue += horizontal;
-                            movementComponent->position->Y->deltas[tick] += vertical;
-                            movementComponent->position->Y->currentValue += vertical;
                         }
 
-                        //std::cout << "Horizontal: " << horizontal << " Vertical: " << vertical << "\n";
+                        movementComponent->position->X->Move(tick, horizontal);
+                        movementComponent->position->Y->Move(tick, vertical);
                     }
                 }
             }
