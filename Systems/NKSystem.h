@@ -9,6 +9,8 @@ class NKEngine;
 
 class NKSystem {
 public:
+    virtual ~NKSystem() = default;
+
     void SetEngine(NKEngine *engine) {
         this->engine = engine;
     }
@@ -20,7 +22,7 @@ public:
     void Dispose();
 
 protected:
-    NKEngine *engine;
+    NKEngine *engine = nullptr;
 };
 
 

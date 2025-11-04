@@ -4,18 +4,6 @@
 
 #include "NKEngine.h"
 
-#include <memory>
-#include <SDL_image.h>
-
-#include "Components/NKCameraTag.h"
-#include "Components/NKInputComponent.h"
-#include "Systems/NKCollisionResetSystem.h"
-#include "Systems/NKCollisionSystem.h"
-#include "Systems/NKCollisionTransformSyncSystem.h"
-#include "Systems/NKGravitySystem.h"
-#include "Systems/NKInputSystem.h"
-#include "Systems/NKTransformSystem.h"
-
 NKEngine::NKEngine() {
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
@@ -111,6 +99,37 @@ std::uint_fast32_t NKEngine::GetTick() const {
 int NKEngine::CreateEntity() {
     _entityId++;
     return _entityId;
+}
+
+void NKEngine::ReverseAction(std::uint_fast32_t tick) {
+    if (_actions.contains(tick)) {
+        _actions[tick]->Undo();
+        _actions.erase(tick);
+    }
+}
+
+
+void NKEngine::PrintAllSystem() {
+    std::cout << "\n" << "Printing all systems" << "\n";
+    std::cout << "---------------\n---------------\n";
+    for (const auto &groupPair: _groups) {
+        for (const auto &systemPair: groupPair.second) {
+            std::string typeName = typeid(*systemPair.second).name();
+
+            size_t startPos = 0;
+            while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
+                ++startPos;
+            }
+
+            std::string cleanTypeName = typeName.substr(startPos);
+
+            std::cout << "Group order " << groupPair.first
+                    << " System order " << systemPair.first
+                    << " System " << cleanTypeName << "\n";
+        }
+
+        std::cout << "---------------\n---------------\n";
+    }
 }
 
 bool NKEngine::IsRewinding() {

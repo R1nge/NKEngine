@@ -25,6 +25,18 @@
 #include "Components/NKRenderComponent.h"
 #include "Components/NKReversiblePositionComponent.h"
 
+#include <SDL_image.h>
+
+#include "Components/NKCameraTag.h"
+#include "Components/NKInputComponent.h"
+#include "Systems/NKCollisionResetSystem.h"
+#include "Systems/NKCollisionSystem.h"
+#include "Systems/NKCollisionTransformSyncSystem.h"
+#include "Systems/NKGravitySystem.h"
+#include "Systems/NKInputSystem.h"
+#include "Systems/NKTransformSystem.h"
+
+
 class NKEngine {
 public:
     NKEngine();
@@ -55,12 +67,7 @@ public:
         _actions[tick] = std::move(action);
     }
 
-    void ReverseAction(std::uint_fast32_t tick) {
-        if (_actions.contains(tick)) {
-            _actions[tick]->Undo();
-            _actions.erase(tick);
-        }
-    }
+    void ReverseAction(std::uint_fast32_t tick);
 
     template<typename ComponentType>
     void AddComponent(std::uint_fast32_t entityId, std::unique_ptr<ComponentType> component) {
@@ -72,7 +79,6 @@ public:
     void RemoveComponent(std::uint_fast32_t entityId) {
         auto &componentsList = _components[entityId];
         componentsList.remove_if([](const std::unique_ptr<NKComponent> &component) {
-            //std::cout << "Removed a component";
             return typeid(*component) == typeid(ComponentType);
         });
     }
@@ -111,28 +117,7 @@ public:
         }
     }
 
-    void PrintAllSystem() {
-        std::cout << "\n" << "Printing all systems" << "\n";
-        std::cout << "---------------\n---------------\n";
-        for (const auto &groupPair: _groups) {
-            for (const auto &systemPair: groupPair.second) {
-                std::string typeName = typeid(*systemPair.second).name();
-
-                size_t startPos = 0;
-                while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
-                    ++startPos;
-                }
-
-                std::string cleanTypeName = typeName.substr(startPos);
-
-                std::cout << "Group order " << groupPair.first
-                        << " System order " << systemPair.first
-                        << " System " << cleanTypeName << "\n";
-            }
-
-            std::cout << "---------------\n---------------\n";
-        }
-    }
+    void PrintAllSystem();
 
     bool IsRewinding();
 

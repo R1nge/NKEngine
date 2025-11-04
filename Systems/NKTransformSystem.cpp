@@ -17,8 +17,10 @@ void NKTransformSystem::Update(double deltaTime) {
 
 void NKTransformSystem::Rewind(int tick) {
     for (const auto &entityPair: engine->_components) {
-        NKReversiblePositionComponent *component = engine->GetComponent<
-            NKReversiblePositionComponent>(entityPair.first);
+        //TODO: f = engine->Filter->With<NKReversible>().Build;
+        //TODO: for auto comp : f.Build()
+        //TODO: comp.pos.x.rewind
+        auto *component = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
         if (component != nullptr) {
             component->position->X->Rewind(tick);
             component->position->Y->Rewind(tick);
