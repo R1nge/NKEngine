@@ -49,7 +49,7 @@ public:
     template<typename ActionType>
     void AddAction(std::uint_fast32_t tick, std::unique_ptr<ActionType> action) {
         static_assert(std::is_convertible_v<ActionType *, NKReversibleAction *>,
-                      "Class must inherit NKReversibleAction");
+                      "Action must inherit NKReversibleAction");
         action->SetEngine(this);
         action->Do();
         _actions[tick] = std::move(action);

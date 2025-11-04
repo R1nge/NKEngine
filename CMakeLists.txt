@@ -76,6 +76,8 @@ add_executable(NKEngine main.cpp
         Systems/NKGravitySystem.h
         Components/NKGravityComponent.cpp
         Components/NKGravityComponent.h
+        NKFilter.cpp
+        NKFilter.h
 )
 INCLUDE(FindPkgConfig)
 
