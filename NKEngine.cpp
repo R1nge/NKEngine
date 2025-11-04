@@ -88,8 +88,12 @@ void NKEngine::Update() {
     }
 }
 
-void NKEngine::Rewind() {
+void NKEngine::StartRewind() {
     _isRewinding = true;
+}
+
+void NKEngine::StopRewind() {
+    _isRewinding = false;
 }
 
 std::uint_fast32_t NKEngine::GetTick() const {

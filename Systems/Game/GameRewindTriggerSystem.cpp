@@ -11,7 +11,14 @@ void GameRewindTriggerSystem::Update(double deltaTime) {
         auto *inputComponent = engine->GetComponent<NKInputComponent>(entityPair.first);
         if (inputComponent != nullptr) {
             if (inputComponent->LastKey == SDL_SCANCODE_R) {
-                engine->Rewind();
+                if (engine->IsRewinding()) {
+                    engine->StopRewind();
+                }
+            }
+            if (inputComponent->LastKey == SDL_SCANCODE_E) {
+                if (engine->IsRewinding() == false) {
+                    engine->StartRewind();
+                }
             }
         }
     }

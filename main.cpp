@@ -9,6 +9,11 @@
 #include "Systems/Game/GamePlayerMovementSystem.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
+//TODO: push out from the collider if happens to get past it
+//push player away from the point of collision
+//calculate how much two rectangles overlap
+//push player rectangle in the direction (x or y) that overlaps the most
+
 //TODO: create Filter.With/Filter.Without
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 //TODO: sdl2 dll

@@ -45,7 +45,9 @@ public:
 
     void Update();
 
-    void Rewind();
+    void StartRewind();
+
+    void StopRewind();
 
     std::uint_fast32_t GetTick() const;
 
