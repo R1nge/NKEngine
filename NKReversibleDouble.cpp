@@ -8,3 +8,11 @@ void NKReversibleDouble::Move(int tick, double delta) {
     currentValue += delta;
     deltas[tick] += delta;
 }
+
+void NKReversibleDouble::Rewind(int tick) {
+    if (deltas.contains(tick)) {
+        auto delta = deltas.at(tick);
+        currentValue -= delta;
+        deltas.erase(tick);
+    }
+}

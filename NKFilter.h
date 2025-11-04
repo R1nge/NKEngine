@@ -19,10 +19,10 @@ public:
     //TODO: without = remove from the list
     //TODO: get enities list
     template<typename Component>
-    NKFilter With(NKComponent *component);
+    NKFilter *With(NKComponent *component);
 
     template<typename Component>
-    NKFilter Without(NKComponent *component);
+    NKFilter *Without(NKComponent *component);
 
     std::vector<int> Build();
 

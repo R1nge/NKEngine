@@ -17,6 +17,8 @@ struct NKReversibleDouble {
     //TODO: map<tick, delta>
     //TODO: store original state + delta + tick
     void Move(int tick, double delta);
+
+    void Rewind(int tick);
 };
 
 

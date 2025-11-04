@@ -33,17 +33,8 @@ void NKTransformSystem::Rewind(int tick) {
         NKReversiblePositionComponent *component = engine->GetComponent<
             NKReversiblePositionComponent>(entityPair.first);
         if (component != nullptr) {
-            if (component->position->X->deltas.contains(tick)) {
-                auto deltaX = component->position->X->deltas.at(tick);
-                component->position->X->currentValue -= deltaX;
-                component->position->X->deltas.erase(tick);
-            }
-
-            if (component->position->Y->deltas.contains(tick)) {
-                auto deltaY = component->position->Y->deltas.at(tick);
-                component->position->Y->currentValue -= deltaY;
-                component->position->Y->deltas.erase(tick);
-            }
+            component->position->X->Rewind(tick);
+            component->position->Y->Rewind(tick);
         }
     }
 }
