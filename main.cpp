@@ -52,9 +52,17 @@ int main() {
 
     auto collider = nk_engine->CreateEntity();
 
+    auto floor = nk_engine->CreateEntity();
+    auto spriteComponent3 = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
+                                                                   new NKSpriteData(
+                                                                       10, 550, 500, 50, 10, 10, 10, 10, 1));
+    nk_engine->AddComponent(floor, std::move(spriteComponent3));
+    nk_engine->AddComponent(floor, std::make_unique<NKReversiblePositionComponent>(0, 100));
+    nk_engine->AddComponent(floor, std::make_unique<NKCollisionComponent>(new SDL_Rect(0, 100, 500, 50)));
+
     //Components
     nk_engine->AddComponent<NKReversiblePositionComponent>(
-        playerEntity, std::make_unique<NKReversiblePositionComponent>(0, 0));
+        playerEntity, std::make_unique<NKReversiblePositionComponent>(0, 300));
     auto spriteComponent = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
                                                                   new NKSpriteData(
                                                                       10, 550, 100, 100, 10, 10, 10, 10, 1));
