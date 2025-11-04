@@ -13,8 +13,18 @@ void NKCollisionTransformSyncSystem::Update(double deltaTime) {
         if (positionComponent != nullptr) {
             auto *collisionComponent = engine->GetComponent<NKCollisionComponent>(entityPair.first);
             if (collisionComponent != nullptr) {
-                collisionComponent->boundingBox->x = positionComponent->position->X->currentValue;
-                collisionComponent->boundingBox->y = positionComponent->position->Y->currentValue;
+                auto *renderComponent = engine->GetComponent<NKRenderComponent>(entityPair.first);
+                if (renderComponent != nullptr) {
+                    collisionComponent->boundingBox->x =
+                            positionComponent->position->X->currentValue - static_cast<double>(renderComponent->
+                                spriteRect->w) / static_cast<double>(2);
+                    collisionComponent->boundingBox->y =
+                            positionComponent->position->Y->currentValue - static_cast<double>(renderComponent->
+                                spriteRect->h) / static_cast<double>(2);
+                } else {
+                    collisionComponent->boundingBox->x = positionComponent->position->X->currentValue;
+                    collisionComponent->boundingBox->y = positionComponent->position->Y->currentValue;
+                }
             }
         }
     }
