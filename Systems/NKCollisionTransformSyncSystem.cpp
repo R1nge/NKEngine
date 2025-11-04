@@ -5,13 +5,13 @@
 #include "NKCollisionTransformSyncSystem.h"
 #include "../NKEngine.h"
 #include "../Components/NKReversiblePositionComponent.h"
-#include "../Components/NKCollisionComponent.h"
+#include "../Components/NKColliderComponent.h"
 
 void NKCollisionTransformSyncSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
         auto *positionComponent = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
         if (positionComponent != nullptr) {
-            auto *collisionComponent = engine->GetComponent<NKCollisionComponent>(entityPair.first);
+            auto *collisionComponent = engine->GetComponent<NKColliderComponent>(entityPair.first);
             if (collisionComponent != nullptr) {
                 auto *renderComponent = engine->GetComponent<NKRenderComponent>(entityPair.first);
                 if (renderComponent != nullptr) {

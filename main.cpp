@@ -54,7 +54,7 @@ int main() {
                                                                        10, 550, 500, 50, 10, 10, 10, 10, 1));
     nk_engine->AddComponent(floor, std::move(spriteComponent3));
     nk_engine->AddComponent(floor, std::make_unique<NKReversiblePositionComponent>(0, 100));
-    nk_engine->AddComponent(floor, std::make_unique<NKCollisionComponent>(new SDL_Rect(0, 100, 500, 50)));
+    nk_engine->AddComponent(floor, std::make_unique<NKColliderComponent>(new SDL_Rect(0, 100, 500, 50)));
 
     //Components
     nk_engine->AddComponent<NKReversiblePositionComponent>(
@@ -65,9 +65,9 @@ int main() {
     nk_engine->AddComponent<NKRenderComponent>(playerEntity, std::move(spriteComponent));
     nk_engine->AddComponent<NKGravityComponent>(playerEntity, std::make_unique<NKGravityComponent>(-10));
     nk_engine->AddComponent<NKInputComponent>(playerEntity, std::make_unique<NKInputComponent>());
-    nk_engine->AddComponent<NKCollisionComponent>(playerEntity,
-                                                  std::make_unique<
-                                                      NKCollisionComponent>(new SDL_Rect(50, 50, 100, 100)));
+    nk_engine->AddComponent<NKColliderComponent>(playerEntity,
+                                                 std::make_unique<
+                                                     NKColliderComponent>(new SDL_Rect(50, 50, 100, 100)));
     nk_engine->AddComponent<GamePlayerTag>(playerEntity, std::make_unique<GamePlayerTag>());
 
     nk_engine->AddComponent<NKReversiblePositionComponent>(
@@ -76,7 +76,8 @@ int main() {
                                                                    new NKSpriteData(
                                                                        10, 250, 100, 100, 10, 10, 10, 10, 0,0, 255, 0));
     nk_engine->AddComponent<NKRenderComponent>(collider, std::move(spriteComponent2));
-    nk_engine->AddComponent<NKCollisionComponent>(collider, std::make_unique<NKCollisionComponent>(new SDL_Rect(300, 550, 100, 100)));
+    nk_engine->AddComponent<NKColliderComponent>(
+        collider, std::make_unique<NKColliderComponent>(new SDL_Rect(300, 550, 100, 100)));
 
     //Systems
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());

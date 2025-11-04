@@ -4,15 +4,15 @@
 
 #include "NKCollisionSystem.h"
 #include "../NKEngine.h"
-#include "../Components/NKCollisionComponent.h"
+#include "../Components/NKColliderComponent.h"
 #include "../Components/NKCollisionTag.h"
 
 void NKCollisionSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
-        auto *colliderComponent = engine->GetComponent<NKCollisionComponent>(entityPair.first);
+        auto *colliderComponent = engine->GetComponent<NKColliderComponent>(entityPair.first);
         if (colliderComponent != nullptr) {
             for (const auto &entityPair2: engine->_components) {
-                auto *otherColliderComponent = engine->GetComponent<NKCollisionComponent>(entityPair2.first);
+                auto *otherColliderComponent = engine->GetComponent<NKColliderComponent>(entityPair2.first);
                 if (otherColliderComponent != nullptr) {
                     //Skip self
                     if (colliderComponent == otherColliderComponent) {
@@ -32,21 +32,41 @@ void NKCollisionSystem::Update(double deltaTime) {
                     int topB = otherColliderComponent->boundingBox->y;
                     int bottomB = otherColliderComponent->boundingBox->y + otherColliderComponent->boundingBox->h;
 
-                    if (bottomA <= topB) {
-                        continue;
+                    if (bottomA <= topB || topA >= bottomB || rightA <= leftB || leftA >= rightB) {
+                        continue; // No collision
                     }
 
-                    if (topA >= bottomB) {
-                        continue;
+                    int depthX = std::min(rightA - leftB, rightB - leftA);
+                    int depthY = std::min(bottomA - topB, bottomB - topA);
+
+                    // Determine the axis of least penetration
+                    auto *position = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
+                    if (position != nullptr) {
+                        if (depthX < depthY) {
+                            // Resolve along the X axis
+                            if (depthX > 5) {
+                                if (leftA < leftB) {
+                                    // Push A to the left
+                                    position->position->X->Move(engine->GetTick(), -depthX);
+                                } else {
+                                    // Push A to the right
+                                    position->position->X->Move(engine->GetTick(), depthX);
+                                }
+                            }
+                        } else {
+                            // Resolve along the Y axis
+                            if (depthY > 5) {
+                                if (topA < topB) {
+                                    // Push A up
+                                    position->position->Y->Move(engine->GetTick(), -depthY);
+                                } else {
+                                    // Push A down
+                                    position->position->Y->Move(engine->GetTick(), depthY);
+                                }
+                            }
+                        }
                     }
 
-                    if (rightA <= leftB) {
-                        continue;
-                    }
-
-                    if (leftA >= rightB) {
-                        continue;
-                    }
 
                     engine->AddComponent(entityPair.first, std::make_unique<NKCollisionTag>());
                     engine->AddComponent(entityPair2.first, std::make_unique<NKCollisionTag>());

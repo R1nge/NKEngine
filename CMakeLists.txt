@@ -49,8 +49,8 @@ add_executable(NKEngine main.cpp
         Components/Game/GamePlayerTag.h
         Systems/Game/GameRewindTriggerSystem.cpp
         Systems/Game/GameRewindTriggerSystem.h
-        Components/NKCollisionComponent.cpp
-        Components/NKCollisionComponent.h
+        Components/NKColliderComponent.cpp
+        Components/NKColliderComponent.h
         Systems/NKCollisionSystem.cpp
         Systems/NKCollisionSystem.h
         Components/NKCollisionTag.cpp

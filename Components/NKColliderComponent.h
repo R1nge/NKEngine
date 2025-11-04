@@ -9,8 +9,8 @@
 #include "NKComponent.h"
 
 
-struct NKCollisionComponent : NKComponent {
-    NKCollisionComponent(SDL_Rect *box);
+struct NKColliderComponent : NKComponent {
+    NKColliderComponent(SDL_Rect *box);
 
     SDL_Rect *boundingBox;
 };
