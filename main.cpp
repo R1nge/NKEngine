@@ -94,13 +94,13 @@ int main() {
     //Actions
     nk_engine->AddAction(10, std::make_unique<GameTestAction>());
 
-    std::cout << nk_engine->UuidGenerator->Generate();
+    std::cout << "\n" << nk_engine->UuidGenerator->Generate();
 
     nk_engine->PrintAllSystem();
 
     nk_engine->AudioPlayer->LoadMusic("assets/Music.mp3", "test1");
     nk_engine->AudioPlayer->PlayMusic("test1");
-    nk_engine->AudioPlayer->SetMusicVolume(128 / 10);
+    nk_engine->AudioPlayer->SetMusicVolume(25);
 
 
     while (!nk_engine->Quitting()) {

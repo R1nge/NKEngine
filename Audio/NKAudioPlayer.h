@@ -14,7 +14,7 @@ public:
 
     bool PlayMusic(std::string songTitle);
 
-    //Between 0 and 128
+    //Range [0...100]
     void SetMusicVolume(int volume);
 
 private:

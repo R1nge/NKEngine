@@ -3,7 +3,9 @@
 //
 
 #include "NKAudioPlayer.h"
-
+//TODO: pause music
+//TODO: unload music
+//TODO: override music(unload, load new)
 bool NKAudioPlayer::LoadMusic(const char *path, std::string songTitle) {
     auto music = Mix_LoadMUS(path);
     if (music == nullptr) {
@@ -26,5 +28,5 @@ bool NKAudioPlayer::PlayMusic(std::string songTitle) {
 }
 
 void NKAudioPlayer::SetMusicVolume(int volume) {
-    Mix_VolumeMusic(volume);
+    Mix_VolumeMusic(volume * 1.28);
 }
