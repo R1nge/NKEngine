@@ -3,7 +3,6 @@
 //
 
 #include "NKAudioPlayer.h"
-//TODO: pause music
 //TODO: unload music
 //TODO: override music(unload, load new)
 bool NKAudioPlayer::LoadMusic(const char *path, std::string songTitle) {
@@ -25,6 +24,16 @@ bool NKAudioPlayer::PlayMusic(std::string songTitle) {
     }
     printf("Failed to play music!");
     return false;
+}
+
+void NKAudioPlayer::PauseMusic() {
+    printf("Music has been paused");
+    Mix_PauseMusic();
+}
+
+void NKAudioPlayer::ResumeMusic() {
+    printf("Music has been resumed");
+    Mix_ResumeMusic();
 }
 
 void NKAudioPlayer::SetMusicVolume(int volume) {
