@@ -10,11 +10,13 @@
 
 class NKAudioPlayer {
 public:
-    bool LoadMusic(const char *path, std::string songTitle);
+    bool LoadSong(const char *path, std::string songTitle);
 
-    void UnloadMusic(std::string songTitle);
+    void UnloadSong(std::string songTitle);
 
-    bool PlayMusic(std::string songTitle);
+    bool PlaySong(std::string songTitle);
+
+    bool ReplaceCurrentSong(const char *path, std::string newSongTitle);
 
     void PauseMusic();
 
@@ -24,7 +26,7 @@ public:
     void SetMusicVolume(int volume);
 
 private:
-    std::map<std::string, Mix_Music *> _music;
+    std::map<std::string, Mix_Music *> _songs;
 };
 
 

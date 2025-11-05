@@ -98,9 +98,10 @@ int main() {
 
     nk_engine->PrintAllSystem();
 
-    nk_engine->AudioPlayer->LoadMusic("assets/Music.mp3", "test1");
-    nk_engine->AudioPlayer->PlayMusic("test1");
-    nk_engine->AudioPlayer->SetMusicVolume(25);
+    nk_engine->AudioPlayer->LoadSong("assets/Music.mp3", "test1");
+    nk_engine->AudioPlayer->PlaySong("test1");
+    nk_engine->AudioPlayer->SetMusicVolume(100);
+    nk_engine->AudioPlayer->ReplaceCurrentSong("assets/Music2.mp3", "test2");
 
 
     while (!nk_engine->Quitting()) {
