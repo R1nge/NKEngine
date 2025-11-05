@@ -99,3 +99,11 @@ Features:
 - [ ] Fixed update
 - [ ] Ini settings file
 - [ ] Dear ImGui integration
+
+
+I really don't want to mess with the c++ toolchain and linking libs as separate dlls...
+If on debian/ubuntu
+```
+sudo apt install git build-essential pkg-config cmake cmake-data libsdl2-dev libsdl2-mixer-dev
+sudo apt install libsdl2-image-dev libsdl2-ttf-dev libsdl2-net-dev libsdl2-gfx-dev
+```
