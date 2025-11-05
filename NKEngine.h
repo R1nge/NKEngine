@@ -27,6 +27,7 @@
 
 #include <SDL_image.h>
 
+#include "Audio/NKAudioPlayer.h"
 #include "Components/NKCameraTag.h"
 #include "Components/NKInputComponent.h"
 #include "Systems/NKCollisionResetSystem.h"
@@ -57,6 +58,7 @@ public:
     std::unique_ptr<NKWindow> Window;
     std::unique_ptr<NKSpriteCreator> SpriteCreator;
     std::unique_ptr<NKCoordinatesConverter> CoordinatesConverter;
+    std::unique_ptr<NKAudioPlayer> AudioPlayer;
 
     int CreateEntity();
 

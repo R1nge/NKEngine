@@ -7,13 +7,14 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 
 #include "../Components/NKCameraTag.h"
 #include "../Components/NKRenderComponent.h"
 #include "../Components/NKReversiblePositionComponent.h"
 
 NKRenderingSystem::NKRenderingSystem(NKWindow *window) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
     } else {
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
@@ -21,6 +22,10 @@ NKRenderingSystem::NKRenderingSystem(NKWindow *window) {
         //Set texture filtering to linear
         if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
             printf("Warning: Linear texture filtering not enabled!");
+        }
+
+        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+            printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
         }
 
         _window = window;

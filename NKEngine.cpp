@@ -10,6 +10,7 @@ NKEngine::NKEngine() {
     Window = std::make_unique<NKWindow>();
     SpriteCreator = std::make_unique<NKSpriteCreator>(Window->Renderer);
     CoordinatesConverter = std::make_unique<NKCoordinatesConverter>();
+    AudioPlayer = std::make_unique<NKAudioPlayer>();
 
     auto cameraEntity = CreateEntity();
     AddComponent<NKReversiblePositionComponent>(cameraEntity, std::make_unique<NKReversiblePositionComponent>(0, 190));

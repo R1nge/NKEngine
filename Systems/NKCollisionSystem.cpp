@@ -39,7 +39,7 @@ void NKCollisionSystem::Update(double deltaTime) {
                     int depthX = std::min(rightA - leftB, rightB - leftA);
                     int depthY = std::min(bottomA - topB, bottomB - topA);
 
-                    //TODO: add movable/immovable component
+                    //TODO: add rigidbody (static/dynamic)
                     if (colliderComponent->isPushable) {
                         auto *position = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
                         if (position != nullptr) {

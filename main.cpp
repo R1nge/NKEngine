@@ -9,12 +9,17 @@
 #include "Systems/Game/GamePlayerMovementSystem.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
+//TODO: add rigidbody component
+//IsKinematic, mass, constrains
 //TODO: push out from the collider if happens to get past it
 //push player away from the point of collision
 //calculate how much two rectangles overlap
 //push player rectangle in the direction (x or y) that overlaps the most
 
 //TODO: create Filter.With/Filter.Without
+
+//TODO: create a shadow that repeats actions on rewind
+
 //TODO: look into that https://en.cppreference.com/w/cpp/language/modules.html
 //TODO: sdl2 dll
 
@@ -74,7 +79,8 @@ int main() {
         collider, std::make_unique<NKReversiblePositionComponent>(100, 50));
     auto spriteComponent2 = nk_engine->SpriteCreator->CreateSprite("assets/space_invaders.png",
                                                                    new NKSpriteData(
-                                                                       10, 250, 100, 100, 10, 10, 10, 10, 0,0, 255, 0));
+                                                                       10, 250, 100, 100, 10, 10, 10, 10, 0, 0, 255,
+                                                                       0));
     nk_engine->AddComponent<NKRenderComponent>(collider, std::move(spriteComponent2));
     nk_engine->AddComponent<NKColliderComponent>(
         collider, std::make_unique<NKColliderComponent>(new SDL_Rect(300, 550, 100, 100), false));
@@ -91,6 +97,11 @@ int main() {
     std::cout << nk_engine->UuidGenerator->Generate();
 
     nk_engine->PrintAllSystem();
+
+    nk_engine->AudioPlayer->LoadMusic("assets/Music.mp3", "test1");
+    nk_engine->AudioPlayer->PlayMusic("test1");
+    nk_engine->AudioPlayer->SetMusicVolume(128 / 10);
+
 
     while (!nk_engine->Quitting()) {
         nk_engine->Update();
