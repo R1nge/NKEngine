@@ -10,10 +10,9 @@
 
 
 struct NKColliderComponent : NKComponent {
-    NKColliderComponent(SDL_Rect *box, bool pushable);
+    NKColliderComponent(SDL_Rect *box);
 
     SDL_Rect *boundingBox;
-    bool isPushable;
 };
 
 

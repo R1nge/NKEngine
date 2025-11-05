@@ -7,10 +7,11 @@
 #include "NKComponent.h"
 
 
-struct NKGravityComponent : NKComponent {
-    NKGravityComponent(double y);
+struct NKRigidBodyComponent : NKComponent {
+    NKRigidBodyComponent(double mass, bool isKinematic);
 
-    double y;
+    double mass;
+    bool isKinematic;
 };
 
 

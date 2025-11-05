@@ -74,8 +74,8 @@ add_executable(NKEngine main.cpp
         NKCoordinatesConverter.cpp
         Systems/NKGravitySystem.cpp
         Systems/NKGravitySystem.h
-        Components/NKGravityComponent.cpp
-        Components/NKGravityComponent.h
+        Components/NKRigidBodyComponent.cpp
+        Components/NKRigidBodyComponent.h
         NKFilter.cpp
         NKFilter.h
         Audio/NKAudioPlayer.cpp

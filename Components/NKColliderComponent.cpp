@@ -4,7 +4,6 @@
 
 #include "NKColliderComponent.h"
 
-NKColliderComponent::NKColliderComponent(SDL_Rect *box, bool pushable) {
+NKColliderComponent::NKColliderComponent(SDL_Rect *box) {
     boundingBox = box;
-    isPushable = pushable;
 }

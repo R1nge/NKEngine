@@ -20,7 +20,7 @@
 #include "NKUuidGenerator.h"
 #include "Components/NKComponent.h"
 #include "Components/NKColliderComponent.h"
-#include "Components/NKGravityComponent.h"
+#include "Components/NKRigidBodyComponent.h"
 #include "Components/NKInputComponent.h"
 #include "Components/NKRenderComponent.h"
 #include "Components/NKReversiblePositionComponent.h"

@@ -39,31 +39,33 @@ void NKCollisionSystem::Update(double deltaTime) {
                     int depthX = std::min(rightA - leftB, rightB - leftA);
                     int depthY = std::min(bottomA - topB, bottomB - topA);
 
-                    //TODO: add rigidbody (static/dynamic)
-                    if (colliderComponent->isPushable) {
-                        auto *position = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
-                        if (position != nullptr) {
-                            // Determine the axis of least penetration
-                            if (depthX < depthY) {
-                                // Resolve along the X axis
-                                if (depthX > 5) {
-                                    if (leftA < leftB) {
-                                        // Push A to the left
-                                        position->position->X->Move(engine->GetTick(), -depthX);
-                                    } else {
-                                        // Push A to the right
-                                        position->position->X->Move(engine->GetTick(), depthX);
+                    auto *rigidBodyComponent = engine->GetComponent<NKRigidBodyComponent>(entityPair.first);
+                    if (rigidBodyComponent != nullptr) {
+                        if (rigidBodyComponent->isKinematic == false) {
+                            auto *position = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
+                            if (position != nullptr) {
+                                // Determine the axis of least penetration
+                                if (depthX < depthY) {
+                                    // Resolve along the X axis
+                                    if (depthX > 5) {
+                                        if (leftA < leftB) {
+                                            // Push A to the left
+                                            position->position->X->Move(engine->GetTick(), -depthX);
+                                        } else {
+                                            // Push A to the right
+                                            position->position->X->Move(engine->GetTick(), depthX);
+                                        }
                                     }
-                                }
-                            } else {
-                                // Resolve along the Y axis
-                                if (depthY > 5) {
-                                    if (topA < topB) {
-                                        // Push A up
-                                        position->position->Y->Move(engine->GetTick(), -depthY);
-                                    } else {
-                                        // Push A down
-                                        position->position->Y->Move(engine->GetTick(), depthY);
+                                } else {
+                                    // Resolve along the Y axis
+                                    if (depthY > 5) {
+                                        if (topA < topB) {
+                                            // Push A up
+                                            position->position->Y->Move(engine->GetTick(), -depthY);
+                                        } else {
+                                            // Push A down
+                                            position->position->Y->Move(engine->GetTick(), depthY);
+                                        }
                                     }
                                 }
                             }
