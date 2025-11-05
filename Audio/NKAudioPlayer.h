@@ -11,6 +11,9 @@
 class NKAudioPlayer {
 public:
     bool LoadMusic(const char *path, std::string songTitle);
+
+    void UnloadMusic(std::string songTitle);
+
     bool PlayMusic(std::string songTitle);
 
     void PauseMusic();

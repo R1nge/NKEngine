@@ -3,7 +3,6 @@
 //
 
 #include "NKAudioPlayer.h"
-//TODO: unload music
 //TODO: override music(unload, load new)
 bool NKAudioPlayer::LoadMusic(const char *path, std::string songTitle) {
     auto music = Mix_LoadMUS(path);
@@ -12,9 +11,19 @@ bool NKAudioPlayer::LoadMusic(const char *path, std::string songTitle) {
         return false;
     }
 
-    _music.emplace(songTitle, music);
+    _music[songTitle] = music;
 
     return true;
+}
+
+void NKAudioPlayer::UnloadMusic(std::string songTitle) {
+    if (_music.size() > 0) {
+        auto music = _music.at(songTitle);
+        if (music != nullptr) {
+            Mix_FreeMusic(music);
+            _music.erase(songTitle);
+        }
+    }
 }
 
 bool NKAudioPlayer::PlayMusic(std::string songTitle) {
