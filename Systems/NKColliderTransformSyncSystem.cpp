@@ -2,12 +2,12 @@
 // Created by r1nge on 10/27/25.
 //
 
-#include "NKCollisionTransformSyncSystem.h"
+#include "NKColliderTransformSyncSystem.h"
 #include "../NKEngine.h"
 #include "../Components/NKReversiblePositionComponent.h"
 #include "../Components/NKColliderComponent.h"
 
-void NKCollisionTransformSyncSystem::Update(double deltaTime) {
+void NKColliderTransformSyncSystem::Update(double deltaTime) {
     for (const auto &entityPair: engine->_components) {
         auto *positionComponent = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
         if (positionComponent != nullptr) {

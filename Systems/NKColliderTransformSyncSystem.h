@@ -7,7 +7,7 @@
 #include "NKSystem.h"
 
 
-class NKCollisionTransformSyncSystem : public NKSystem {
+class NKColliderTransformSyncSystem : public NKSystem {
     void Update(double deltaTime) override;
 };
 

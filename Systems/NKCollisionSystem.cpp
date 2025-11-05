@@ -51,9 +51,11 @@ void NKCollisionSystem::Update(double deltaTime) {
                                         if (leftA < leftB) {
                                             // Push A to the left
                                             position->position->X->Move(engine->GetTick(), -depthX);
+                                            rigidBodyComponent->velocity->X->currentValue = 0;
                                         } else {
                                             // Push A to the right
                                             position->position->X->Move(engine->GetTick(), depthX);
+                                            rigidBodyComponent->velocity->X->currentValue = 0;
                                         }
                                     }
                                 } else {
@@ -62,9 +64,11 @@ void NKCollisionSystem::Update(double deltaTime) {
                                         if (topA < topB) {
                                             // Push A up
                                             position->position->Y->Move(engine->GetTick(), -depthY);
+                                            rigidBodyComponent->velocity->Y->currentValue = 0;
                                         } else {
                                             // Push A down
                                             position->position->Y->Move(engine->GetTick(), depthY);
+                                            rigidBodyComponent->velocity->Y->currentValue = 0;
                                         }
                                     }
                                 }

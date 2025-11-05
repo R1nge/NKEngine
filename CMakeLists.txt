@@ -55,8 +55,10 @@ add_executable(NKEngine main.cpp
         Systems/NKCollisionSystem.h
         Components/NKCollisionTag.cpp
         Components/NKCollisionTag.h
-        Systems/NKCollisionTransformSyncSystem.cpp
-        Systems/NKCollisionTransformSyncSystem.h
+        Systems/NKColliderTransformSyncSystem.cpp
+        Systems/NKColliderTransformSyncSystem.h
+        Systems/NKTransformRigidBodySyncSystem.cpp
+        Systems/NKTransformRigidBodySyncSystem.h
         Systems/NKCollisionResetSystem.cpp
         Systems/NKCollisionResetSystem.h
         Systems/Game/GamePrintOnCollision.cpp

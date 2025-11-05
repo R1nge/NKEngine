@@ -32,7 +32,7 @@
 #include "Components/NKInputComponent.h"
 #include "Systems/NKCollisionResetSystem.h"
 #include "Systems/NKCollisionSystem.h"
-#include "Systems/NKCollisionTransformSyncSystem.h"
+#include "Systems/NKColliderTransformSyncSystem.h"
 #include "Systems/NKGravitySystem.h"
 #include "Systems/NKInputSystem.h"
 #include "Systems/NKTransformSystem.h"

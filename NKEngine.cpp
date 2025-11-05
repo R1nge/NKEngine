@@ -4,6 +4,8 @@
 
 #include "NKEngine.h"
 
+#include "Systems/NKTransformRigidBodySyncSystem.h"
+
 NKEngine::NKEngine() {
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
@@ -17,13 +19,14 @@ NKEngine::NKEngine() {
     AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
 
 
-    AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>());
-    AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>());
-    AddSystem(NKGroupType::NKRendering, std::make_unique<NKRenderingSystem>(Window.get()));
-    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKGravitySystem>());
-    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKCollisionTransformSyncSystem>());
-    AddSystem(NKGroupType::NKCollision, std::make_unique<NKCollisionSystem>());
+    AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>()); //Rewind
+    AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>()); //Input
+    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKGravitySystem>()); //RigidBody acceleration
+    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKColliderTransformSyncSystem>()); //Sync collider
+    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKTransformRigidBodySyncSystem>()); //Sync rigidbody
+    AddSystem(NKGroupType::NKCollision, std::make_unique<NKCollisionSystem>()); //Collision
     AddSystem(NKGroupType::NKCollisionReset, std::make_unique<NKCollisionResetSystem>());
+    AddSystem(NKGroupType::NKRendering, std::make_unique<NKRenderingSystem>(Window.get()));
 
     _isPaused = false;
 }
