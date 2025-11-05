@@ -20,9 +20,9 @@ NKEngine::NKEngine() {
     AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>());
     AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>());
     AddSystem(NKGroupType::NKRendering, std::make_unique<NKRenderingSystem>(Window.get()));
-    AddSystem(NKGroupType::NKCollisionTransformSync, std::make_unique<NKCollisionTransformSyncSystem>());
+    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKGravitySystem>());
+    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKCollisionTransformSyncSystem>());
     AddSystem(NKGroupType::NKCollision, std::make_unique<NKCollisionSystem>());
-    AddSystem(NKGroupType::NKCollision, std::make_unique<NKGravitySystem>());
     AddSystem(NKGroupType::NKCollisionReset, std::make_unique<NKCollisionResetSystem>());
 
     _isPaused = false;

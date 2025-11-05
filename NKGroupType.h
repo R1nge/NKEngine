@@ -9,13 +9,12 @@
 
 
 enum class NKGroupType {
-    NKBeforeTransform = 0,
+    NKInput = 0,
     NKTransform = 1,
-    NKInput = 2,
-    NKRendering = 3,
-    NKCollisionTransformSync = 4,
-    NKCollision = 5,
-    NKCollisionReset = 6
+    NKPhysics = 2,
+    NKCollision = 3,
+    NKCollisionReset = 4,
+    NKRendering = 5,
 };
 
 std::ostream &operator<<(std::ostream &stream, const NKGroupType groupType);

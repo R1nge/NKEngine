@@ -15,8 +15,8 @@ std::ostream &operator<<(std::ostream &stream, const NKGroupType groupType) {
         case NKGroupType::NKRendering:
             outPut = "NKRendering";
             break;
-        case NKGroupType::NKCollisionTransformSync:
-            outPut = "NKCollisionTransformSync";
+        case NKGroupType::NKPhysics:
+            outPut = "NKPhysics";
             break;
         case NKGroupType::NKCollision:
             outPut = "NKCollision";
