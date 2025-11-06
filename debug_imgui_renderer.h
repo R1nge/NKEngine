@@ -29,7 +29,7 @@ namespace b2 {
         // Can grab this from a body you want to follow, via `.GetRotation()`.
         b2Rot camera_rot = b2Rot{.c = 1, .s = 0};
         // If true, the Y axis is inverted and points upwards instead of downwards.
-        float y_axis_is_upwards = false;
+        float y_axis_is_upwards = true;
 
         // Render settings:
 

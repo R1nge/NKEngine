@@ -11,9 +11,10 @@ void NKTransformRigidBodySyncSystem::Update(double deltaTime) {
         if (positionComponent != nullptr) {
             auto *rigidbodyComponent = engine->GetComponent<NKRigidBodyComponent>(entityPair.first);
             if (rigidbodyComponent != nullptr) {
+                //TODO: scale to match the box2d
                 positionComponent->position->X->currentValue = rigidbodyComponent->rigidBody->GetPosition().x;
-                std::cout << rigidbodyComponent->rigidBody->GetPosition().y << "\n";
-                positionComponent->position->Y->currentValue = -rigidbodyComponent->rigidBody->GetPosition().y;
+                positionComponent->position->Y->currentValue =
+                        -rigidbodyComponent->rigidBody->GetPosition().y * 32 - 125;
             }
         }
     }

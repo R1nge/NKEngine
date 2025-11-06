@@ -21,6 +21,7 @@ NKEngine::NKEngine() {
     ImGui::StyleColorsDark();
 
     World = b2::World::Params{};
+    World.SetGravity(b2Vec2(0, -9.81));
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
     Window = std::make_unique<NKWindow>();

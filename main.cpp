@@ -84,7 +84,7 @@ int main() {
     //nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
     //nk_engine->AddSystem(NKGroupType::NKInput, std::make_unique<GameRewindTriggerSystem>());
     //nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
-    //nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
+    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
 
     //Actions
     nk_engine->AddAction(10, std::make_unique<GameTestAction>());
@@ -101,10 +101,8 @@ int main() {
     b2::Body::Params rigidBodyParent;
     rigidBodyParent.type = b2_dynamicBody;
 
-//TODO: create a class that's initialized with a static and dynamic rigidbody parents
-    //TODO: create rigidbody
-    //TODO: add to the rigidbodyComponent
-    //TODO: sync transform with the rigidbody
+    //TODO: in visualization sync renderer camera with the camera
+    //TODO: create a class that's initialized with a static and dynamic rigidbody parents
     //TODO: rewind rigidbody????? (maybe disable it and reset velocity on rewind, then rewind transform??)
 
     b2::Body rigidBody = nk_engine->World.CreateBody(b2::OwningHandle, rigidBodyParent);

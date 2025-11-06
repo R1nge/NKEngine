@@ -99,6 +99,11 @@ void NKRenderingSystem::Render() {
         auto camera = engine->GetComponent<NKCameraTag>(pair.first);
         if (camera != nullptr) {
             auto cameraPosition = engine->GetComponent<NKReversiblePositionComponent>(pair.first);
+            engine->debug_renderer.camera_pos = b2Vec2(cameraPosition->position->X->currentValue / 8192,
+                                                       cameraPosition->position->Y->currentValue / 8192);
+            std::cout << cameraPosition->position->X->currentValue << " " << cameraPosition->position->Y->currentValue
+                    << "\n";
+
             for (auto &pair2: renderQueue) {
                 auto worldPosition = engine->GetComponent<NKReversiblePositionComponent>(pair2.first);
                 if (worldPosition != nullptr) {
