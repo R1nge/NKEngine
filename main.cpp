@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+#include "box2cpp.h"
 #include "GameTestAction.h"
 #include "NKEngine.h"
 #include "Components/Game/GamePlayerTag.h"
@@ -103,6 +104,23 @@ int main() {
     //nk_engine->AudioPlayer->SetMusicVolume(100);
     //nk_engine->AudioPlayer->ReplaceCurrentSong("assets/Music2.mp3", "test2");
 
+    b2::World w(b2::World::Params{});
+
+    b2::Body::Params bp;
+    bp.type = b2_dynamicBody;
+
+    b2::Body b = w.CreateBody(b2::OwningHandle, bp);
+
+    b.CreateShape(
+        b2::DestroyWithParent,
+        b2::Shape::Params{},
+        b2Circle{.center = b2Vec2(), .radius = 3}
+    );
+
+    for (int i = 0; i < 10; i++) {
+        w.Step(1 / 60.f, 4);
+        std::cout << b.GetPosition().y << "\n";
+    }
 
     while (!nk_engine->Quitting()) {
         nk_engine->Update();
