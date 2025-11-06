@@ -99,8 +99,9 @@ void NKRenderingSystem::Render() {
         auto camera = engine->GetComponent<NKCameraTag>(pair.first);
         if (camera != nullptr) {
             auto cameraPosition = engine->GetComponent<NKReversiblePositionComponent>(pair.first);
-            engine->debug_renderer.camera_pos = b2Vec2(cameraPosition->position->X->currentValue / 8192,
-                                                       cameraPosition->position->Y->currentValue / 8192);
+            //TODO: scale to match the box2d
+            engine->debug_renderer.camera_pos = b2Vec2(cameraPosition->position->X->currentValue / 1024,
+                                                       cameraPosition->position->Y->currentValue / 256);
             std::cout << cameraPosition->position->X->currentValue << " " << cameraPosition->position->Y->currentValue
                     << "\n";
 
