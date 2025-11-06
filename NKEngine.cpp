@@ -20,7 +20,6 @@ NKEngine::NKEngine() {
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // IF using Docking Branch
     ImGui::StyleColorsDark();
 
-
     World = b2::World::Params{};
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
@@ -32,8 +31,11 @@ NKEngine::NKEngine() {
     ImGui_ImplSDL2_InitForSDLRenderer(Window->Window, Window->Renderer);
     ImGui_ImplSDLRenderer2_Init(Window->Renderer);
 
+    debug_renderer = b2::DebugImguiRenderer();
+
     auto cameraEntity = CreateEntity();
-    AddComponent<NKReversiblePositionComponent>(cameraEntity, std::make_unique<NKReversiblePositionComponent>(0, 190));
+    AddComponent<NKReversiblePositionComponent>(cameraEntity,
+                                                std::make_unique<NKReversiblePositionComponent>(-500, 590));
     AddComponent<NKCameraTag>(cameraEntity, std::make_unique<NKCameraTag>());
 
 

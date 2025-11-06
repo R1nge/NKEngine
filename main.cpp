@@ -58,7 +58,7 @@ int main() {
                                                                    new NKSpriteData(
                                                                        10, 550, 500, 50, 10, 10, 10, 10, 1));
     nk_engine->AddComponent(floor, std::move(spriteComponent3));
-    nk_engine->AddComponent(floor, std::make_unique<NKReversiblePositionComponent>(0, 100));
+    nk_engine->AddComponent(floor, std::make_unique<NKReversiblePositionComponent>(0, 0));
 
     //Components
     nk_engine->AddComponent<NKReversiblePositionComponent>(
@@ -84,7 +84,7 @@ int main() {
     //nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
     //nk_engine->AddSystem(NKGroupType::NKInput, std::make_unique<GameRewindTriggerSystem>());
     //nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
-    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
+    //nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
 
     //Actions
     nk_engine->AddAction(10, std::make_unique<GameTestAction>());
@@ -113,16 +113,16 @@ int main() {
     rigidBody.CreateShape(
         b2::DestroyWithParent,
         b2::Shape::Params{},
-        b2MakeBox(5, 5)
+        b2MakeBox(1, 1)
         //b2Circle{.center = b2Vec2(), .radius = 3}
     );
     nk_engine->AddComponent<NKRigidBodyComponent>(playerEntity, std::make_unique<NKRigidBodyComponent>(&rigidBody));
 
-    rigidBody.ApplyForceToCenter(b2Vec2(0, 100), true);
+    rigidBody.ApplyForceToCenter(b2Vec2(0, 0), true);
 
     b2::Body::Params staticParent;
     staticParent.type = b2_staticBody;
-    staticParent.position = b2Vec2(0, -50);
+    staticParent.position = b2Vec2(0, -4);
 
     b2::Body staticBody = nk_engine->World.CreateBody(b2::OwningHandle, staticParent);
 

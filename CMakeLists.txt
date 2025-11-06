@@ -113,6 +113,7 @@ add_executable(NKEngine main.cpp
         Audio/NKAudioPlayer.cpp
         Audio/NKAudioPlayer.h
         box2cpp.h
+        debug_imgui_renderer.h
 )
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)

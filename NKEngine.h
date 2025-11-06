@@ -134,6 +134,7 @@ public:
     //TODO: make a list of actions
     //Tick
     std::map<std::uint_fast16_t, std::unique_ptr<NKReversibleAction> > _actions;
+    b2::DebugImguiRenderer debug_renderer;
 
 private:
     std::uint_fast32_t _entityId;

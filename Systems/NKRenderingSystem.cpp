@@ -47,31 +47,31 @@ void NKRenderingSystem::Render() {
     //ImGui::ShowDemoWindow();
     bool my_tool_active = true;
     ImGui::Begin("Inspector", &my_tool_active, ImGuiWindowFlags_MenuBar);
-        ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+    ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 
-        ImGui::Separator(); // Adds a horizontal separator
+    ImGui::Separator(); // Adds a horizontal separator
 
-        for (const auto &[entityId, componentList]: engine->_components) {
-            // Create a header for each entity
-            ImGui::Text("Entity ID: %lu", entityId);
+    for (const auto &[entityId, componentList]: engine->_components) {
+        // Create a header for each entity
+        ImGui::Text("Entity ID: %lu", entityId);
 
-            // Display the components
-            for (const auto &component: componentList) {
-                std::string typeName = typeid(*component).name();
+        // Display the components
+        for (const auto &component: componentList) {
+            std::string typeName = typeid(*component).name();
 
-                size_t startPos = 0;
-                while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
-                    ++startPos;
-                }
-
-                std::string cleanTypeName = typeName.substr(startPos);
-                ImGui::BulletText("%s", cleanTypeName.c_str()); // Show component's name
-                // Add more details about the component if needed
+            size_t startPos = 0;
+            while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
+                ++startPos;
             }
 
-            ImGui::Separator(); // Adds a horizontal separator for clarity
+            std::string cleanTypeName = typeName.substr(startPos);
+            ImGui::BulletText("%s", cleanTypeName.c_str()); // Show component's name
+            // Add more details about the component if needed
         }
-        ImGui::End();
+
+        ImGui::Separator(); // Adds a horizontal separator for clarity
+    }
+    ImGui::End();
 
     std::vector<std::pair<int, NKRenderComponent *> > renderQueue;
 
@@ -115,6 +115,9 @@ void NKRenderingSystem::Render() {
             }
         }
     }
+
+    engine->debug_renderer.DrawShapes(engine->World); // Draw Box2D shapes.
+    engine->debug_renderer.DrawModeToggles();
 
     SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
     SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
