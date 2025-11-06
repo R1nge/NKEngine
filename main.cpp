@@ -128,9 +128,9 @@ int main() {
 
     staticBody.CreateShape(
         b2::DestroyWithParent,
-            b2::Shape::Params{},
-            b2MakeBox(100, 1)
-        );
+        b2::Shape::Params{},
+        b2MakeBox(100, 1)
+    );
 
     while (!nk_engine->Quitting()) {
         nk_engine->Update();

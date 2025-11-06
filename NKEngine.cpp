@@ -6,6 +6,7 @@
 
 #include "cmake-build-debug/_deps/imgui-src/imgui.h"
 #include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_sdl2.h"
+#include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_sdlrenderer2.h"
 #include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_opengl3.h"
 #include "Systems/NKTransformRigidBodySyncSystem.h"
 
@@ -16,6 +17,7 @@ NKEngine::NKEngine() {
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // IF using Docking Branch
+    ImGui::StyleColorsDark();
 
 
     World = b2::World::Params{};
@@ -27,7 +29,7 @@ NKEngine::NKEngine() {
     AudioPlayer = std::make_unique<NKAudioPlayer>();
     // Setup Platform/Renderer backends
     ImGui_ImplSDL2_InitForSDLRenderer(Window->Window, Window->Renderer);
-    //ImGui_ImplOpenGL3_Init();
+    ImGui_ImplSDLRenderer2_Init(Window->Renderer);
 
     auto cameraEntity = CreateEntity();
     AddComponent<NKReversiblePositionComponent>(cameraEntity, std::make_unique<NKReversiblePositionComponent>(0, 190));
@@ -68,7 +70,7 @@ void NKEngine::Update() {
 
         SDL_Event e;
         while (SDL_PollEvent(&e) != 0) {
-            ImGui_ImplSDL2_ProcessEvent(&event);
+            ImGui_ImplSDL2_ProcessEvent(&e);
             if (e.type == SDL_QUIT) {
                 Quit();
                 //TODO: investigate why it doesn't work with RU on Ubuntu 24.04
@@ -92,11 +94,6 @@ void NKEngine::Update() {
         }
 
 
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplSDL2_NewFrame();
-        ImGui::NewFrame();
-        ImGui::ShowDemoWindow();
-
         _lastFrameTime = _currentFrameTime;
         _currentFrameTime = SDL_GetPerformanceCounter();
         _deltaTime = (_currentFrameTime - _lastFrameTime) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency());
@@ -108,11 +105,6 @@ void NKEngine::Update() {
                 systemPair.second->Update(_deltaTime);
             }
         }
-
-        /*
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        */
     }
 }
 

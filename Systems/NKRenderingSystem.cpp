@@ -38,6 +38,13 @@ void NKRenderingSystem::Update(double deltaTime) {
 
 void NKRenderingSystem::Render() {
     SDL_RenderClear(_window->Renderer);
+    ImGuiIO &io = ImGui::GetIO();
+    (void) io;
+
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+    ImGui::ShowDemoWindow();
 
     std::vector<std::pair<int, NKRenderComponent *> > renderQueue;
 
@@ -81,6 +88,11 @@ void NKRenderingSystem::Render() {
             }
         }
     }
+
+    SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
+    SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
+    ImGui::Render();
+    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), _window->Renderer);
 
     SDL_RenderPresent(_window->Renderer);
 }
