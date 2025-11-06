@@ -1,7 +1,11 @@
 libs:  
 https://github.com/libsdl-org/SDL/tree/SDL2  
 https://github.com/mariusbancila/stduuid  
-https://github.com/brofield/simpleini
+https://github.com/brofield/simpleini   
+
+v3.1.1  
+https://github.com/erincatto/box2d/tree/main    
+https://github.com/HolyBlackCat/box2cpp 
 
 After finishing basic stuff and creating a fully featured space invaders game I have to decide what to do next:  
 1. Make time rewind that's build into the engine...Well, if I am already going as far as rewinding time, then why not to add all kinds of time-manipulation?
