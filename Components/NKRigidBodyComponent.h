@@ -5,15 +5,14 @@
 #ifndef NKENGINE_NKGRAVITYCOMPONENT_H
 #define NKENGINE_NKGRAVITYCOMPONENT_H
 #include "NKComponent.h"
+#include "../box2cpp.h"
 #include "../NKReversibleVector2Double.h"
 
 
 struct NKRigidBodyComponent : NKComponent {
-    NKRigidBodyComponent(double mass, bool isKinematic);
+    NKRigidBodyComponent(b2::Body *body);
 
-    NKReversibleVector2Double *velocity;
-    double mass;
-    bool isKinematic;
+    b2::Body *rigidBody;
 };
 
 

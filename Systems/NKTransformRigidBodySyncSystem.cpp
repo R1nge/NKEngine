@@ -11,12 +11,9 @@ void NKTransformRigidBodySyncSystem::Update(double deltaTime) {
         if (positionComponent != nullptr) {
             auto *rigidbodyComponent = engine->GetComponent<NKRigidBodyComponent>(entityPair.first);
             if (rigidbodyComponent != nullptr) {
-                if (rigidbodyComponent->isKinematic == false) {
-                    positionComponent->position->X->Move(engine->GetTick(),
-                                                         rigidbodyComponent->velocity->X->currentValue);
-                    positionComponent->position->Y->Move(engine->GetTick(),
-                                                         rigidbodyComponent->velocity->Y->currentValue);
-                }
+                positionComponent->position->X->currentValue = rigidbodyComponent->rigidBody->GetPosition().x;
+                std::cout << rigidbodyComponent->rigidBody->GetPosition().y << "\n";
+                positionComponent->position->Y->currentValue = -rigidbodyComponent->rigidBody->GetPosition().y;
             }
         }
     }

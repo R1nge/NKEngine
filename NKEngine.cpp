@@ -7,6 +7,7 @@
 #include "Systems/NKTransformRigidBodySyncSystem.h"
 
 NKEngine::NKEngine() {
+    World = b2::World::Params{};
     EventDispatcher = std::make_unique<NKEventDispatcher>();
     UuidGenerator = std::make_unique<NKUuidGenerator>();
     Window = std::make_unique<NKWindow>();
@@ -21,11 +22,7 @@ NKEngine::NKEngine() {
 
     AddSystem(NKGroupType::NKTransform, std::make_unique<NKTransformSystem>()); //Rewind
     AddSystem(NKGroupType::NKInput, std::make_unique<NKInputSystem>()); //Input
-    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKGravitySystem>()); //RigidBody acceleration
-    AddSystem(NKGroupType::NKPhysics, std::make_unique<NKColliderTransformSyncSystem>()); //Sync collider
     AddSystem(NKGroupType::NKPhysics, std::make_unique<NKTransformRigidBodySyncSystem>()); //Sync rigidbody
-    AddSystem(NKGroupType::NKCollision, std::make_unique<NKCollisionSystem>()); //Collision
-    AddSystem(NKGroupType::NKCollisionReset, std::make_unique<NKCollisionResetSystem>());
     AddSystem(NKGroupType::NKRendering, std::make_unique<NKRenderingSystem>(Window.get()));
 
     _isPaused = false;
@@ -83,6 +80,7 @@ void NKEngine::Update() {
         _currentFrameTime = SDL_GetPerformanceCounter();
         _deltaTime = (_currentFrameTime - _lastFrameTime) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency());
 
+        World.Step(1 / 60.f, 4);
 
         for (const auto &groupPair: _groups) {
             for (const auto &systemPair: groupPair.second) {

@@ -60,20 +60,8 @@ add_executable(NKEngine main.cpp
         Components/Game/GamePlayerTag.h
         Systems/Game/GameRewindTriggerSystem.cpp
         Systems/Game/GameRewindTriggerSystem.h
-        Components/NKColliderComponent.cpp
-        Components/NKColliderComponent.h
-        Systems/NKCollisionSystem.cpp
-        Systems/NKCollisionSystem.h
-        Components/NKCollisionTag.cpp
-        Components/NKCollisionTag.h
-        Systems/NKColliderTransformSyncSystem.cpp
-        Systems/NKColliderTransformSyncSystem.h
         Systems/NKTransformRigidBodySyncSystem.cpp
         Systems/NKTransformRigidBodySyncSystem.h
-        Systems/NKCollisionResetSystem.cpp
-        Systems/NKCollisionResetSystem.h
-        Systems/Game/GamePrintOnCollision.cpp
-        Systems/Game/GamePrintOnCollision.h
         NKGroupType.cpp
         NKGroupType.h
         NKReversibleAction.cpp
@@ -85,8 +73,6 @@ add_executable(NKEngine main.cpp
         Systems/Game/GameCameraFollowPlayer.cpp
         Systems/Game/GameCameraFollowPlayer.h
         NKCoordinatesConverter.cpp
-        Systems/NKGravitySystem.cpp
-        Systems/NKGravitySystem.h
         Components/NKRigidBodyComponent.cpp
         Components/NKRigidBodyComponent.h
         NKFilter.cpp

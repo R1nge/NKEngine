@@ -59,7 +59,6 @@ int main() {
                                                                        10, 550, 500, 50, 10, 10, 10, 10, 1));
     nk_engine->AddComponent(floor, std::move(spriteComponent3));
     nk_engine->AddComponent(floor, std::make_unique<NKReversiblePositionComponent>(0, 100));
-    nk_engine->AddComponent(floor, std::make_unique<NKColliderComponent>(new SDL_Rect(0, 100, 500, 50)));
 
     //Components
     nk_engine->AddComponent<NKReversiblePositionComponent>(
@@ -68,13 +67,10 @@ int main() {
                                                                   new NKSpriteData(
                                                                       10, 550, 100, 100, 10, 10, 10, 10, 1));
     nk_engine->AddComponent<NKRenderComponent>(playerEntity, std::move(spriteComponent));
-    nk_engine->AddComponent<NKRigidBodyComponent>(playerEntity, std::make_unique<NKRigidBodyComponent>(1, false));
+
     nk_engine->AddComponent<NKInputComponent>(playerEntity, std::make_unique<NKInputComponent>());
-    nk_engine->AddComponent<NKColliderComponent>(playerEntity,
-                                                 std::make_unique<
-                                                     NKColliderComponent>(new SDL_Rect(50, 50, 100, 100)));
     nk_engine->AddComponent<GamePlayerTag>(playerEntity, std::make_unique<GamePlayerTag>());
-    nk_engine->AddComponent<NKRigidBodyComponent>(playerEntity, std::make_unique<NKRigidBodyComponent>(1, false));
+
 
     nk_engine->AddComponent<NKReversiblePositionComponent>(
         collider, std::make_unique<NKReversiblePositionComponent>(100, 50));
@@ -83,12 +79,10 @@ int main() {
                                                                        10, 250, 100, 100, 10, 10, 10, 10, 0, 0, 255,
                                                                        0));
     nk_engine->AddComponent<NKRenderComponent>(collider, std::move(spriteComponent2));
-    nk_engine->AddComponent<NKColliderComponent>(
-        collider, std::make_unique<NKColliderComponent>(new SDL_Rect(300, 550, 100, 100)));
 
     //Systems
-    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
-    nk_engine->AddSystem(NKGroupType::NKInput, std::make_unique<GameRewindTriggerSystem>());
+    //nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
+    //nk_engine->AddSystem(NKGroupType::NKInput, std::make_unique<GameRewindTriggerSystem>());
     //nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
 
@@ -104,39 +98,40 @@ int main() {
     //nk_engine->AudioPlayer->SetMusicVolume(100);
     //nk_engine->AudioPlayer->ReplaceCurrentSong("assets/Music2.mp3", "test2");
 
-    b2::World w(b2::World::Params{});
-
     b2::Body::Params rigidBodyParent;
     rigidBodyParent.type = b2_dynamicBody;
 
-    b2::Body rigidBody = w.CreateBody(b2::OwningHandle, rigidBodyParent);
+//TODO: create a class that's initialized with a static and dynamic rigidbody parents
+    //TODO: create rigidbody
+    //TODO: add to the rigidbodyComponent
+    //TODO: sync transform with the rigidbody
+    //TODO: rewind rigidbody????? (maybe disable it and reset velocity on rewind, then rewind transform??)
+
+    b2::Body rigidBody = nk_engine->World.CreateBody(b2::OwningHandle, rigidBodyParent);
 
 
     rigidBody.CreateShape(
         b2::DestroyWithParent,
         b2::Shape::Params{},
-        b2Circle{.center = b2Vec2(), .radius = 3}
+        b2MakeBox(5, 5)
+        //b2Circle{.center = b2Vec2(), .radius = 3}
     );
+    nk_engine->AddComponent<NKRigidBodyComponent>(playerEntity, std::make_unique<NKRigidBodyComponent>(&rigidBody));
 
-    rigidBody.ApplyForceToCenter(b2Vec2(0, 0), true);
+    rigidBody.ApplyForceToCenter(b2Vec2(0, 100), true);
 
     b2::Body::Params staticParent;
     staticParent.type = b2_staticBody;
-    staticParent.position = b2Vec2(0, -2);
+    staticParent.position = b2Vec2(0, -50);
+    /*
+        b2::Body staticBody = nk_engine->World.CreateBody(b2::OwningHandle, staticParent);
 
-    b2::Body staticBody = w.CreateBody(b2::OwningHandle, staticParent);
-
-    staticBody.CreateShape(
-        b2::DestroyWithParent,
-        b2::Shape::Params{},
-        b2MakeBox(100, 1)
-    );
-
-    for (int i = 0; i < 500; i++) {
-        w.Step(1 / 60.f, 4);
-        std::cout << rigidBody.GetPosition().y << "\n";
-    }
-
+        staticBody.CreateShape(
+            b2::DestroyWithParent,
+            b2::Shape::Params{},
+            b2MakeBox(100, 1)
+        );
+    */
     while (!nk_engine->Quitting()) {
         nk_engine->Update();
     }

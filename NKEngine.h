@@ -19,7 +19,6 @@
 #include "Systems/NKSystem.h"
 #include "NKUuidGenerator.h"
 #include "Components/NKComponent.h"
-#include "Components/NKColliderComponent.h"
 #include "Components/NKRigidBodyComponent.h"
 #include "Components/NKInputComponent.h"
 #include "Components/NKRenderComponent.h"
@@ -30,10 +29,6 @@
 #include "Audio/NKAudioPlayer.h"
 #include "Components/NKCameraTag.h"
 #include "Components/NKInputComponent.h"
-#include "Systems/NKCollisionResetSystem.h"
-#include "Systems/NKCollisionSystem.h"
-#include "Systems/NKColliderTransformSyncSystem.h"
-#include "Systems/NKGravitySystem.h"
 #include "Systems/NKInputSystem.h"
 #include "Systems/NKTransformSystem.h"
 
@@ -52,7 +47,7 @@ public:
 
     std::uint_fast32_t GetTick() const;
 
-
+    b2::World World;
     std::unique_ptr<NKEventDispatcher> EventDispatcher;
     std::unique_ptr<NKUuidGenerator> UuidGenerator;
     std::unique_ptr<NKWindow> Window;
