@@ -96,6 +96,7 @@ Features:
 - [ ] Screen to world/World to screen
 - [x] Delta time
 - [x] Sprite sorting order
+- [ ] Box2D integration
 - [ ] Fixed update
 - [ ] Ini settings file
 - [ ] Dear ImGui integration
