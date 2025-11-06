@@ -14,6 +14,41 @@ function(add_git_dependency libName gitURL gitTag)
     target_compile_options(${libName} PRIVATE "-w")
 endfunction()
 
+INCLUDE(FindPkgConfig)
+INCLUDE(FetchContent)
+
+
+FetchContent_Declare(
+        imgui
+        GIT_REPOSITORY https://github.com/ocornut/imgui.git
+        GIT_TAG docking
+)
+
+FetchContent_MakeAvailable(imgui)
+
+add_library(imgui)
+
+target_include_directories(imgui
+        PUBLIC
+        ${imgui_SOURCE_DIR}
+        ${imgui_SOURCE_DIR}/backends
+)
+
+target_sources(
+        imgui
+        PUBLIC
+        ${imgui_SOURCE_DIR}/imgui.cpp
+        ${imgui_SOURCE_DIR}/imgui_demo.cpp
+        ${imgui_SOURCE_DIR}/imgui_draw.cpp
+        ${imgui_SOURCE_DIR}/imgui_tables.cpp
+        ${imgui_SOURCE_DIR}/imgui_widgets.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_sdl3.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer3.cpp
+
+)
+
+target_link_libraries(imgui)
+
 add_executable(NKEngine main.cpp
         NKEngine.cpp
         NKEngine.h
@@ -81,9 +116,6 @@ add_executable(NKEngine main.cpp
         Audio/NKAudioPlayer.h
         box2cpp.h
 )
-INCLUDE(FindPkgConfig)
-INCLUDE(FetchContent)
-
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer >= 2.0.0)

@@ -32,6 +32,10 @@
 #include "Systems/NKInputSystem.h"
 #include "Systems/NKTransformSystem.h"
 
+//#include "imgui.h"
+//#include "imgui_impl_sdl2.h"
+//#include "imgui_impl_opengl3.h"
+
 
 class NKEngine {
 public:

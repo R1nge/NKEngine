@@ -123,15 +123,15 @@ int main() {
     b2::Body::Params staticParent;
     staticParent.type = b2_staticBody;
     staticParent.position = b2Vec2(0, -50);
-    /*
-        b2::Body staticBody = nk_engine->World.CreateBody(b2::OwningHandle, staticParent);
 
-        staticBody.CreateShape(
-            b2::DestroyWithParent,
+    b2::Body staticBody = nk_engine->World.CreateBody(b2::OwningHandle, staticParent);
+
+    staticBody.CreateShape(
+        b2::DestroyWithParent,
             b2::Shape::Params{},
             b2MakeBox(100, 1)
         );
-    */
+
     while (!nk_engine->Quitting()) {
         nk_engine->Update();
     }
