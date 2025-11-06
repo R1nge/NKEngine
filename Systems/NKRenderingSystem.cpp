@@ -47,37 +47,31 @@ void NKRenderingSystem::Render() {
     //ImGui::ShowDemoWindow();
     bool my_tool_active = true;
     ImGui::Begin("Inspector", &my_tool_active, ImGuiWindowFlags_MenuBar);
-    if (ImGui::BeginMenuBar()) {
         ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-
-        if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("Open..", "Ctrl+O")) {
-                /* Do stuff */
-            }
-            if (ImGui::MenuItem("Save", "Ctrl+S")) {
-                /* Do stuff */
-            }
-            if (ImGui::MenuItem("Close", "Ctrl+W")) { my_tool_active = false; }
-            ImGui::EndMenu();
-        }
-        ImGui::EndMenuBar();
 
         ImGui::Separator(); // Adds a horizontal separator
 
         for (const auto &[entityId, componentList]: engine->_components) {
             // Create a header for each entity
-            ImGui::Text("Entity ID: %u", entityId);
+            ImGui::Text("Entity ID: %lu", entityId);
 
             // Display the components
             for (const auto &component: componentList) {
-                //ImGui::BulletText("%s", component.);  // Show component's name
+                std::string typeName = typeid(*component).name();
+
+                size_t startPos = 0;
+                while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
+                    ++startPos;
+                }
+
+                std::string cleanTypeName = typeName.substr(startPos);
+                ImGui::BulletText("%s", cleanTypeName.c_str()); // Show component's name
                 // Add more details about the component if needed
             }
 
             ImGui::Separator(); // Adds a horizontal separator for clarity
         }
         ImGui::End();
-    }
 
     std::vector<std::pair<int, NKRenderComponent *> > renderQueue;
 
