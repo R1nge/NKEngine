@@ -44,7 +44,40 @@ void NKRenderingSystem::Render() {
     ImGui_ImplSDLRenderer2_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-    ImGui::ShowDemoWindow();
+    //ImGui::ShowDemoWindow();
+    bool my_tool_active = true;
+    ImGui::Begin("Inspector", &my_tool_active, ImGuiWindowFlags_MenuBar);
+    if (ImGui::BeginMenuBar()) {
+        ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("Open..", "Ctrl+O")) {
+                /* Do stuff */
+            }
+            if (ImGui::MenuItem("Save", "Ctrl+S")) {
+                /* Do stuff */
+            }
+            if (ImGui::MenuItem("Close", "Ctrl+W")) { my_tool_active = false; }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+
+        ImGui::Separator(); // Adds a horizontal separator
+
+        for (const auto &[entityId, componentList]: engine->_components) {
+            // Create a header for each entity
+            ImGui::Text("Entity ID: %u", entityId);
+
+            // Display the components
+            for (const auto &component: componentList) {
+                //ImGui::BulletText("%s", component.);  // Show component's name
+                // Add more details about the component if needed
+            }
+
+            ImGui::Separator(); // Adds a horizontal separator for clarity
+        }
+        ImGui::End();
+    }
 
     std::vector<std::pair<int, NKRenderComponent *> > renderQueue;
 
