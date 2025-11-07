@@ -15,7 +15,9 @@ void NKTransformRigidBodySyncSystem::Update(double deltaTime) {
                                                            rigidbodyComponent->rigidBody->GetPosition().y);
                 positionComponent->position->X->currentValue = rigidbodyComponent->rigidBody->GetPosition().x;
                 positionComponent->position->Y->currentValue = -rigidbodyComponent->rigidBody->GetPosition().y;
-                std::cout << rigidbodyComponent->rigidBody->GetPosition().y;
+                std::cout << rigidbodyComponent->rigidBody->GetRotation().c << "\n";
+                std::cout << rigidbodyComponent->rigidBody->GetRotation().s << "\n";
+                //TODO: sync rotation
             }
         }
     }

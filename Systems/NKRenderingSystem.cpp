@@ -36,6 +36,28 @@ void NKRenderingSystem::Update(double deltaTime) {
     Render();
 }
 
+float calculateAngle(float sinValue, float cosValue) {
+    // Calculate angle in radians using atan2
+    float angleRadians = atan2(sinValue, cosValue);
+
+    // Convert radians to degrees
+    float angleDegrees = angleRadians * (180.0f / M_PI);
+
+    // Normalize the angle to the range [0, 360)
+    if (angleDegrees < 0) {
+        angleDegrees += 360;
+    }
+
+    float clockwiseAngle = 360 - angleDegrees;
+
+    // Normalize the angle to range [0, 360)
+    if (clockwiseAngle >= 360) {
+        clockwiseAngle -= 360;
+    }
+
+    return clockwiseAngle;
+}
+
 void NKRenderingSystem::Render() {
     SDL_RenderClear(_window->Renderer);
     ImGuiIO &io = ImGui::GetIO();
@@ -109,8 +131,17 @@ void NKRenderingSystem::Render() {
                     renderComponent->spriteRect->y =
                             worldPosition->position->Y->currentValue - static_cast<double>(renderComponent->spriteRect->
                                 h) / static_cast<double>(2) - cameraPosition->position->Y->currentValue;
-                    SDL_RenderCopyF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
-                                    renderComponent->spriteRect);
+                    auto rigidBody = engine->GetComponent<NKRigidBodyComponent>(pair2.first);
+                    if (rigidBody != nullptr) {
+                        SDL_RenderCopyExF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
+                                          renderComponent->spriteRect,
+                                          calculateAngle(rigidBody->rigidBody->GetRotation().s,
+                                                         rigidBody->rigidBody->GetRotation().c), nullptr,
+                                          SDL_FLIP_NONE);
+                    } else {
+                        SDL_RenderCopyF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
+                                        renderComponent->spriteRect);
+                    }
                 }
             }
         }
@@ -126,3 +157,5 @@ void NKRenderingSystem::Render() {
 
     SDL_RenderPresent(_window->Renderer);
 }
+
+
