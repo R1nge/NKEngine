@@ -11,7 +11,8 @@ void NKTransformRigidBodySyncSystem::Update(double deltaTime) {
         if (positionComponent != nullptr) {
             auto *rigidbodyComponent = engine->GetComponent<NKRigidBodyComponent>(entityPair.first);
             if (rigidbodyComponent != nullptr) {
-                //TODO: scale to match the box2d
+                engine->debug_renderer.camera_pos = b2Vec2(rigidbodyComponent->rigidBody->GetPosition().x,
+                                                           rigidbodyComponent->rigidBody->GetPosition().y);
                 positionComponent->position->X->currentValue = rigidbodyComponent->rigidBody->GetPosition().x;
                 positionComponent->position->Y->currentValue =
                         -rigidbodyComponent->rigidBody->GetPosition().y * 32 - 125;

@@ -23,7 +23,7 @@ namespace b2 {
         // Can grab this from a body you want to follow, via `.GetPosition()`.
         b2Vec2 camera_pos{};
         // Camera scale. Screen pixels per 1 box2d unit.
-        float camera_scale = 32;
+        float camera_scale = 64;
 
         // Camera rotation. The vector `(c,s)` is the box2d direction that maps to the +X screen direction.
         // Can grab this from a body you want to follow, via `.GetRotation()`.
