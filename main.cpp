@@ -120,7 +120,7 @@ int main() {
 
     b2::Body::Params staticParent;
     staticParent.type = b2_staticBody;
-    staticParent.position = b2Vec2(0, -14);
+    staticParent.position = b2Vec2(0, -1400);
 
     b2::Body staticBody = nk_engine->World.CreateBody(b2::OwningHandle, staticParent);
 

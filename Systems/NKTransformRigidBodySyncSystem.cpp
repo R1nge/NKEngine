@@ -14,8 +14,7 @@ void NKTransformRigidBodySyncSystem::Update(double deltaTime) {
                 engine->debug_renderer.camera_pos = b2Vec2(rigidbodyComponent->rigidBody->GetPosition().x,
                                                            rigidbodyComponent->rigidBody->GetPosition().y);
                 positionComponent->position->X->currentValue = rigidbodyComponent->rigidBody->GetPosition().x;
-                positionComponent->position->Y->currentValue =
-                        -rigidbodyComponent->rigidBody->GetPosition().y * 32 - 125;
+                positionComponent->position->Y->currentValue = -rigidbodyComponent->rigidBody->GetPosition().y;
                 std::cout << rigidbodyComponent->rigidBody->GetPosition().y;
             }
         }
