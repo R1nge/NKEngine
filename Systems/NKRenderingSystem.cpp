@@ -31,12 +31,7 @@ NKRenderingSystem::NKRenderingSystem(NKWindow *window) {
         _window = window;
     }
 }
-
-void NKRenderingSystem::Update(double deltaTime) {
-    Render();
-}
-
-float calculateAngle(float sinValue, float cosValue) {
+float CalculateAngle(float sinValue, float cosValue) {
     // Calculate angle in radians using atan2
     float angleRadians = atan2(sinValue, cosValue);
 
@@ -58,21 +53,7 @@ float calculateAngle(float sinValue, float cosValue) {
     return clockwiseAngle;
 }
 
-void NKRenderingSystem::Render() {
-    SDL_RenderClear(_window->Renderer);
-
-    //IMGUI START
-    ImGuiIO &io = ImGui::GetIO();
-    (void) io;
-
-    ImGui_ImplSDLRenderer2_NewFrame();
-    ImGui_ImplSDL2_NewFrame();
-    ImGui::NewFrame();
-    bool my_tool_active = true;
-    ImGui::Begin("FPS", &my_tool_active, ImGuiWindowFlags_MenuBar);
-    ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-    ImGui::End();
-    //ENTITIES START
+void EntitiesInspector(bool my_tool_active, NKEngine *engine) {
     ImGui::Begin("Entities inspector", &my_tool_active, ImGuiWindowFlags_MenuBar);
     ImGui::Separator(); // Adds a horizontal separator
     ImGui::Text("Entities");
@@ -99,8 +80,9 @@ void NKRenderingSystem::Render() {
     }
 
     ImGui::End();
+}
 
-    //INSPECTOR SYSTEMS
+void SystemsInspector(bool my_tool_active, NKEngine *engine) {
     ImGui::Begin("Inspector systems", &my_tool_active, ImGuiWindowFlags_MenuBar);
     ImGui::Separator();
     ImGui::Text("Systems");
@@ -127,10 +109,9 @@ void NKRenderingSystem::Render() {
     }
 
     ImGui::End();
+}
 
-    //IMGUI END
-
-    //RENDERING START
+void RenderSprites(NKEngine *engine, NKWindow *_window) {
     std::vector<std::pair<int, NKRenderComponent *> > renderQueue;
 
     for (const auto &pair: engine->_components) {
@@ -171,7 +152,7 @@ void NKRenderingSystem::Render() {
                     if (rigidBody != nullptr) {
                         SDL_RenderCopyExF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
                                           renderComponent->spriteRect,
-                                          calculateAngle(rigidBody->rigidBody->GetRotation().s,
+                                          CalculateAngle(rigidBody->rigidBody->GetRotation().s,
                                                          rigidBody->rigidBody->GetRotation().c), nullptr,
                                           SDL_FLIP_NONE);
                     } else {
@@ -186,14 +167,42 @@ void NKRenderingSystem::Render() {
     engine->debug_renderer.DrawShapes(engine->World); // Draw Box2D shapes.
     engine->debug_renderer.DrawModeToggles();
 
-    SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
-    SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
+
     ImGui::Render();
     ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), _window->Renderer);
 
     SDL_RenderPresent(_window->Renderer);
+}
 
-    //RENDERING END
+void NKRenderingSystem::Update(double deltaTime) {
+    RenderImgui();
+    RenderSprites(engine, _window);
+}
+
+
+void NKRenderingSystem::RenderImgui() {
+    SDL_RenderClear(_window->Renderer);
+
+    //IMGUI START
+    ImGuiIO &io = ImGui::GetIO();
+    (void) io;
+
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+    bool my_tool_active = true;
+    ImGui::Begin("FPS", &my_tool_active, ImGuiWindowFlags_MenuBar);
+    ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+    ImGui::End();
+    //ENTITIES START
+    EntitiesInspector(my_tool_active, engine);
+
+    //INSPECTOR SYSTEMS
+    SystemsInspector(my_tool_active, engine);
+
+    SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
+    SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
+    //IMGUI END
 }
 
 

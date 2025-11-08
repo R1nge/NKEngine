@@ -19,7 +19,7 @@ public:
 
     void Update(double deltaTime) override;
 
-    void Render();
+    void RenderImgui();
 
 private:
     NKWindow *_window;
