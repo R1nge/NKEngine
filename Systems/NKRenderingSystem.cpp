@@ -65,7 +65,13 @@ void EntitiesInspector(bool my_tool_active, NKEngine *engine) {
         // Display the components
         for (const auto &component: componentList) {
             std::string typeName = typeid(*component).name();
+            std::string remove = "Component";
+            auto iter = typeName.find(remove);
 
+            while (iter != std::string::npos) {
+                typeName.erase(iter, remove.length());
+                iter = typeName.find(remove, iter);
+            }
             size_t startPos = 0;
             while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
                 ++startPos;
@@ -83,7 +89,7 @@ void EntitiesInspector(bool my_tool_active, NKEngine *engine) {
 }
 
 void SystemsInspector(bool my_tool_active, NKEngine *engine) {
-    ImGui::Begin("Inspector systems", &my_tool_active, ImGuiWindowFlags_MenuBar);
+    ImGui::Begin("Systems inspector", &my_tool_active, ImGuiWindowFlags_MenuBar);
     ImGui::Separator();
     ImGui::Text("Systems");
     ImGui::Separator(); // Adds a horizontal separator
@@ -91,9 +97,16 @@ void SystemsInspector(bool my_tool_active, NKEngine *engine) {
         // Create a header for each entity
         ImGui::Text("Group ID: %lu", group);
 
-        // Display the components
+        // Display the systems
         for (const auto &pair: systemMap) {
             std::string typeName = typeid(*pair.second.get()).name();
+            std::string remove = "System";
+            auto iter = typeName.find(remove);
+
+            while (iter != std::string::npos) {
+                typeName.erase(iter, remove.length());
+                iter = typeName.find(remove, iter);
+            }
 
             size_t startPos = 0;
             while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
