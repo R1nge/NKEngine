@@ -14,11 +14,10 @@ void GamePlayerMovementSystem::Update(double deltaTime) {
         for (const auto &entityPair: engine->_components) {
             auto *playerTag = engine->GetComponent<GamePlayerTag>(entityPair.first);
             if (playerTag != nullptr) {
-                auto *movementComponent = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
-                if (movementComponent != nullptr) {
+                auto *rigidBodyComponent = engine->GetComponent<NKRigidBodyComponent>(entityPair.first);
+                if (rigidBodyComponent != nullptr) {
                     auto *inputComponent = engine->GetComponent<NKInputComponent>(entityPair.first);
                     if (inputComponent != nullptr) {
-                        auto tick = engine->GetTick();
                         auto horizontal = static_cast<double>(inputComponent->HorizontalAxis) * deltaTime;
                         auto vertical = static_cast<double>(inputComponent->VerticalAxis) * deltaTime;
 
@@ -29,8 +28,8 @@ void GamePlayerMovementSystem::Update(double deltaTime) {
                             vertical *= diagonalFactor;
                         }
 
-                        movementComponent->position->X->Move(tick, horizontal);
-                        movementComponent->position->Y->Move(tick, vertical);
+                        rigidBodyComponent->rigidBody->ApplyForceToCenter(b2Vec2(horizontal * 10, 0), true);
+                        rigidBodyComponent->rigidBody->ApplyForceToCenter(b2Vec2(0, vertical * 10), true);
                     }
                 }
             }

@@ -10,21 +10,15 @@
 #include "Systems/Game/GamePlayerMovementSystem.h"
 #include "Systems/Game/GameRewindTriggerSystem.h"
 
-//TODO: add rigidbody component
-//IsKinematic, mass, constrains
-//TODO: push out from the collider if happens to get past it
-//push player away from the point of collision
-//calculate how much two rectangles overlap
-//push player rectangle in the direction (x or y) that overlaps the most
+//TODO: create a rigidbody + shape creators
+//TODO: rewind rigidbody????? (maybe disable it and reset velocity on rewind, then rewind transform??)
 
 //TODO: create Filter.With/Filter.Without
 
 //TODO: create a shadow that repeats actions on rewind
 
-//TODO: sdl2 dll
 
 
-//https://nullprogram.com/blog/2023/01/08/
 
 //TODO: orthogonal 2d projection??
 
@@ -36,7 +30,7 @@
 //TODO: do the same for the actions???
 
 //TODO: save engine settings into ini file  (resolution, reference resolution, scale (width-height 0-1), debug (on/off))
-
+//TODO: sdl2 dll
 //TODO: dear Imgui dll
 // https://martin-fieber.de/blog/gui-development-with-cpp-sdl2-and-dear-imgui/
 // https://github.com/Green-Sky/imgui_entt_entity_editor/tree/master
@@ -81,7 +75,7 @@ int main() {
     nk_engine->AddComponent<NKRenderComponent>(collider, std::move(spriteComponent2));
 
     //Systems
-    //nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
+    nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GamePlayerMovementSystem>());
     //nk_engine->AddSystem(NKGroupType::NKInput, std::make_unique<GameRewindTriggerSystem>());
     //nk_engine->AddSystem(NKGroupType::NKCollision, std::make_unique<GamePrintOnCollision>());
     nk_engine->AddSystem(NKGroupType::NKTransform, std::make_unique<GameCameraFollowPlayer>());
@@ -100,9 +94,6 @@ int main() {
 
     b2::Body::Params rigidBodyParent;
     rigidBodyParent.type = b2_dynamicBody;
-
-    //TODO: create a rigidbody + shape creators
-    //TODO: rewind rigidbody????? (maybe disable it and reset velocity on rewind, then rewind transform??)
 
     b2::Body rigidBody = nk_engine->World.CreateBody(b2::OwningHandle, rigidBodyParent);
 
