@@ -100,7 +100,7 @@ void SystemsInspector(bool my_tool_active, NKEngine *engine) {
         // Display the systems
         for (const auto &pair: systemMap) {
             std::string typeName = typeid(*pair.second.get()).name();
-            typeName = typeName.substr(0, typeName.size()-6);
+            typeName = typeName.substr(0, typeName.size() - 6);
 
             size_t startPos = 0;
             while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
