@@ -31,6 +31,7 @@ NKRenderingSystem::NKRenderingSystem(NKWindow *window) {
         _window = window;
     }
 }
+
 float CalculateAngle(float sinValue, float cosValue) {
     // Calculate angle in radians using atan2
     float angleRadians = atan2(sinValue, cosValue);
@@ -170,27 +171,17 @@ void RenderSprites(NKEngine *engine, NKWindow *_window) {
             }
         }
     }
-
-    engine->debug_renderer.DrawShapes(engine->World); // Draw Box2D shapes.
-    engine->debug_renderer.DrawModeToggles();
-
-
-    ImGui::Render();
-    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), _window->Renderer);
-
-    SDL_RenderPresent(_window->Renderer);
 }
 
 void NKRenderingSystem::Update(double deltaTime) {
+    SDL_RenderClear(_window->Renderer);
     RenderImgui();
     RenderSprites(engine, _window);
+    SDL_RenderPresent(_window->Renderer);
 }
 
 
 void NKRenderingSystem::RenderImgui() {
-    SDL_RenderClear(_window->Renderer);
-
-    //IMGUI START
     ImGuiIO &io = ImGui::GetIO();
     (void) io;
 
@@ -209,7 +200,12 @@ void NKRenderingSystem::RenderImgui() {
 
     SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
     SDL_RenderSetScale(_window->Renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
-    //IMGUI END
+
+
+    engine->debug_renderer.DrawShapes(engine->World); // Draw Box2D shapes.
+    engine->debug_renderer.DrawModeToggles();
+
+
+    ImGui::Render();
+    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), _window->Renderer);
 }
-
-
