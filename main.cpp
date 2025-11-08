@@ -101,8 +101,7 @@ int main() {
     b2::Body::Params rigidBodyParent;
     rigidBodyParent.type = b2_dynamicBody;
 
-    //TODO: in visualization sync renderer camera with the camera
-    //TODO: create a class that's initialized with a static and dynamic rigidbody parents
+    //TODO: create a rigidbody + shape creators
     //TODO: rewind rigidbody????? (maybe disable it and reset velocity on rewind, then rewind transform??)
 
     b2::Body rigidBody = nk_engine->World.CreateBody(b2::OwningHandle, rigidBodyParent);
@@ -116,7 +115,7 @@ int main() {
     );
     nk_engine->AddComponent<NKRigidBodyComponent>(playerEntity, std::make_unique<NKRigidBodyComponent>(&rigidBody));
 
-    rigidBody.ApplyForceToCenter(b2Vec2(0, 0), true);
+    rigidBody.ApplyForceToCenter(b2Vec2(1000, -100000), true);
 
     b2::Body::Params staticParent;
     staticParent.type = b2_staticBody;

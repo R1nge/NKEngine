@@ -60,19 +60,23 @@ float calculateAngle(float sinValue, float cosValue) {
 
 void NKRenderingSystem::Render() {
     SDL_RenderClear(_window->Renderer);
+
+    //IMGUI START
     ImGuiIO &io = ImGui::GetIO();
     (void) io;
 
     ImGui_ImplSDLRenderer2_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-    //ImGui::ShowDemoWindow();
     bool my_tool_active = true;
-    ImGui::Begin("Inspector", &my_tool_active, ImGuiWindowFlags_MenuBar);
+    ImGui::Begin("FPS", &my_tool_active, ImGuiWindowFlags_MenuBar);
     ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-
+    ImGui::End();
+    //ENTITIES START
+    ImGui::Begin("Entities inspector", &my_tool_active, ImGuiWindowFlags_MenuBar);
     ImGui::Separator(); // Adds a horizontal separator
-
+    ImGui::Text("Entities");
+    ImGui::Separator(); // Adds a horizontal separator
     for (const auto &[entityId, componentList]: engine->_components) {
         // Create a header for each entity
         ImGui::Text("Entity ID: %lu", entityId);
@@ -93,8 +97,40 @@ void NKRenderingSystem::Render() {
 
         ImGui::Separator(); // Adds a horizontal separator for clarity
     }
+
     ImGui::End();
 
+    //INSPECTOR SYSTEMS
+    ImGui::Begin("Inspector systems", &my_tool_active, ImGuiWindowFlags_MenuBar);
+    ImGui::Separator();
+    ImGui::Text("Systems");
+    ImGui::Separator(); // Adds a horizontal separator
+    for (const auto &[group, systemMap]: engine->_groups) {
+        // Create a header for each entity
+        ImGui::Text("Group ID: %lu", group);
+
+        // Display the components
+        for (const auto &pair: systemMap) {
+            std::string typeName = typeid(*pair.second.get()).name();
+
+            size_t startPos = 0;
+            while (startPos < typeName.length() && std::isdigit(typeName[startPos])) {
+                ++startPos;
+            }
+
+            std::string cleanTypeName = typeName.substr(startPos);
+            ImGui::BulletText("%s", cleanTypeName.c_str()); // Show component's name
+            // Add more details about the component if needed
+        }
+
+        ImGui::Separator(); // Adds a horizontal separator for clarity
+    }
+
+    ImGui::End();
+
+    //IMGUI END
+
+    //RENDERING START
     std::vector<std::pair<int, NKRenderComponent *> > renderQueue;
 
     for (const auto &pair: engine->_components) {
@@ -156,6 +192,8 @@ void NKRenderingSystem::Render() {
     ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), _window->Renderer);
 
     SDL_RenderPresent(_window->Renderer);
+
+    //RENDERING END
 }
 
 
