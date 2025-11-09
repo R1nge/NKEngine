@@ -5,6 +5,7 @@
 #ifndef NKENGINE_NKSYSTEM_H
 #define NKENGINE_NKSYSTEM_H
 
+class NKFilter;
 class NKEngine;
 
 class NKSystem {
@@ -23,6 +24,7 @@ public:
 
 protected:
     NKEngine *engine = nullptr;
+    NKFilter *filter = nullptr;
 };
 
 

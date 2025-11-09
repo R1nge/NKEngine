@@ -7,10 +7,14 @@
 #include <iostream>
 
 #include "../NKEngine.h"
+#include "../NKFilter.h"
 
 
 void NKTransformSystem::Init() {
     NKSystem::Init();
+    filter = new NKFilter(engine);
+    filter->With<NKReversiblePositionComponent>();
+    filter->Build();
 }
 
 void NKTransformSystem::Update(double deltaTime) {
@@ -20,14 +24,10 @@ void NKTransformSystem::Update(double deltaTime) {
 }
 
 void NKTransformSystem::Rewind(int tick) {
-    for (const auto &entityPair: engine->_components) {
-        //TODO: f = engine->Filter->With<NKReversible>().Build;
-        //TODO: for auto comp : f.Build()
-        //TODO: comp.pos.x.rewind
-        auto *component = engine->GetComponent<NKReversiblePositionComponent>(entityPair.first);
-        if (component != nullptr) {
-            component->position->X->Rewind(tick);
-            component->position->Y->Rewind(tick);
-        }
+    filter->Build();
+    for (const auto &entity: filter->_entities) {
+        auto *component = engine->GetComponent<NKReversiblePositionComponent>(entity);
+        component->position->X->Rewind(tick);
+        component->position->Y->Rewind(tick);
     }
 }

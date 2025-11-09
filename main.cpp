@@ -13,11 +13,10 @@
 //TODO: create a rigidbody + shape creators
 //TODO: rewind rigidbody????? (maybe disable it and reset velocity on rewind, then rewind transform??)
 
-//TODO: create Filter.With/Filter.Without
-//TODO: store filters in map by component type
-//When building a filter = clear list, iterate over all entities, add
-//When using filter -> return a list with components to iterate over
 
+//TODO: store each component in a separate pool??
+//TODO: filters iterate over pools????
+//TODO: using references to the pools??????
 
 //TODO: create a shadow that repeats actions on rewind
 
