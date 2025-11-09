@@ -16,14 +16,14 @@ public:
 
 
     template<typename Component>
-    NKFilter *With(NKComponent *component) {
-        auto findIter = std::find_if(_componentsToSearchFor.begin(), _componentsToSearchFor.end(),
-                                     [](NKComponent *comp) {
-                                         return dynamic_cast<Component *>(comp) != nullptr;
-                                         // Check if the component is of the specified type
-                                     });
+    NKFilter *With() {
+        std::type_index typeIndex = std::type_index(typeid(Component));
 
-        _componentsToSearchFor.emplace_back(component);
+        // Check if the type is already stored
+        if (std::find(_componentsToSearchFor.begin(), _componentsToSearchFor.end(), typeIndex) == _componentsToSearchFor
+            .end()) {
+            _componentsToSearchFor.push_back(typeIndex); // Store the type
+        }
 
         return this;
     }
@@ -47,7 +47,7 @@ public:
     std::vector<std::uint_fast16_t> _entities;
 
 private:
-    std::vector<NKComponent *> _componentsToSearchFor;
+    std::vector<std::type_index> _componentsToSearchFor;
     NKEngine *_engine;
 };
 
