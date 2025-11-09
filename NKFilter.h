@@ -16,7 +16,7 @@ public:
 
 
     template<typename Component>
-    NKFilter *With(NKComponent* component) {
+    NKFilter *With(NKComponent *component) {
         auto findIter = std::find_if(_componentsToSearchFor.begin(), _componentsToSearchFor.end(),
                                      [](NKComponent *comp) {
                                          return dynamic_cast<Component *>(comp) != nullptr;

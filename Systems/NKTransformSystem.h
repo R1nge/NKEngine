@@ -11,6 +11,7 @@
 class NKTransformSystem : public NKSystem {
 public:
     void Init() override;
+
     void Update(double deltaTime) override;
     void Rewind(int tick);
 };

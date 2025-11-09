@@ -5,9 +5,6 @@
 #include "NKFilter.h"
 
 
-
-
-
 NKFilter::NKFilter(NKEngine *engine) {
     _engine = engine;
 }

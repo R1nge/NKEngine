@@ -6,6 +6,7 @@
 #include "../NKEngine.h"
 #include "../Components/NKReversiblePositionComponent.h"
 #include "../Components/NKRigidBodyComponent.h"
+
 void NKTransformRigidBodySyncSystem::Init() {
     NKSystem::Init();
     filter = new NKFilter(engine);
