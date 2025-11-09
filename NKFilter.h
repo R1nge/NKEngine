@@ -14,20 +14,16 @@ class NKFilter {
 public:
     NKFilter(NKEngine *engine);
 
-    //TODO: store a list of entities
-    //TDOO: with = add to the list
-    //TODO: without = remove from the list
-    //TODO: get enities list
     template<typename Component>
     NKFilter *With(NKComponent *component);
 
     template<typename Component>
     NKFilter *Without(NKComponent *component);
 
-    std::vector<int> Build();
-
+    std::vector<std::uint_fast16_t> Build();
+    std::vector<std::uint_fast16_t> _entities;
 private:
-    std::vector<int> _entities;
+    std::vector<NKComponent*> _componentsToSearchFor;
     NKEngine *_engine;
 };
 

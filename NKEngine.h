@@ -26,6 +26,7 @@
 
 #include <SDL_image.h>
 
+#include "NKFilter.h"
 #include "Audio/NKAudioPlayer.h"
 #include "Components/NKCameraTag.h"
 #include "Components/NKInputComponent.h"
@@ -120,6 +121,8 @@ public:
         }
     }
 
+    void AddFilter(std::unique_ptr<NKFilter> filter);
+
     void PrintAllSystem();
 
     bool IsRewinding();
@@ -130,6 +133,7 @@ public:
 
     //TODO: create a world class (wrapper for systems and components)
     std::map<std::uint_fast16_t, std::list<std::unique_ptr<NKComponent> > > _components;
+    std::map<std::uint_fast16_t, std::unique_ptr<NKFilter> > _filters;
     std::map<NKGroupType, std::map<std::uint_fast16_t, std::unique_ptr<NKSystem> > > _groups;
     //TODO: make a list of actions
     //Tick

@@ -6,26 +6,30 @@
 
 template<typename Component>
 NKFilter *NKFilter::With(NKComponent *component) {
-    for (auto group: _engine->_components) {
-        if (_engine->GetComponent<Component>(group.first) != nullptr) {
-            _entities.emplace_back(group.first);
-        }
-    }
+    _componentsToSearchFor.emplace_back(component);
     return this;
 }
 
 template<typename Component>
 NKFilter *NKFilter::Without(NKComponent *component) {
-    NKFilter *result = new NKFilter(_engine); // Create a new filter to hold the results
-    for (auto group: _engine->_components) {
-        // Check if the entity has the specified component
-        if (_engine->GetComponent<Component>(group.first) == nullptr) {
-            result->_entities.emplace_back(group.first);
-        }
-    }
-    return result;
+
+    auto findIter = std::find(_componentsToSearchFor.begin(), _componentsToSearchFor.end(), component);
+    _componentsToSearchFor.erase(findIter);
+    return this;
 }
 
-std::vector<int> NKFilter::Build() {
+std::vector<std::uint_fast16_t> NKFilter::Build() {
+    //Clear list
+    _entities.clear();
+    //Find all existing components that meet the query
+    for (auto group : _engine->_components) {
+        for (auto& component : group.second) {
+            for (auto& toSearhFor : _componentsToSearchFor) {
+                if (component.get() == toSearhFor) {
+                    _entities.emplace_back(group.first);
+                }
+            }
+        }
+    }
     return _entities;
 }

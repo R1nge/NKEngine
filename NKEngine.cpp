@@ -137,6 +137,10 @@ void NKEngine::ReverseAction(std::uint_fast32_t tick) {
 }
 
 
+void NKEngine::AddFilter(std::unique_ptr<NKFilter> filter) {
+    _filters.emplace(_filters.size(), std::move(filter));
+}
+
 void NKEngine::PrintAllSystem() {
     std::cout << "\n" << "Printing all systems" << "\n";
     std::cout << "---------------\n---------------\n";

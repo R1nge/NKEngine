@@ -15,11 +15,11 @@ public:
         this->engine = engine;
     }
 
-    void Init();
+    virtual void Init();
 
     virtual void Update(double deltaTime);
 
-    void Dispose();
+    virtual void Dispose();
 
 protected:
     NKEngine *engine = nullptr;

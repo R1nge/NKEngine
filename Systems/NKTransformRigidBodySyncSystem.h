@@ -5,10 +5,13 @@
 #ifndef NKENGINE_NKRIGIDBODYTRANSFORMSYNCSYSTEM_H
 #define NKENGINE_NKRIGIDBODYTRANSFORMSYNCSYSTEM_H
 #include "NKSystem.h"
+#include "../NKFilter.h"
 
 
 class NKTransformRigidBodySyncSystem : public NKSystem {
+    void Init() override;
     void Update(double deltaTime) override;
+    NKFilter* filter = nullptr;
 };
 
 
