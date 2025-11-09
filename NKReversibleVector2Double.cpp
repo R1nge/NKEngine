@@ -5,6 +5,6 @@
 #include "NKReversibleVector2Double.h"
 
 NKReversibleVector2Double::NKReversibleVector2Double(double x, double y) {
-    X = new NKReversibleDouble(x, x);
-    Y = new NKReversibleDouble(y, y);
+    X = new NKReversibleDouble(x, x, x);
+    Y = new NKReversibleDouble(y, y, y);
 }

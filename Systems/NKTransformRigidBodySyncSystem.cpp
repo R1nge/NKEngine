@@ -15,12 +15,27 @@ void NKTransformRigidBodySyncSystem::Init() {
 }
 
 void NKTransformRigidBodySyncSystem::Update(double deltaTime) {
+    if (engine->IsRewinding() == true) {
+        return;
+    }
     filter->Build();
     for (const auto &entity: filter->_entities) {
         auto *positionComponent = engine->GetComponent<NKReversiblePositionComponent>(entity);
         auto *rigidbodyComponent = engine->GetComponent<NKRigidBodyComponent>(entity);
         engine->debug_renderer.camera_pos = b2Vec2(rigidbodyComponent->rigidBody->GetPosition().x,
                                                    rigidbodyComponent->rigidBody->GetPosition().y);
+
+        positionComponent->position->X->previousValue = positionComponent->position->X->currentValue;
+        positionComponent->position->Y->previousValue = positionComponent->position->Y->currentValue;
+
+        auto tick = engine->GetTick();
+        //Global Delta = current - start
+        //Frame Delta = prev - current
+        positionComponent->position->X->deltas[tick] =
+                positionComponent->position->X->previousValue - positionComponent->position->X->currentValue;
+        positionComponent->position->Y->deltas[tick] =
+                positionComponent->position->Y->previousValue - positionComponent->position->Y->currentValue;
+
         positionComponent->position->X->currentValue = rigidbodyComponent->rigidBody->GetPosition().x;
         positionComponent->position->Y->currentValue = -rigidbodyComponent->rigidBody->GetPosition().y;
     }

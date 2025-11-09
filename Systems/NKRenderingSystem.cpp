@@ -158,11 +158,16 @@ void RenderSprites(NKEngine *engine, NKWindow *_window) {
                                 h) / static_cast<double>(2) - cameraPosition->position->Y->currentValue;
                     auto rigidBody = engine->GetComponent<NKRigidBodyComponent>(pair2.first);
                     if (rigidBody != nullptr) {
-                        SDL_RenderCopyExF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
-                                          renderComponent->spriteRect,
-                                          CalculateAngle(rigidBody->rigidBody->GetRotation().s,
-                                                         rigidBody->rigidBody->GetRotation().c), nullptr,
-                                          SDL_FLIP_NONE);
+                        if (rigidBody->rigidBody->IsEnabled()) {
+                            SDL_RenderCopyExF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
+                                              renderComponent->spriteRect,
+                                              CalculateAngle(rigidBody->rigidBody->GetRotation().s,
+                                                             rigidBody->rigidBody->GetRotation().c), nullptr,
+                                              SDL_FLIP_NONE);
+                        } else {
+                            SDL_RenderCopyF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
+                                            renderComponent->spriteRect);
+                        }
                     } else {
                         SDL_RenderCopyF(_window->Renderer, renderComponent->texture, renderComponent->textureRect,
                                         renderComponent->spriteRect);

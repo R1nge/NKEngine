@@ -12,6 +12,7 @@ struct NKReversibleDouble {
     //TODO: original value
     double currentValue;
     //TODO: current value to be able to quickly add/sub a delta
+    double previousValue;
     //Tick, delta-value
     std::map<int, double> deltas;
     //TODO: map<tick, delta>
