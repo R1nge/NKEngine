@@ -19,9 +19,6 @@ void NKTransformRigidBodySyncSystem::Update(double deltaTime) {
     for (const auto &entity: filter->_entities) {
         auto *positionComponent = engine->GetComponent<NKReversiblePositionComponent>(entity);
         auto *rigidbodyComponent = engine->GetComponent<NKRigidBodyComponent>(entity);
-        if (rigidbodyComponent == nullptr || positionComponent == nullptr) {
-            continue;
-        }
         engine->debug_renderer.camera_pos = b2Vec2(rigidbodyComponent->rigidBody->GetPosition().x,
                                                    rigidbodyComponent->rigidBody->GetPosition().y);
         positionComponent->position->X->currentValue = rigidbodyComponent->rigidBody->GetPosition().x;
