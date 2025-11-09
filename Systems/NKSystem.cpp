@@ -6,6 +6,9 @@
 
 #include <iostream>
 
+void NKSystem::Init() {
+}
+
 void NKSystem::Update(double deltaTime) {
     //std::cout << "System is updating" << "\n";
 }

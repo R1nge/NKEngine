@@ -9,9 +9,11 @@
 
 
 class NKTransformRigidBodySyncSystem : public NKSystem {
+public:
     void Init() override;
     void Update(double deltaTime) override;
-    NKFilter* filter = nullptr;
+
+    NKFilter *filter = nullptr;
 };
 
 

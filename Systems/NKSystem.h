@@ -19,7 +19,7 @@ public:
 
     virtual void Update(double deltaTime);
 
-    virtual void Dispose();
+    void Dispose();
 
 protected:
     NKEngine *engine = nullptr;

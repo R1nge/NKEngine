@@ -4,7 +4,8 @@
 
 #include "NKTransformRigidBodySyncSystem.h"
 #include "../NKEngine.h"
-
+#include "../Components/NKReversiblePositionComponent.h"
+#include "../Components/NKRigidBodyComponent.h"
 void NKTransformRigidBodySyncSystem::Init() {
     NKSystem::Init();
     filter = new NKFilter(engine);
@@ -13,6 +14,7 @@ void NKTransformRigidBodySyncSystem::Init() {
 }
 
 void NKTransformRigidBodySyncSystem::Update(double deltaTime) {
+    filter->Build();
     for (const auto &entity: filter->_entities) {
         auto *positionComponent = engine->GetComponent<NKReversiblePositionComponent>(entity);
         auto *rigidbodyComponent = engine->GetComponent<NKRigidBodyComponent>(entity);

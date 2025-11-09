@@ -5,10 +5,10 @@
 #include "NKEngine.h"
 
 //TODO: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-#include "cmake-build-release/_deps/imgui-src/imgui.h"
-#include "cmake-build-release/_deps/imgui-src/backends/imgui_impl_sdl2.h"
-#include "cmake-build-release/_deps/imgui-src/backends/imgui_impl_sdlrenderer2.h"
-#include "cmake-build-release/_deps/imgui-src/backends/imgui_impl_opengl3.h"
+#include "cmake-build-debug/_deps/imgui-src/imgui.h"
+#include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_sdl2.h"
+#include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_sdlrenderer2.h"
+#include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_opengl3.h"
 #include "Systems/NKTransformRigidBodySyncSystem.h"
 
 NKEngine::NKEngine() {
@@ -136,10 +136,6 @@ void NKEngine::ReverseAction(std::uint_fast32_t tick) {
     }
 }
 
-
-void NKEngine::AddFilter(std::unique_ptr<NKFilter> filter) {
-    _filters.emplace(_filters.size(), std::move(filter));
-}
 
 void NKEngine::PrintAllSystem() {
     std::cout << "\n" << "Printing all systems" << "\n";
