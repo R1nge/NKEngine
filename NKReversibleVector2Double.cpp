@@ -5,6 +5,6 @@
 #include "NKReversibleVector2Double.h"
 
 NKReversibleVector2Double::NKReversibleVector2Double(double x, double y) {
-    X = new NKReversibleDouble(x, x, x);
-    Y = new NKReversibleDouble(y, y, y);
+    X = std::make_unique<NKReversibleDouble>(x, x, x);
+    Y = std::make_unique<NKReversibleDouble>(y, y, y);
 }

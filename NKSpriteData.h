@@ -9,12 +9,12 @@
 struct NKSpriteData {
     int positionX;
     int positionY;
-    int spriteWidth;
-    int spriteHeight;
+    int spriteWidth = 64;
+    int spriteHeight = 64;
     int texturePositionX;
     int texturePositionY;
-    int textureWidth;
-    int textureHeight;
+    int textureWidth = 64;
+    int textureHeight = 64;
     int layer;
     int colorR = 255;
     int colorG = 255;

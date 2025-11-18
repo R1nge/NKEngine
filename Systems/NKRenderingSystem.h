@@ -7,11 +7,20 @@
 
 #include "NKSystem.h"
 #include "../NKWindow.h"
+
+#ifdef NDEBUG
+#include "../cmake-build-release/_deps/imgui-src/imgui.h"
+#include "../cmake-build-release/_deps/imgui-src/backends/imgui_impl_sdl2.h"
+#include "../cmake-build-release/_deps/imgui-src/backends/imgui_impl_sdlrenderer2.h"
+#include "../cmake-build-release/_deps/imgui-src/backends/imgui_impl_opengl3.h"
+#include "../debug_imgui_renderer.h"
+#else
 #include "../cmake-build-debug/_deps/imgui-src/imgui.h"
 #include "../cmake-build-debug/_deps/imgui-src/backends/imgui_impl_sdl2.h"
 #include "../cmake-build-debug/_deps/imgui-src/backends/imgui_impl_sdlrenderer2.h"
 #include "../cmake-build-debug/_deps/imgui-src/backends/imgui_impl_opengl3.h"
 #include "../debug_imgui_renderer.h"
+#endif
 
 class NKRenderingSystem : public NKSystem {
 public:

@@ -5,10 +5,18 @@
 #include "NKEngine.h"
 
 //TODO: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+#ifdef NDEBUG
+#include "cmake-build-release/_deps/imgui-src/imgui.h"
+#include "cmake-build-release/_deps/imgui-src/backends/imgui_impl_sdl2.h"
+#include "cmake-build-release/_deps/imgui-src/backends/imgui_impl_sdlrenderer2.h"
+#include "cmake-build-release/_deps/imgui-src/backends/imgui_impl_opengl3.h"
+#else
 #include "cmake-build-debug/_deps/imgui-src/imgui.h"
 #include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_sdl2.h"
 #include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_sdlrenderer2.h"
 #include "cmake-build-debug/_deps/imgui-src/backends/imgui_impl_opengl3.h"
+#endif
+
 #include "Systems/NKTransformRigidBodySyncSystem.h"
 
 NKEngine::NKEngine() {
