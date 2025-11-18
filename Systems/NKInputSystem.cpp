@@ -13,7 +13,6 @@ void NKInputSystem::Update(double deltaTime) {
     for (const auto &pair: engine->_components) {
         auto inputComponent = engine->GetComponent<NKInputComponent>(pair.first);
         if (inputComponent != nullptr) {
-            SDL_Event e;
             auto keyboardState = SDL_GetKeyboardState(nullptr);
 
             if (keyboardState[SDL_SCANCODE_A] == 1) {

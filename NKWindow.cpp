@@ -11,6 +11,12 @@ NKWindow::NKWindow() {
     CreateRenderer();
 }
 
+NKWindow::~NKWindow() {
+    SDL_DestroyRenderer(Renderer);
+    SDL_DestroyWindow(Window);
+    IMG_Quit();
+}
+
 SDL_Window *NKWindow::CreateWindow(const char *title, int positionX, int positionY, int width, int height) {
     Window = SDL_CreateWindow(title, positionX, positionY, width, height, SDL_WINDOW_SHOWN);
     return Window;

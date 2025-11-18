@@ -57,12 +57,6 @@ NKEngine::NKEngine() {
 }
 
 NKEngine::~NKEngine() {
-    //SDL_DestroyRenderer(Renderer);
-    //Renderer = nullptr;
-    //SDL_DestroyWindow(Window);
-    //Window = nullptr;
-
-    IMG_Quit();
     SDL_Quit();
 }
 

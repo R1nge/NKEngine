@@ -20,6 +20,8 @@ class NKWindow {
 public:
     NKWindow();
 
+    ~NKWindow();
+
     SDL_Window *CreateWindow(const char *title, int positionX, int positionY, int width, int height);
     SDL_Renderer *CreateRenderer();
     SDL_Window *Window;
